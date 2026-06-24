@@ -3,68 +3,53 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#1a1a1a">
-  <title>Sog Zabana — Services Professionnels</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#007bff">
+  <title>Soog Zabana — Marketplace Algérienne</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #C9A227;
-      --primary-dark: #a6841b;
-      --primary-light: #e0c266;
-      --accent: #1a1a2e;
+      --primary: #007bff;
+      --primary-dark: #0056b3;
+      --primary-light: #e7f1ff;
+      --secondary: #6c757d;
       --bg: #f8f9fa;
       --surface: #ffffff;
       --surface-hover: #f1f3f5;
-      --text: #1a1a1a;
-      --text-soft: #4a4a4a;
-      --text-secondary: #6c757d;
-      --border: #e9ecef;
-      --shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
-      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
-      --glass: rgba(255, 255, 255, 0.8);
-      --danger: #ff4757;
-      --success: #2ed573;
-      --warning: #ffa502;
-      --info: #1e90ff;
-      --radius: 20px;
-      --radius-sm: 12px;
-      --transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      --text: #1a1b1f;
+      --text-soft: #4a4d55;
+      --text-secondary: #8c92a0;
+      --border: #e1e4e8;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.1);
+      --danger: #dc3545;
+      --success: #28a745;
+      --warning: #ffc107;
+      --info: #17a2b8;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     [data-theme="dark"] {
-      --bg: #0b0b0e;
-      --surface: #15151a;
-      --surface-hover: #1c1c24;
-      --text: #f8f9fa;
-      --text-soft: #adb5bd;
-      --text-secondary: #868e96;
-      --border: #22222a;
-      --shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
-      --glass: rgba(21, 21, 26, 0.8);
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-hover: #21262d;
+      --text: #c9d1d9;
+      --text-soft: #8b949e;
+      --text-secondary: #484f58;
+      --border: #30363d;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    [dir="rtl"] { font-family: 'Noto Sans Arabic', sans-serif; }
+    [dir="ltr"] { font-family: 'Inter', sans-serif; }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-      transition: background var(--transition), color var(--transition);
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; scroll-behavior: smooth; }
 
     /* Scrollbar */
     ::-webkit-scrollbar {
@@ -1428,40 +1413,40 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <div id="app" class="app-container" style="display:none">
-    <!-- Header -->
-    <header class="header" id="mainHeader">
+    <header class="header">
       <div class="header-inner">
-        <a href="#home" class="brand">
-          <img src="logo_sog_zabana.png" alt="Sog Zabana">
-          <span class="brand-text">Soog <span>Zabana</span></span>
+        <a href="#home" class="brand-logo">
+          <img src="logo_sog_zabana.png" alt="Soog Zabana">
+          <span class="brand-title">Soog <span>Zabana</span></span>
         </a>
-        <div class="header-actions">
-          <button class="icon-btn" id="themeToggle" title="Changer le thème"><i class="fas fa-moon"></i></button>
-          <a href="#cart" class="icon-btn hide-mobile" style="position:relative; text-decoration:none;">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="cart-badge" id="headerCartBadge" style="display:none">0</span>
-          </a>
-          <button class="icon-btn" id="menuToggle" title="Menu"><i class="fas fa-bars"></i></button>
+
+        <div class="search-container hide-mobile">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" class="header-search" id="headerSearchInput" data-t-placeholder="search_placeholder" placeholder="Que recherchez-vous ?">
+        </div>
+
+        <div class="nav-actions">
+          <button class="lang-btn" id="langToggle">العربية</button>
+          <button class="icon-btn hide-mobile" id="themeToggle"><i class="fas fa-moon"></i></button>
+          <button class="deposit-btn hide-mobile" onclick="navigate('add-annonce')">
+            <i class="fas fa-plus-circle"></i> <span data-t="deposit">Déposer</span>
+          </button>
+          <button class="icon-btn hide-desktop" id="menuToggle"><i class="fas fa-bars"></i></button>
         </div>
       </div>
     </header>
 
-    <!-- Sidebar (desktop) -->
-    <nav class="sidebar" id="sidebar">
-      <button class="sidebar-link active" data-nav="home"><i class="fas fa-home"></i> Accueil</button>
-      <button class="sidebar-link" data-nav="services"><i class="fas fa-store"></i> Boutique</button>
-      <button class="sidebar-link hide-desktop" data-nav="cart"><i class="fas fa-shopping-cart"></i> Panier</button>
-      <button class="sidebar-link" data-nav="orders"><i class="fas fa-clipboard-list"></i> Commandes</button>
-      <button class="sidebar-link" data-nav="profile"><i class="fas fa-user"></i> Profil</button>
-      <button class="sidebar-link" data-nav="settings"><i class="fas fa-cog"></i> Paramètres</button>
-      <button class="sidebar-link" data-nav="legal"><i class="fas fa-balance-scale"></i> Légal</button>
-      <div style="flex:1"></div>
-      <button class="sidebar-link" data-nav="logout" style="color:var(--danger)"><i class="fas fa-sign-out-alt"></i>
-        Déconnexion</button>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="main-content" id="mainContent">
+    <div class="main-content" style="max-width: 1400px; margin: 0 auto; padding: 20px 16px;">
+      
+      <!-- Categories Bar -->
+      <div class="categories-bar">
+        <button class="cat-chip active" data-filter="all"><i class="fas fa-th"></i> <span data-t="all">Tout</span></button>
+        <button class="cat-chip" data-filter="Informatique"><i class="fas fa-laptop"></i> <span data-t="it">Informatique</span></button>
+        <button class="cat-chip" data-filter="Électronique"><i class="fas fa-mobile-alt"></i> <span data-t="elec">Électronique</span></button>
+        <button class="cat-chip" data-filter="Véhicules"><i class="fas fa-car"></i> <span data-t="cars">Véhicules</span></button>
+        <button class="cat-chip" data-filter="Immobilier"><i class="fas fa-home"></i> <span data-t="realestate">Immobilier</span></button>
+        <button class="cat-chip" data-filter="Mode"><i class="fas fa-tshirt"></i> <span data-t="fashion">Mode</span></button>
+      </div>
 
       <!-- HOME -->
       <div class="page active" id="page-home">
@@ -1832,23 +1817,100 @@
   <script>
     // ==================== CONFIGURATION ====================
     const CONFIG = {
-      APP_NAME: 'Sog Zabana',
+      APP_NAME: 'Soog Zabana',
       API_URL: 'https://script.google.com/macros/s/AKfycbyLBkZNbxNTpCRxRoVOlerObg3hacsmTjuRBrrDhY7ZYAmdNXXBoyBtJsJldrt5IP6Z/exec',
-      WHATSAPP_NUMBER: '2130770899372', // Remplacer par votre numéro
-      PHONE_NUMBER: '+2130770938972', // Remplacer par votre numéro
+      WHATSAPP_NUMBER: '2130770899372',
+      PHONE_NUMBER: '+2130770938972',
       CURRENCY: 'DA',
-      DEMO_MODE: false // Passer à false quand l'API est connectée
+      DEMO_MODE: false
     };
+
+    // ==================== I18N ====================
+    const i18n = {
+      fr: {
+        loading: "Chargement...",
+        search_placeholder: "Que recherchez-vous ?",
+        deposit: "Déposer",
+        all: "Tout",
+        it: "Informatique",
+        elec: "Électronique",
+        cars: "Véhicules",
+        realestate: "Immobilier",
+        fashion: "Mode",
+        hero_title: "Bienvenue sur Soog Zabana",
+        hero_subtitle: "La référence des petites annonces à Zabana",
+        recent_ads: "Annonces récentes",
+        price: "Prix",
+        login: "Connexion",
+        register: "Inscription",
+        my_profile: "Mon Profil",
+        my_ads: "Mes Annonces",
+        logout: "Déconnexion",
+        no_results: "Aucun résultat trouvé",
+        brand_name: "Soog Zabana",
+        neuf: "Neuf",
+        occasion: "Occasion",
+        reconditionne: "Réconditionné",
+        filter: "Filtrer"
+      },
+      ar: {
+        loading: "جاري التحميل...",
+        search_placeholder: "ما الذي تبحث عنه؟",
+        deposit: "أضف اعلان",
+        all: "الكل",
+        it: "أجهزة إعلامية",
+        elec: "إلكترونيات",
+        cars: "مركبات",
+        realestate: "عقارات",
+        fashion: "موضة",
+        hero_title: "مرحبًا بكم في سوق زبانة",
+        hero_subtitle: "المرجع للأعلانات المبوبة في زبانة",
+        recent_ads: "أحدث الإعلانات",
+        price: "السعر",
+        login: "تسجيل الدخول",
+        register: "إنشاء حساب",
+        my_profile: "ملفي الشخصي",
+        my_ads: "إعلاناتي",
+        logout: "تسجيل الخروج",
+        no_results: "لا توجد نتائج",
+        brand_name: "سوق زبانة",
+        neuf: "جديد",
+        occasion: "مستعمل",
+        reconditionne: "مجدد",
+        filter: "تصفية"
+      }
+    };
+
+    function t(key) {
+      const lang = state.language || 'fr';
+      return i18n[lang][key] || key;
+    }
+
+    function applyTranslations() {
+      const lang = state.language || 'fr';
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = lang;
+      
+      const toggle = $('#langToggle');
+      if (toggle) toggle.textContent = lang === 'fr' ? 'العربية' : 'Français';
+      
+      $$('[data-t]').forEach(el => {
+        el.textContent = t(el.dataset.t);
+      });
+      $$('[data-t-placeholder]').forEach(el => {
+        el.placeholder = t(el.dataset.tPlaceholder);
+      });
+      
+      // Update config app name for consistency
+      CONFIG.APP_NAME = t('brand_name');
+    }
 
     // ==================== STATE ====================
     const state = {
       user: null,
       cart: [],
-      services: [],
-      orders: [],
-      users: [],
-      currentPage: 'home',
-      pendingVerification: null,
+      articles: [],
+      language: localStorage.getItem('sz_lang') || 'fr',
       theme: localStorage.getItem('sz_theme') || 'system',
       filter: 'all',
       search: ''
@@ -1884,6 +1946,30 @@
       container.appendChild(toast);
       setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(100%)'; setTimeout(() => toast.remove(), 400); }, 3500);
     }
+
+    $('#langToggle').addEventListener('click', () => {
+      state.language = state.language === 'fr' ? 'ar' : 'fr';
+      localStorage.setItem('sz_lang', state.language);
+      applyTranslations();
+      renderHome();
+      renderServices();
+    });
+
+    $('#headerSearchInput').addEventListener('input', (e) => {
+      state.search = e.target.value.toLowerCase();
+      if (location.hash !== '#services') navigate('services');
+      renderServices();
+    });
+
+    $$('.cat-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        $$('.cat-chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.filter = btn.dataset.filter;
+        renderServices();
+        if (location.hash !== '#services') navigate('services');
+      });
+    });
 
     // ==================== THEME ====================
     function applyTheme() {
