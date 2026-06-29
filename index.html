@@ -1,2613 +1,365 @@
 <!DOCTYPE html>
-<html lang="fr">
-
+<html lang="fr" id="main-html">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="theme-color" content="#007bff">
-  <title>Soog Zabana — Marketplace Algérienne</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>SOG Zabana 3.6</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { primary: '#2563EB', secondary: '#10B981', accent: '#F59E0B' },
+          fontFamily: { sans: ['Inter', 'Cairo', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+
   <style>
-    :root {
-      --primary: #007bff;
-      --primary-dark: #0056b3;
-      --primary-light: #e7f1ff;
-      --secondary: #6c757d;
-      --bg: #f8f9fa;
-      --surface: #ffffff;
-      --surface-hover: #f1f3f5;
-      --text: #1a1b1f;
-      --text-soft: #4a4d55;
-      --text-secondary: #8c92a0;
-      --border: #e1e4e8;
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-      --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.1);
-      --danger: #dc3545;
-      --success: #28a745;
-      --warning: #ffc107;
-      --info: #17a2b8;
-      --radius: 12px;
-      --radius-sm: 8px;
-      --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    [data-theme="dark"] {
-      --bg: #0d1117;
-      --surface: #161b22;
-      --surface-hover: #21262d;
-      --text: #c9d1d9;
-      --text-soft: #8b949e;
-      --text-secondary: #484f58;
-      --border: #30363d;
-    }
-
-    [dir="rtl"] { font-family: 'Noto Sans Arabic', sans-serif; }
-    [dir="ltr"] { font-family: 'Inter', sans-serif; }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body { background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; scroll-behavior: smooth; }
-
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--primary);
-      border-radius: 3px;
-    }
-
-    /* Loader */
-    .loader-overlay {
-      position: fixed;
-      inset: 0;
-      background: var(--bg);
-      z-index: 10000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.5s;
-    }
-
-    .loader-overlay.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .loader-ring {
-      width: 56px;
-      height: 56px;
-      border: 3px solid var(--border);
-      border-top-color: var(--primary);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .loader-text {
-      margin-top: 16px;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-    }
-
-    /* Layout */
-    .app-container {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    .main-content {
-      flex: 1;
-      padding: 24px 16px 100px;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    @media(min-width: 768px) {
-      .main-content {
-        padding: 32px 24px 120px;
-      }
-    }
-
-    /* Header */
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: var(--glass);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      transition: background var(--transition);
-    }
-
-    [data-theme="dark"] .header {
-      background: rgba(26, 26, 32, 0.85);
-    }
-
-    .sidebar.open {
-      display: flex !important;
-      z-index: 1001;
-      box-shadow: 8px 0 24px rgba(0, 0, 0, 0.2);
-    }
-
-    .header-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--text);
-    }
-
-    .brand img {
-      width: 36px;
-      height: 36px;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-
-    .brand-text {
-      font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: 0.5px;
-    }
-
-    .brand-text span {
-      color: var(--primary);
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .icon-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: none;
-      background: var(--surface);
-      color: var(--text);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 8px var(--shadow);
-      transition: all var(--transition);
-      font-size: 1rem;
-      border: 1px solid var(--border);
-    }
-
-    .icon-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px var(--shadow);
-      color: var(--primary);
-    }
-
-    .icon-btn.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
-    .cart-badge {
-      position: absolute;
-      top: -2px;
-      right: -2px;
-      background: var(--danger);
-      color: #fff;
-      font-size: 0.65rem;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-    }
-
-    /* Bottom Nav (mobile) */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-around;
-      padding: 8px 0;
-      box-shadow: 0 -4px 20px var(--shadow);
-    }
-
-    .nav-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      padding: 4px;
-      text-decoration: none;
-      color: var(--text-secondary);
-      font-size: 0.65rem;
-      transition: all var(--transition);
-      border: none;
-      background: none;
-      cursor: pointer;
-    }
-
-    .nav-item i {
-      font-size: 1.2rem;
-      transition: transform var(--transition);
-    }
-
-    .nav-item.active {
-      color: var(--primary);
-    }
-
-    .nav-item.active i {
-      transform: translateY(-2px);
-    }
-
-    .nav-item:hover {
-      color: var(--primary);
-    }
-
-    @media(min-width: 768px) {
-      .bottom-nav {
-        display: none;
-      }
-    }
-
-    /* Sidebar (desktop) */
-    .sidebar {
-      display: none;
-      position: fixed;
-      left: 0;
-      top: 60px;
-      bottom: 0;
-      width: 240px;
-      background: var(--surface);
-      border-right: 1px solid var(--border);
-      z-index: 900;
-      padding: 24px 16px;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    @media(min-width: 768px) {
-      .sidebar {
-        display: flex;
-      }
-
-      .main-content {
-        margin-left: 240px;
-      }
-
-      .header-inner {
-        padding: 12px 24px;
-      }
-    }
-
-    .sidebar-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
-      border-radius: var(--radius-sm);
-      text-decoration: none;
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      transition: all var(--transition);
-      border: none;
-      background: none;
-      width: 100%;
-      cursor: pointer;
-    }
-
-    .sidebar-link:hover {
-      background: var(--surface-hover);
-      color: var(--text);
-    }
-
-    .sidebar-link.active {
-      background: rgba(201, 162, 39, 0.1);
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    .sidebar-link i {
-      width: 24px;
-      text-align: center;
-    }
-
-    /* Page transitions */
-    .page {
-      display: none;
-      animation: fadeIn 0.4s ease;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Cards */
-    .card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      transition: all var(--transition);
-      position: relative;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .card-body {
-      padding: 24px;
-    }
-
-    .card-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text);
-    }
-
-    .card-text {
-      color: var(--text-soft);
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px 28px;
-      border-radius: var(--radius-sm);
-      border: none;
-      font-family: inherit;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all var(--transition);
-      user-select: none;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-      color: #1a1a1a;
-      box-shadow: 0 4px 15px rgba(201, 162, 39, 0.2);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 8px 25px rgba(201, 162, 39, 0.4);
-    }
-
-    .btn-outline {
-      background: transparent;
-      border: 2px solid var(--primary);
-      color: var(--primary);
-    }
-
-    .btn-outline:hover {
-      background: var(--primary);
-      color: #1a1a1a;
-      transform: translateY(-2px);
-    }
-
-    .btn-danger {
-      background: var(--danger);
-      color: #fff;
-      box-shadow: 0 4px 15px rgba(255, 71, 87, 0.2);
-    }
-
-    .btn-success {
-      background: var(--success);
-      color: #fff;
-      box-shadow: 0 4px 15px rgba(46, 213, 115, 0.2);
-    }
-
-    .btn-block {
-      width: 100%;
-    }
-
-    .btn-sm {
-      padding: 10px 20px;
-      font-size: 0.85rem;
-    }
-
-    /* Forms */
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-bottom: 6px;
-      color: var(--text);
-    }
-
-    .form-input,
-    .form-select,
-    .form-textarea {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 0.9rem;
-      transition: all var(--transition);
-      outline: none;
-    }
-
-    .form-input:focus,
-    .form-select:focus,
-    .form-textarea:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.15);
-    }
-
-    .form-textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .form-hint {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      margin-top: 4px;
-    }
-
-    .form-error {
-      font-size: 0.8rem;
-      color: var(--danger);
-      margin-top: 4px;
-      display: none;
-    }
-
-    .form-group.has-error .form-input {
-      border-color: var(--danger);
-    }
-
-    .form-group.has-error .form-error {
-      display: block;
-    }
-
-    /* Auth pages */
-    .auth-page {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-    .auth-box {
-      width: 100%;
-      max-width: 440px;
-    }
-
-    .auth-logo {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 32px;
-    }
-
-    .auth-logo img {
-      width: 80px;
-      height: 80px;
-      object-fit: contain;
-    }
-
-    .auth-title {
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .auth-subtitle {
-      text-align: center;
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      margin-bottom: 32px;
-    }
-
-    .auth-link {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    .auth-link a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .auth-link a:hover {
-      text-decoration: underline;
-    }
-
-    .consent-box {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 12px;
-      background: rgba(201, 162, 39, 0.05);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      margin-bottom: 20px;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-
-    .consent-box input {
-      margin-top: 2px;
-      accent-color: var(--primary);
-    }
-
-    /* Grid */
-    .grid {
-      display: grid;
-      gap: 20px;
-    }
-
-    .grid-2 {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .grid-3 {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .grid-4 {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    @media(max-width: 767px) {
-
-      .grid-2,
-      .grid-3,
-      .grid-4 {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media(min-width: 768px) and (max-width: 1023px) {
-
-      .grid-3,
-      .grid-4 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    /* Service cards */
-    .service-card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      transition: all var(--transition);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .service-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px var(--shadow);
-    }
-
-    .service-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      font-size: 3rem;
-    }
-
-    .service-body {
-      padding: 20px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .service-cat {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--primary);
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .service-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .service-desc {
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-      line-height: 1.5;
-      margin-bottom: 16px;
-      flex: 1;
-    }
-
-    .service-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .service-price {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .service-price .old {
-      font-size: 0.85rem;
-      text-decoration: line-through;
-      color: var(--text-secondary);
-      font-weight: 400;
-      margin-left: 6px;
-    }
-
-    /* Floating Contact */
-    .fab-contact {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      z-index: 999;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      border: none;
-      background: var(--primary);
-      color: #1a1a1a;
-      font-size: 1.4rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 16px rgba(201, 162, 39, 0.4);
-      transition: all var(--transition);
-    }
-
-    .fab-contact:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 20px rgba(201, 162, 39, 0.5);
-    }
-
-    .fab-contact.active {
-      transform: rotate(45deg);
-    }
-
-    .fab-menu {
-      position: fixed;
-      bottom: 148px;
-      right: 20px;
-      z-index: 998;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(20px);
-      transition: all var(--transition);
-    }
-
-    .fab-menu.open {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    .fab-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-
-    .fab-item span {
-      background: var(--surface);
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text);
-      border: 1px solid var(--border);
-      box-shadow: 0 2px 8px var(--shadow);
-      white-space: nowrap;
-    }
-
-    .fab-item .fab-mini {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      cursor: pointer;
-      box-shadow: 0 2px 8px var(--shadow);
-      transition: all var(--transition);
-    }
-
-    .fab-mini.whatsapp {
-      background: #25D366;
-      color: #fff;
-    }
-
-    .fab-mini.phone {
-      background: var(--primary);
-      color: #1a1a1a;
-    }
-
-    .fab-mini:hover {
-      transform: scale(1.1);
-    }
-
-    /* Cart */
-    .cart-item {
-      display: flex;
-      gap: 16px;
-      padding: 16px;
-      background: var(--surface);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      margin-bottom: 12px;
-      transition: all var(--transition);
-    }
-
-    .cart-item-img {
-      width: 80px;
-      height: 80px;
-      border-radius: var(--radius-sm);
-      object-fit: cover;
-      background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      font-size: 1.5rem;
-    }
-
-    .cart-item-body {
-      flex: 1;
-    }
-
-    .cart-item-title {
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .cart-item-price {
-      color: var(--primary);
-      font-weight: 700;
-    }
-
-    .qty-control {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .qty-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-    }
-
-    .qty-btn:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-    }
-
-    .qty-value {
-      font-weight: 600;
-      min-width: 24px;
-      text-align: center;
-    }
-
-    .cart-summary {
-      background: var(--surface);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      padding: 24px;
-      position: sticky;
-      top: 80px;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-    }
-
-    .summary-row.total {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text);
-      border-top: 1px solid var(--border);
-      margin-top: 8px;
-      padding-top: 16px;
-    }
-
-    /* Orders */
-    .order-card {
-      padding: 20px;
-      margin-bottom: 16px;
-    }
-
-    .order-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 12px;
-    }
-
-    .order-id {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    .order-status {
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-
-    .status-pending {
-      background: rgba(240, 173, 78, 0.15);
-      color: var(--warning);
-    }
-
-    .status-processing {
-      background: rgba(23, 162, 184, 0.15);
-      color: var(--info);
-    }
-
-    .status-completed {
-      background: rgba(40, 167, 69, 0.15);
-      color: var(--success);
-    }
-
-    .status-cancelled {
-      background: rgba(220, 53, 69, 0.15);
-      color: var(--danger);
-    }
-
-    .order-items {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      line-height: 1.8;
-    }
-
-    .order-total {
-      text-align: right;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-top: 12px;
-    }
-
-    /* Profile */
-    .profile-header {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 32px;
-    }
-
-    .avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      color: #1a1a1a;
-      font-weight: 700;
-      flex-shrink: 0;
-      border: 3px solid var(--surface);
-      box-shadow: 0 4px 12px var(--shadow);
-    }
-
-    .profile-info h2 {
-      font-size: 1.3rem;
-      font-weight: 700;
-    }
-
-    .profile-info p {
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-      margin-top: 4px;
-    }
-
-    .badge-type {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      margin-top: 8px;
-    }
-
-    .badge-b2c {
-      background: rgba(201, 162, 39, 0.15);
-      color: var(--primary);
-    }
-
-    .badge-b2b {
-      background: rgba(23, 162, 184, 0.15);
-      color: var(--info);
-    }
-
-    /* Admin */
-    .admin-stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    @media(min-width: 768px) {
-      .admin-stats {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    .stat-card {
-      padding: 20px;
-      text-align: center;
-    }
-
-    .stat-value {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
-      margin-top: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* Search & Filters */
-    .search-bar {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-    }
-
-    .search-input-wrapper {
-      flex: 1;
-      min-width: 200px;
-      position: relative;
-    }
-
-    .search-input-wrapper i {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-secondary);
-    }
-
-    .search-input-wrapper .form-input {
-      padding-left: 40px;
-    }
-
-    .filter-chip {
-      padding: 8px 16px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text-secondary);
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all var(--transition);
-      white-space: nowrap;
-    }
-
-    .filter-chip:hover,
-    .filter-chip.active {
-      background: var(--primary);
-      color: #1a1a1a;
-      border-color: var(--primary);
-    }
-
-    /* Hero */
-    .hero {
-      background: linear-gradient(135deg, #1a1a2e 0%, #0a0a14 100%);
-      border-radius: var(--radius);
-      padding: 60px 40px;
-      color: #fff;
-      margin-bottom: 40px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(201, 162, 39, 0.2) 0%, transparent 70%);
-      border-radius: 50%;
-      filter: blur(40px);
-    }
-
-    .hero h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin-bottom: 16px;
-      position: relative;
-      line-height: 1.2;
-    }
-
-    .hero p {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 1.1rem;
-      max-width: 600px;
-      position: relative;
-      line-height: 1.6;
-    }
-
-    .hero .btn {
-      margin-top: 32px;
-      position: relative;
-      padding: 16px 40px;
-      font-size: 1.1rem;
-    }
-
-    /* Toast */
-    .toast-container {
-      position: fixed;
-      top: 80px;
-      right: 20px;
-      z-index: 10000;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .toast {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 16px 20px;
-      box-shadow: 0 8px 24px var(--shadow);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 280px;
-      max-width: 360px;
-      animation: slideIn 0.4s ease;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-
-    .toast.success {
-      border-left: 4px solid var(--success);
-    }
-
-    .toast.error {
-      border-left: 4px solid var(--danger);
-    }
-
-    .toast.warning {
-      border-left: 4px solid var(--warning);
-    }
-
-    .toast i {
-      font-size: 1.1rem;
-    }
-
-    .toast.success i {
-      color: var(--success);
-    }
-
-    .toast.error i {
-      color: var(--danger);
-    }
-
-    .toast.warning i {
-      color: var(--warning);
-    }
-
-    /* Modal */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      z-index: 2000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal {
-      background: var(--surface);
-      border-radius: var(--radius);
-      width: 100%;
-      max-width: 520px;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      animation: modalIn 0.3s ease;
-    }
-
-    @keyframes modalIn {
-      from {
-        transform: scale(0.95);
-        opacity: 0;
-      }
-
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    .modal-header {
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .modal-header h3 {
-      font-size: 1.1rem;
-    }
-
-    .modal-close {
-      background: none;
-      border: none;
-      font-size: 1.2rem;
-      color: var(--text-secondary);
-      cursor: pointer;
-    }
-
-    .modal-body {
-      padding: 24px;
-    }
-
-    .modal-footer {
-      padding: 16px 24px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-    }
-
-    /* Legal */
-    .legal-content {
-      max-width: 800px;
-      line-height: 1.8;
-      color: var(--text-secondary);
-    }
-
-    .legal-content h2 {
-      color: var(--text);
-      font-size: 1.2rem;
-      margin: 24px 0 12px;
-    }
-
-    .legal-content p {
-      margin-bottom: 12px;
-    }
-
-    /* Section title */
-    .section-title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-title i {
-      color: var(--primary);
-    }
-
-    /* Empty state */
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-secondary);
-    }
-
-    .empty-state i {
-      font-size: 3rem;
-      margin-bottom: 16px;
-      color: var(--border);
-    }
-
-    .empty-state h3 {
-      font-size: 1.1rem;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    /* Upload */
-    .upload-zone {
-      border: 2px dashed var(--border);
-      border-radius: var(--radius);
-      padding: 40px 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: all var(--transition);
-      color: var(--text-secondary);
-    }
-
-    .upload-zone:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-      background: rgba(201, 162, 39, 0.03);
-    }
-
-    .upload-zone i {
-      font-size: 2rem;
-      margin-bottom: 12px;
-    }
-
-    .upload-preview {
-      width: 100%;
-      max-height: 200px;
-      object-fit: cover;
-      border-radius: var(--radius-sm);
-      margin-top: 12px;
-    }
-
-    /* Animations */
-    @keyframes pulse {
-
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.05);
-      }
-    }
-
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-
-    @media(min-width: 768px) {
-      .cart-layout {
-        grid-template-columns: 1fr 340px !important;
-      }
-    }
-
-    /* Hide on mobile/desktop */
-    @media(min-width: 768px) {
-      .hide-desktop {
-        display: none !important;
-      }
-    }
-
-    @media(max-width: 767px) {
-      .hide-mobile {
-        display: none !important;
-      }
-    }
+    body { padding-bottom: 100px; transition: background-color 0.2s, color 0.2s; }
+    .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-b: 1px solid rgba(226, 232, 240, 0.8); }
+    .dark .glass { background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(12px); border-b: 1px solid rgba(51, 65, 85, 0.8); }
+    .nav-active { color: #2563EB; transform: scale(1.05); font-weight: 600; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased min-h-screen w-full max-w-2xl mx-auto shadow-xl relative">
 
-<body>
-  <div id="loader" class="loader-overlay">
-    <div class="loader-ring"></div>
-    <div class="loader-text">Chargement de Sog Zabana...</div>
-  </div>
+  <header class="sticky top-0 z-50 glass px-4 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md">S</div>
+      <span class="font-bold text-xl tracking-tight bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">SOG Zabana</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="toggleLanguage()" class="text-xs font-bold px-2.5 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-primary hover:text-white transition" id="lang-btn">العربية</button>
+      <button onclick="toggleDarkMode()" class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl transition">
+        <i class="fa-solid fa-moon text-lg dark:hidden"></i>
+        <i class="fa-solid fa-sun text-lg hidden dark:inline"></i>
+      </button>
+    </div>
+  </header>
 
-  <div class="toast-container" id="toastContainer"></div>
+  <section id="scr-home" class="screen-panel p-4 space-y-4">
+    <div class="relative" onclick="switchTab('search')">
+      <input type="text" readonly id="dict-search-placeholder" class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-4 py-3.5 text-sm cursor-pointer">
+      <i class="fa-solid fa-wand-magic-sparkles absolute left-3 top-4 text-primary"></i>
+    </div>
+    <div id="feed-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="p-4 text-center text-slate-400 col-span-full"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Chargement...</div>
+    </div>
+  </section>
 
-  <div id="app" class="app-container" style="display:none">
-    <header class="header">
-      <div class="header-inner">
-        <a href="#home" class="brand-logo">
-          <img src="logo_sog_zabana.png" alt="Soog Zabana">
-          <span class="brand-title">Soog <span>Zabana</span></span>
-        </a>
+  <section id="scr-search" class="screen-panel p-4 space-y-4 hidden">
+    <h2 class="text-xl font-bold" id="dict-search-title">Recherche</h2>
+    <input type="text" id="search-input" onkeyup="executeSearch()" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none">
+    <div id="search-results" class="grid grid-cols-1 gap-3 pt-2"></div>
+  </section>
 
-        <div class="search-container hide-mobile">
-          <i class="fas fa-search search-icon"></i>
-          <input type="text" class="header-search" id="headerSearchInput" data-t-placeholder="search_placeholder" placeholder="Que recherchez-vous ?">
-        </div>
+  <section id="scr-publish" class="screen-panel p-4 space-y-4 hidden">
+    <div id="publish-blocked" class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 p-6 rounded-2xl text-center space-y-3">
+      <i class="fa-solid fa-user-lock text-4xl text-amber-500"></i>
+      <h3 class="font-bold text-lg" id="txt-block-title">Connexion Requise</h3>
+      <p class="text-sm text-slate-600 dark:text-slate-400" id="txt-block-sub">Les simples visiteurs anonymes ne peuvent pas vendre. Veuillez créer un compte ou vous connecter.</p>
+      <button onclick="switchTab('profile')" class="bg-primary text-white text-sm px-5 py-2.5 rounded-xl font-bold shadow">S'enregistrer / Se connecter</button>
+    </div>
 
-        <div class="nav-actions">
-          <button class="lang-btn" id="langToggle">العربية</button>
-          <button class="icon-btn hide-mobile" id="themeToggle"><i class="fas fa-moon"></i></button>
-          <button class="deposit-btn hide-mobile" onclick="navigate('add-annonce')">
-            <i class="fas fa-plus-circle"></i> <span data-t="deposit">Déposer</span>
-          </button>
-          <button class="icon-btn hide-desktop" id="menuToggle"><i class="fas fa-bars"></i></button>
-        </div>
-      </div>
-    </header>
+    <div id="publish-allowed" class="hidden space-y-4">
+      <h2 class="text-xl font-bold" id="dict-pub-title">Déposer une annonce</h2>
+      <form id="form-annonce" onsubmit="soumettreAnnonce(event)" class="space-y-4">
+        <input type="file" id="p-file" accept="image/*" onchange="previewImageFile()" class="text-sm text-slate-500">
+        <img id="img-preview" src="" class="w-12 h-12 object-cover rounded-lg hidden border">
+        <input type="text" id="p-titre" required placeholder="Titre" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-3 text-sm">
+        <input type="number" id="p-prix" required placeholder="Prix (DA)" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-3 text-sm">
+        <select id="p-cat" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-3 text-sm">
+          <option value="Auto">🚗 Automobile</option>
+          <option value="Immobilier">🏠 Immobilier</option>
+          <option value="Tech">📱 Technologie</option>
+        </select>
+        <textarea id="p-desc" rows="3" placeholder="Description..." class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-3 text-sm"></textarea>
+        <button type="submit" id="btn-submit" class="w-full bg-secondary text-white py-3.5 rounded-xl font-bold shadow">Publier l'Annonce</button>
+      </form>
+    </div>
+  </section>
 
-    <div class="main-content" style="max-width: 1400px; margin: 0 auto; padding: 20px 16px;">
+  <section id="scr-chat" class="screen-panel flex flex-col h-[calc(100vh-150px)] hidden">
+    <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-100 dark:bg-slate-900/40 rounded-2xl no-scrollbar"></div>
+    <div class="p-2 mt-2 border dark:border-slate-800 flex gap-2 items-center bg-white dark:bg-slate-900 rounded-xl">
+      <input type="text" id="chat-input" placeholder="Message public..." class="flex-1 bg-slate-50 dark:bg-slate-800 text-sm rounded-lg px-4 py-2.5 focus:outline-none">
+      <button onclick="postChatMessage()" class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </section>
+
+  <section id="scr-profile" class="screen-panel p-4 space-y-4 hidden">
+    
+    <div id="profile-unauth" class="space-y-4">
       
-      <!-- Categories Bar -->
-      <div class="categories-bar">
-        <button class="cat-chip active" data-filter="all"><i class="fas fa-th"></i> <span data-t="all">Tout</span></button>
-        <button class="cat-chip" data-filter="Informatique"><i class="fas fa-laptop"></i> <span data-t="it">Informatique</span></button>
-        <button class="cat-chip" data-filter="Électronique"><i class="fas fa-mobile-alt"></i> <span data-t="elec">Électronique</span></button>
-        <button class="cat-chip" data-filter="Véhicules"><i class="fas fa-car"></i> <span data-t="cars">Véhicules</span></button>
-        <button class="cat-chip" data-filter="Immobilier"><i class="fas fa-home"></i> <span data-t="realestate">Immobilier</span></button>
-        <button class="cat-chip" data-filter="Mode"><i class="fas fa-tshirt"></i> <span data-t="fashion">Mode</span></button>
+      <div class="flex border-b dark:border-slate-800">
+        <button onclick="toggleAuthMode('login')" id="btn-tab-login" class="flex-1 py-2 text-center text-sm font-bold border-b-2 border-primary text-primary">Connexion</button>
+        <button onclick="toggleAuthMode('register')" id="btn-tab-register" class="flex-1 py-2 text-center text-sm font-bold border-b-2 border-transparent text-slate-400">Inscription (Loi 18-05)</button>
       </div>
 
-      <!-- HOME -->
-      <div class="page active" id="page-home">
-        <div class="hero">
-          <h1>La plus grande marketplace de Zabana</h1>
-          <p>Trouvez tout ce dont vous avez besoin : électronique, mode, maison et bien plus en Algérie.</p>
-          <a href="#services" class="btn btn-primary"><i class="fas fa-shopping-bag"></i> Commencer mes achats</a>
+      <form id="form-login" onsubmit="connexionCompte(event)" class="space-y-3">
+        <input type="email" id="log-email" required placeholder="Adresse E-mail" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
+        <input type="password" id="log-mdp" required placeholder="Mot de passe" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
+        <button type="submit" class="w-full bg-primary text-white py-3 rounded-xl font-bold shadow">Se connecter</button>
+      </form>
+
+      <form id="form-register" onsubmit="enregistrerCompte(event)" class="space-y-3 hidden">
+        <input type="text" id="reg-name" required placeholder="Nom / Raison Sociale" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
+        <input type="email" id="reg-email" required placeholder="Adresse E-mail" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
+        <input type="tel" id="reg-tel" required placeholder="N° de Téléphone" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
+        <input type="text" id="reg-wilaya" required placeholder="Wilaya" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
+        <input type="password" id="reg-mdp" required placeholder="Créer un mot de passe" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
+        
+        <select id="reg-type" onchange="toggleCnrcField()" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
+          <option value="Particulier">Vendeur Particulier</option>
+          <option value="Professionnel">Vendeur Professionnel (Boutique CNRC)</option>
+        </select>
+        <div id="cnrc-box" class="hidden">
+          <input type="text" id="reg-cnrc" placeholder="N° Registre du Commerce (CNRC)" class="w-full bg-amber-50/50 dark:bg-slate-800 border rounded-xl px-4 py-2.5 text-sm">
         </div>
-        <div class="section-title"><i class="fas fa-star"></i> Annonces récentes</div>
-        <div class="grid grid-3" id="featuredServices"></div>
-      </div>
-
-      <!-- ARTICLES (SHOP) -->
-      <div class="page" id="page-services">
-        <div class="section-title"><i class="fas fa-store"></i> Toutes les annonces</div>
-        <div class="search-bar">
-          <div class="search-input-wrapper">
-            <i class="fas fa-search"></i>
-            <input type="text" class="form-input" id="serviceSearch" placeholder="Que recherchez-vous ?">
-          </div>
-          <button class="filter-chip active" data-filter="all">Tous</button>
-          <button class="filter-chip" data-filter="Informatique">Informatique</button>
-          <button class="filter-chip" data-filter="Électronique">Électronique</button>
-          <button class="filter-chip" data-filter="Véhicules">Véhicules</button>
-          <button class="filter-chip" data-filter="Immobilier">Immobilier</button>
-        </div>
-        <div class="grid grid-3" id="servicesGrid"></div>
-      </div>
-
-      <!-- SERVICE DETAIL -->
-      <div class="page" id="page-service-detail">
-        <div id="serviceDetailContent"></div>
-      </div>
-
-      <!-- CART -->
-      <div class="page" id="page-cart">
-        <div class="section-title"><i class="fas fa-shopping-cart"></i> Votre panier</div>
-        <div style="display:grid; grid-template-columns:1fr; gap:24px;" class="cart-layout" id="cartLayout">
-          <div id="cartItems"></div>
-          <div class="cart-summary" id="cartSummary">
-            <div class="summary-row total"><span>Total</span><span id="cartTotal">0 DA</span></div>
-            <button class="btn btn-primary btn-block" id="checkoutBtn" style="margin-top:16px"><i
-                class="fas fa-check"></i> Commander</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ORDERS -->
-      <div class="page" id="page-orders">
-        <div class="section-title"><i class="fas fa-clipboard-list"></i> Mes commandes</div>
-        <div id="ordersList"></div>
-      </div>
-
-      <!-- PROFILE -->
-      <div class="page" id="page-profile">
-        <div class="section-title"><i class="fas fa-user"></i> Mon profil</div>
-        <div class="card" style="margin-bottom:24px">
-          <div class="card-body">
-            <div class="profile-header">
-              <div class="avatar" id="profileAvatar">SZ</div>
-              <div class="profile-info">
-                <h2 id="profileName">—</h2>
-                <p id="profileEmail">—</p>
-                <span class="badge-type" id="profileType">—</span>
-              </div>
-            </div>
-            <div class="grid grid-2">
-              <div class="form-group">
-                <label class="form-label">Nom complet</label>
-                <input type="text" class="form-input" id="editName">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Téléphone</label>
-                <input type="tel" class="form-input" id="editPhone">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-input" id="editEmail" disabled style="opacity:0.7">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Type de compte</label>
-                <input type="text" class="form-input" id="editType" disabled style="opacity:0.7">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Photo de profil</label>
-              <div class="upload-zone" id="avatarUpload">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <div>Cliquez pour uploader une image</div>
-                <input type="file" id="avatarInput" accept="image/*" style="display:none">
-              </div>
-              <img id="avatarPreview" class="upload-preview" style="display:none">
-            </div>
-            <button class="btn btn-primary" id="saveProfileBtn"><i class="fas fa-save"></i> Enregistrer</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- SETTINGS -->
-      <div class="page" id="page-settings">
-        <div class="section-title"><i class="fas fa-cog"></i> Paramètres</div>
-        <div class="card" style="margin-bottom:24px">
-          <div class="card-body">
-            <h3 class="card-title">Apparence</h3>
-            <div class="form-group">
-              <label class="form-label">Thème</label>
-              <select class="form-select" id="themeSelect">
-                <option value="system">Système (auto)</option>
-                <option value="light">Clair</option>
-                <option value="dark">Sombre</option>
-              </select>
-            </div>
-            <h3 class="card-title" style="margin-top:24px">Notifications</h3>
-            <div class="form-group" style="display:flex; align-items:center; gap:12px;">
-              <input type="checkbox" id="notifEmail" checked
-                style="accent-color:var(--primary); width:18px; height:18px;">
-              <label for="notifEmail" style="font-size:0.9rem; cursor:pointer;">Recevoir les notifications par
-                email</label>
-            </div>
-            <h3 class="card-title" style="margin-top:24px">Sécurité</h3>
-            <button class="btn btn-outline btn-sm" id="changePasswordBtn"><i class="fas fa-lock"></i> Changer le mot de
-              passe</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- LEGAL -->
-      <div class="page" id="page-legal">
-        <div class="section-title"><i class="fas fa-balance-scale"></i> Mentions légales & confidentialité</div>
-        <div class="card legal-content">
-          <div class="card-body">
-            <h2>1. Identification</h2>
-            <p><strong>Sog Zabana</strong> est une plateforme de mise en relation de services professionnels opérant en
-              République Algérienne Démocratique et Populaire.</p>
-
-            <h2>2. Données personnelles</h2>
-            <p>Conformément à la <strong>loi n° 18-07 du 10 juin 2018</strong> relative à la protection des données à
-              caractère personnel en Algérie, nous collectons et traitons vos données de manière loyale et licite.</p>
-            <p>Les données collectées (nom, email, téléphone) sont strictement nécessaires au fonctionnement du service.
-              Vous disposez d'un droit d'accès, de rectification et de suppression en contactant l'administrateur.</p>
-
-            <h2>3. Conditions d'utilisation</h2>
-            <p>L'utilisation de la plateforme implique l'acceptation pleine et entière des conditions générales.
-              L'utilisateur s'engage à fournir des informations exactes et à ne pas utiliser la plateforme à des fins
-              illicites.</p>
-
-            <h2>4. Validation des inscriptions</h2>
-            <p>La validation d'inscription par email et code de vérification est conforme aux exigences de sécurité et
-              de protection des utilisateurs. Aucune donnée biométrique ou sensible n'est collectée.</p>
-
-            <h2>5. Contact</h2>
-            <p>Pour toute question relative aux mentions légales, contactez-nous via le bouton flottant de
-              l'application.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- ADMIN -->
-      <div class="page" id="page-admin">
-        <div class="section-title"><i class="fas fa-shield-alt"></i> Administration</div>
-        <div class="admin-stats" id="adminStats">
-          <div class="card stat-card">
-            <div class="stat-value" id="statUsers">0</div>
-            <div class="stat-label">Utilisateurs</div>
-          </div>
-          <div class="card stat-card">
-            <div class="stat-value" id="statServices">0</div>
-            <div class="stat-label">Services</div>
-          </div>
-          <div class="card stat-card">
-            <div class="stat-value" id="statOrders">0</div>
-            <div class="stat-label">Commandes</div>
-          </div>
-          <div class="card stat-card">
-            <div class="stat-value" id="statRevenue">0 DA</div>
-            <div class="stat-label">Revenus</div>
-          </div>
-        </div>
-        <div class="card" style="margin-bottom:24px">
-          <div class="card-body">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-              <h3 class="card-title">Gestion des articles</h3>
-              <button class="btn btn-primary btn-sm" id="addServiceBtn"><i class="fas fa-plus"></i> Déposer une annonce</button>
-            </div>
-            <div id="adminServicesList"></div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <h3 class="card-title">Gestion des commandes</h3>
-            <div id="adminOrdersList"></div>
-          </div>
-        </div>
-      </div>
-
-    </main>
-
-    <!-- Floating Contact -->
-    <button class="fab-contact" id="fabContact"><i class="fas fa-comment-dots"></i></button>
-    <div class="fab-menu" id="fabMenu">
-      <a href="https://wa.me/213XXXXXXXXX" target="_blank" class="fab-item" id="fabWhatsApp">
-        <span>WhatsApp</span>
-        <div class="fab-mini whatsapp"><i class="fab fa-whatsapp"></i></div>
-      </a>
-      <a href="tel:+213XXXXXXXXX" class="fab-item" id="fabPhone">
-        <span>Appeler</span>
-        <div class="fab-mini phone"><i class="fas fa-phone"></i></div>
-      </a>
+        <button type="submit" class="w-full bg-emerald-500 text-white py-3 rounded-xl font-bold shadow" id="dict-reg-btn">Créer le compte</button>
+      </form>
     </div>
 
-    <!-- Bottom Nav (mobile) -->
-    <nav class="bottom-nav hide-desktop">
-      <button class="nav-item active" data-nav="home"><i class="fas fa-home"></i>Accueil</button>
-      <button class="nav-item" data-nav="services"><i class="fas fa-th-large"></i>Services</button>
-      <button class="nav-item" data-nav="cart"><i class="fas fa-shopping-cart"></i>Panier</button>
-      <button class="nav-item" data-nav="orders"><i class="fas fa-clipboard-list"></i>Commandes</button>
-      <button class="nav-item" data-nav="profile"><i class="fas fa-user"></i>Profil</button>
-    </nav>
-  </div>
-
-  <!-- Auth Pages (outside app layout) -->
-  <div id="authPages" style="display:none">
-    <!-- LOGIN -->
-    <div class="auth-page" id="page-login">
-      <div class="auth-box">
-        <div class="auth-logo"><img src="logo_sog_zabana.png" alt="Sog Zabana"></div>
-        <h1 class="auth-title">Connexion</h1>
-        <p class="auth-subtitle">Accédez à votre espace Sog Zabana</p>
-        <div class="card">
-          <div class="card-body">
-            <div class="form-group">
-              <label class="form-label">Adresse email</label>
-              <input type="email" class="form-input" id="loginEmail" placeholder="exemple@email.com">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Mot de passe</label>
-              <input type="password" class="form-input" id="loginPassword" placeholder="••••••••">
-            </div>
-            <button class="btn btn-primary btn-block" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Se
-              connecter</button>
-            <div class="auth-link">Pas encore de compte ? <a href="#register">Créer un compte</a></div>
-          </div>
+    <div id="profile-auth" class="hidden space-y-4">
+      <div class="p-4 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800 rounded-2xl flex items-center gap-3">
+        <div class="w-12 h-12 bg-secondary text-white rounded-xl flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-user-check"></i></div>
+        <div>
+          <h4 class="font-bold text-sm" id="user-display-name">---</h4>
+          <span class="text-[10px] bg-secondary text-white px-2 rounded" id="user-display-type">---</span>
         </div>
       </div>
+      <button onclick="logout()" class="w-full bg-rose-500 text-white py-2.5 rounded-xl text-xs font-bold shadow">Déconnexion / خروج</button>
     </div>
+  </section>
 
-    <!-- REGISTER -->
-    <div class="auth-page" id="page-register">
-      <div class="auth-box">
-        <div class="auth-logo"><img src="logo_sog_zabana.png" alt="Sog Zabana"></div>
-        <h1 class="auth-title">Inscription</h1>
-        <p class="auth-subtitle">Rejoignez Sog Zabana en quelques secondes</p>
-        <div class="card">
-          <div class="card-body">
-            <div class="grid grid-2">
-              <div class="form-group">
-                <label class="form-label">Nom complet</label>
-                <input type="text" class="form-input" id="regName" placeholder="Votre nom">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Téléphone</label>
-                <input type="tel" class="form-input" id="regPhone" placeholder="05 XX XX XX XX">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Adresse email</label>
-              <input type="email" class="form-input" id="regEmail" placeholder="exemple@email.com">
-            </div>
-            <div class="grid grid-2">
-              <div class="form-group">
-                <label class="form-label">Mot de passe</label>
-                <input type="password" class="form-input" id="regPassword" placeholder="Min. 8 caractères">
-                <div class="form-hint">8 caractères minimum, avec un chiffre</div>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Confirmation</label>
-                <input type="password" class="form-input" id="regConfirm" placeholder="Confirmez">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Type de compte</label>
-              <select class="form-select" id="regType">
-                <option value="B2C">Particulier (B2C)</option>
-                <option value="B2B">Entreprise / Revendeur (B2B)</option>
-              </select>
-            </div>
-            <div class="consent-box">
-              <input type="checkbox" id="regConsent">
-              <div>J'ai lu et j'accepte les <a href="#legal" style="color:var(--primary)">conditions d'utilisation</a>
-                et la politique de confidentialité. J'accepte le traitement de mes données personnelles conformément à
-                la loi algérienne 18-07.</div>
-            </div>
-            <button class="btn btn-primary btn-block" id="registerBtn"><i class="fas fa-user-plus"></i>
-              S'inscrire</button>
-            <div class="auth-link">Déjà un compte ? <a href="#login">Se connecter</a></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  </div>
-
-  <!-- Modal: Add Article -->
-  <div class="modal-overlay" id="modalAddService">
-    <div class="modal">
-      <div class="modal-header"><h3>Déposer une annonce</h3><button class="modal-close" data-close><i class="fas fa-times"></i></button></div>
-      <div class="modal-body">
-        <div class="form-group"><label class="form-label">Titre de l'annonce</label><input type="text" class="form-input" id="newServiceName" placeholder="Ex: iPhone 15 Pro Max"></div>
-        <div class="grid grid-2">
-          <div class="form-group"><label class="form-label">Prix Vente (DA)</label><input type="number" class="form-input" id="newServicePriceB2C"></div>
-          <div class="form-group"><label class="form-label">Prix Revendeur (DA)</label><input type="number" class="form-input" id="newServicePriceB2B"></div>
-        </div>
-        <div class="grid grid-2">
-          <div class="form-group"><label class="form-label">Catégorie</label>
-            <select class="form-select" id="newServiceCat">
-              <option>Informatique</option>
-              <option>Électronique</option>
-              <option>Véhicules</option>
-              <option>Immobilier</option>
-              <option>Mode</option>
-              <option>Autre</option>
-            </select>
-          </div>
-          <div class="form-group"><label class="form-label">État</label>
-            <select class="form-select" id="newArticleStatus">
-              <option value="neuf">Neuf</option>
-              <option value="occasion">Occasion</option>
-              <option value="reconditionne">Réconditionné</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group"><label class="form-label">Description détaillée</label><textarea class="form-textarea" id="newServiceDesc" placeholder="Décrivez votre article..."></textarea></div>
-        <div class="form-group">
-          <label class="form-label">Image de l'article</label>
-          <div class="upload-zone" onclick="$('#newArticleImgInput').click()">
-            <i class="fas fa-camera"></i>
-            <div>Ajouter des photos</div>
-            <input type="file" id="newArticleImgInput" accept="image/*" style="display:none">
-          </div>
-          <img id="newArticleImgPreview" class="upload-preview" style="display:none">
-          <input type="hidden" id="newServiceImg">
-        </div>
-      </div>
-      <div class="modal-footer"><button class="btn btn-outline btn-sm" data-close>Annuler</button><button class="btn btn-primary btn-sm" id="confirmAddService">Publier l'annonce</button></div>
-    </div>
-  </div>
-
-  <!-- Modal: Change Password -->
-  <div class="modal-overlay" id="modalPassword">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>Changer le mot de passe</h3><button class="modal-close" data-close><i class="fas fa-times"></i></button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group"><label class="form-label">Ancien mot de passe</label><input type="password"
-            class="form-input" id="oldPassword"></div>
-        <div class="form-group"><label class="form-label">Nouveau mot de passe</label><input type="password"
-            class="form-input" id="newPassword"></div>
-        <div class="form-group"><label class="form-label">Confirmation</label><input type="password" class="form-input"
-            id="confirmPassword"></div>
-      </div>
-      <div class="modal-footer"><button class="btn btn-outline btn-sm" data-close>Annuler</button><button
-          class="btn btn-primary btn-sm" id="confirmPasswordBtn">Enregistrer</button></div>
-    </div>
-  </div>
+  <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-xl glass h-16 rounded-2xl shadow-xl flex items-center justify-around px-2 z-50">
+    <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-slate-400 nav-active"><i class="fa-solid fa-house text-lg"></i><span class="text-[9px] mt-0.5" id="lbl-nav-home">Accueil</span></button>
+    <button onclick="switchTab('search')" id="nav-search" class="flex flex-col items-center text-slate-400"><i class="fa-solid fa-magnifying-glass text-lg"></i><span class="text-[9px] mt-0.5" id="lbl-nav-search">Chercher</span></button>
+    <button onclick="switchTab('publish')" id="nav-publish" class="w-12 h-12 bg-primary text-white rounded-xl flex items-center justify-center shadow-lg -translate-y-3"><i class="fa-solid fa-plus text-xl"></i></button>
+    <button onclick="switchTab('chat')" id="nav-chat" class="flex flex-col items-center text-slate-400"><i class="fa-solid fa-comments text-lg"></i><span class="text-[9px] mt-0.5" id="lbl-nav-chat">Chat</span></button>
+    <button onclick="switchTab('profile')" id="nav-profile" class="flex flex-col items-center text-slate-400"><i class="fa-solid fa-user text-lg"></i><span class="text-[9px] mt-0.5" id="lbl-nav-profile">Compte</span></button>
+  </nav>
 
   <script>
-    // ==================== CONFIGURATION ====================
-    const CONFIG = {
-      APP_NAME: 'Soog Zabana',
-      API_URL: 'https://script.google.com/macros/s/AKfycbyLBkZNbxNTpCRxRoVOlerObg3hacsmTjuRBrrDhY7ZYAmdNXXBoyBtJsJldrt5IP6Z/exec',
-      WHATSAPP_NUMBER: '2130770899372',
-      PHONE_NUMBER: '+2130770938972',
-      CURRENCY: 'DA',
-      DEMO_MODE: false
-    };
+    let globalAnnonces = [];
+    let currentLang = localStorage.getItem('sog_lang') || 'fr';
+    let userSession = JSON.parse(localStorage.getItem('sog_user')) || null;
+    let base64ImageString = "";
 
-    // ==================== I18N ====================
-    const i18n = {
+    const dictionary = {
       fr: {
-        loading: "Chargement...",
-        search_placeholder: "Que recherchez-vous ?",
-        deposit: "Déposer",
-        all: "Tout",
-        it: "Informatique",
-        elec: "Électronique",
-        cars: "Véhicules",
-        realestate: "Immobilier",
-        fashion: "Mode",
-        hero_title: "Bienvenue sur Soog Zabana",
-        hero_subtitle: "La référence des petites annonces à Zabana",
-        recent_ads: "Annonces récentes",
-        price: "Prix",
-        login: "Connexion",
-        register: "Inscription",
-        my_profile: "Mon Profil",
-        my_ads: "Mes Annonces",
-        logout: "Déconnexion",
-        no_results: "Aucun résultat trouvé",
-        brand_name: "Soog Zabana",
-        neuf: "Neuf",
-        occasion: "Occasion",
-        reconditionne: "Réconditionné",
-        filter: "Filtrer"
+        search_ph: "Rechercher sur Zabana...", search_title: "Moteur de recherche 🔎",
+        pub_title: "Créer une nouvelle offre", pub_btn: "🚀 Mettre en ligne l'annonce",
+        block_title: "Identification Obligatoire", block_sub: "Les simples visiteurs anonymes ne peuvent pas vendre. Veuillez créer un compte ou vous connecter via l'onglet Compte.",
+        nav_home: "Accueil", nav_search: "Chercher", nav_chat: "Discussion", nav_profile: "Mon Espace"
       },
       ar: {
-        loading: "جاري التحميل...",
-        search_placeholder: "ما الذي تبحث عنه؟",
-        deposit: "أضف اعلان",
-        all: "الكل",
-        it: "أجهزة إعلامية",
-        elec: "إلكترونيات",
-        cars: "مركبات",
-        realestate: "عقارات",
-        fashion: "موضة",
-        hero_title: "مرحبًا بكم في سوق زبانة",
-        hero_subtitle: "المرجع للأعلانات المبوبة في زبانة",
-        recent_ads: "أحدث الإعلانات",
-        price: "السعر",
-        login: "تسجيل الدخول",
-        register: "إنشاء حساب",
-        my_profile: "ملفي الشخصي",
-        my_ads: "إعلاناتي",
-        logout: "تسجيل الخروج",
-        no_results: "لا توجد نتائج",
-        brand_name: "سوق زبانة",
-        neuf: "جديد",
-        occasion: "مستعمل",
-        reconditionne: "مجدد",
-        filter: "تصفية"
+        search_ph: "البحث في سوق زبانة...", search_title: "محرك البحث 🔎",
+        pub_title: "نشر إعلان جديد", pub_btn: "🚀 نشر الإعلان في السوق",
+        block_title: "خاصية البائعين فقط", block_sub: "لا يمكن للزوار العاديين نشر إعلانات بدون تسجيل حساب رسمي أولاً في خانة 'حسابي'.",
+        nav_home: "الرئيسية", nav_search: "بحث", nav_chat: "الدردشة", nav_profile: "حسابي"
       }
     };
 
-    function t(key) {
-      const lang = state.language || 'fr';
-      return i18n[lang][key] || key;
-    }
-
-    function applyTranslations() {
-      const lang = state.language || 'fr';
-      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-      document.documentElement.lang = lang;
-      
-      const toggle = $('#langToggle');
-      if (toggle) toggle.textContent = lang === 'fr' ? 'العربية' : 'Français';
-      
-      $$('[data-t]').forEach(el => {
-        el.textContent = t(el.dataset.t);
-      });
-      $$('[data-t-placeholder]').forEach(el => {
-        el.placeholder = t(el.dataset.tPlaceholder);
-      });
-      
-      // Update config app name for consistency
-      CONFIG.APP_NAME = t('brand_name');
-    }
-
-    // ==================== STATE ====================
-    const state = {
-      user: null,
-      cart: [],
-      articles: [],
-      language: localStorage.getItem('sz_lang') || 'fr',
-      theme: localStorage.getItem('sz_theme') || 'system',
-      filter: 'all',
-      search: ''
+    window.onload = function() {
+      applyTheme(localStorage.getItem('theme') || 'light');
+      applyLanguage(currentLang);
+      checkUserAuth();
+      loadAnnoncesFromSheets();
+      loadChatMessages();
     };
 
-    // ==================== DEMO DATA ====================
-    const demoServices = [
-      { id: 1, name: 'Consulting Stratégique', category: 'Consulting', description: 'Accompagnement personnalisé pour la croissance de votre entreprise. Analyse, planification et suivi.', priceB2C: 15000, priceB2B: 12000, image: '' },
-      { id: 2, name: 'Développement Web', category: 'Informatique', description: 'Création de sites web et applications sur mesure. Technologies modernes et responsive design.', priceB2C: 45000, priceB2B: 35000, image: '' },
-      { id: 3, name: 'Campagne Marketing Digital', category: 'Marketing', description: 'Gestion complète de vos campagnes sur les réseaux sociaux et Google Ads.', priceB2C: 25000, priceB2B: 20000, image: '' },
-      { id: 4, name: 'Formation Excel Avancé', category: 'Formation', description: 'Maîtrisez Excel pour la gestion de données, tableaux croisés dynamiques et macros VBA.', priceB2C: 8000, priceB2B: 6000, image: '' },
-      { id: 5, name: 'Audit Sécurité IT', category: 'Informatique', description: 'Évaluation complète de la sécurité de votre infrastructure informatique et recommandations.', priceB2C: 30000, priceB2B: 25000, image: '' },
-      { id: 6, name: 'Branding & Identité', category: 'Marketing', description: 'Création de logo, charte graphique et identité visuelle professionnelle pour votre marque.', priceB2C: 20000, priceB2B: 16000, image: '' },
-    ];
+    function applyLanguage(lang) {
+      currentLang = lang; localStorage.setItem('sog_lang', lang);
+      const dict = dictionary[lang];
+      document.getElementById('main-html').setAttribute('dir', lang === 'ar' ? 'ar' : 'ltr');
+      document.getElementById('lang-btn').innerText = lang === 'ar' ? "Français" : "العربية";
 
-    // ==================== UTILS ====================
-    const $ = (sel, ctx = document) => ctx.querySelector(sel);
-    const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-    const randId = () => Math.random().toString(36).slice(2, 10);
-    const formatPrice = (p) => p.toLocaleString('fr-DZ') + ' ' + CONFIG.CURRENCY;
-    const storage = {
-      get: (k) => { try { return JSON.parse(localStorage.getItem('sz_' + k)); } catch (e) { return null; } },
-      set: (k, v) => localStorage.setItem('sz_' + k, JSON.stringify(v)),
-      del: (k) => localStorage.removeItem('sz_' + k)
-    };
-
-    function showToast(message, type = 'success') {
-      const container = $('#toastContainer');
-      const toast = document.createElement('div');
-      toast.className = `toast ${type}`;
-      const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
-      toast.innerHTML = `<i class="fas ${icon}"></i><div>${message}</div>`;
-      container.appendChild(toast);
-      setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(100%)'; setTimeout(() => toast.remove(), 400); }, 3500);
+      document.getElementById('dict-search-placeholder').placeholder = dict.search_ph;
+      document.getElementById('dict-search-title').innerText = dict.search_title;
+      document.getElementById('dict-pub-title').innerText = dict.pub_title;
+      document.getElementById('btn-submit').innerText = dict.pub_btn;
+      document.getElementById('txt-block-title').innerText = dict.block_title;
+      document.getElementById('txt-block-sub').innerText = dict.block_sub;
+      
+      document.getElementById('lbl-nav-home').innerText = dict.nav_home;
+      document.getElementById('lbl-nav-search').innerText = dict.nav_search;
+      document.getElementById('lbl-nav-chat').innerText = dict.nav_chat;
+      document.getElementById('lbl-nav-profile').innerText = dict.nav_profile;
     }
 
-    $('#langToggle').addEventListener('click', () => {
-      state.language = state.language === 'fr' ? 'ar' : 'fr';
-      localStorage.setItem('sz_lang', state.language);
-      applyTranslations();
-      renderHome();
-      renderServices();
-    });
+    function toggleLanguage() { applyLanguage(currentLang === 'fr' ? 'ar' : 'fr'); }
+    function toggleDarkMode() { applyTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark'); }
+    function applyTheme(t) { t === 'dark' ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark'); localStorage.setItem('theme', t); }
+    function toggleCnrcField() { document.getElementById('cnrc-box').classList.toggle('hidden', document.getElementById('reg-type').value !== 'Professionnel'); }
 
-    $('#headerSearchInput').addEventListener('input', (e) => {
-      state.search = e.target.value.toLowerCase();
-      if (location.hash !== '#services') navigate('services');
-      renderServices();
-    });
-
-    $$('.cat-chip').forEach(btn => {
-      btn.addEventListener('click', () => {
-        $$('.cat-chip').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        state.filter = btn.dataset.filter;
-        renderServices();
-        if (location.hash !== '#services') navigate('services');
-      });
-    });
-
-    // ==================== THEME ====================
-    function applyTheme() {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const theme = state.theme === 'system' ? (prefersDark ? 'dark' : 'light') : state.theme;
-      document.documentElement.setAttribute('data-theme', theme);
-      $('#themeToggle i').className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    }
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
-
-    // ==================== API / DEMO ====================
-    async function apiCall(action, payload = {}) {
-      if (CONFIG.DEMO_MODE) {
-        return demoApi(action, payload);
-      }
-      try {
-        const res = await fetch(CONFIG.API_URL, {
-          method: 'POST',
-          body: JSON.stringify({ action, ...payload })
-        });
-        return await res.json();
-      } catch (e) {
-        showToast('Erreur de connexion au serveur', 'error');
-        return { success: false, error: e.message };
-      }
+    function toggleAuthMode(mode) {
+      const isLogin = mode === 'login';
+      document.getElementById('form-login').classList.toggle('hidden', !isLogin);
+      document.getElementById('form-register').classList.toggle('hidden', isLogin);
+      
+      document.getElementById('btn-tab-login').className = isLogin ? "flex-1 py-2 text-center text-sm font-bold border-b-2 border-primary text-primary" : "flex-1 py-2 text-center text-sm font-bold border-b-2 border-transparent text-slate-400";
+      document.getElementById('btn-tab-register').className = !isLogin ? "flex-1 py-2 text-center text-sm font-bold border-b-2 border-primary text-primary" : "flex-1 py-2 text-center text-sm font-bold border-b-2 border-transparent text-slate-400";
     }
 
-    function demoApi(action, payload) {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          let result = { success: true };
-          switch (action) {
-            case 'getServices':
-              result.data = storage.get('services') || demoServices;
-              break;
-            case 'createService': {
-              const services = storage.get('services') || demoServices;
-              payload.id = Date.now();
-              services.unshift(payload);
-              storage.set('services', services);
-              result.data = payload;
-              break;
-            }
-            case 'updateService': {
-              let services = storage.get('services') || demoServices;
-              const idx = services.findIndex(s => s.id == payload.id);
-              if (idx > -1) services[idx] = { ...services[idx], ...payload };
-              storage.set('services', services);
-              result.data = services[idx];
-              break;
-            }
-            case 'deleteService': {
-              let services = storage.get('services') || demoServices;
-              services = services.filter(s => s.id != payload.id);
-              storage.set('services', services);
-              break;
-            }
-            case 'register': {
-              const users = storage.get('users') || [];
-              if (users.find(u => u.email === payload.email)) {
-                resolve({ success: false, error: 'Cet email est déjà utilisé' }); return;
-              }
-              payload.id = randId();
-              payload.verified = true;
-              payload.createdAt = new Date().toISOString();
-              payload.avatar = '';
-              users.push(payload);
-              storage.set('users', users);
-              result.data = { user: payload };
-              break;
-            }
-            case 'login': {
-              const users = storage.get('users') || [];
-              const u = users.find(u => u.email === payload.email && u.password === payload.password && u.verified);
-              if (!u) { resolve({ success: false, error: 'Email ou mot de passe incorrect' }); return; }
-              result.data = u;
-              break;
-            }
-            case 'getOrders': {
-              const orders = (storage.get('orders') || []).filter(o => payload.userId ? o.userId === payload.userId : true);
-              result.data = orders.sort((a, b) => new Date(b.date) - new Date(a.date));
-              break;
-            }
-            case 'createOrder': {
-              const orders = storage.get('orders') || [];
-              payload.id = 'CMD-' + Date.now().toString().slice(-6);
-              payload.date = new Date().toISOString();
-              payload.status = 'pending';
-              orders.push(payload);
-              storage.set('orders', orders);
-              result.data = payload;
-              break;
-            }
-            case 'updateOrder': {
-              let orders = storage.get('orders') || [];
-              const idx = orders.findIndex(o => o.id === payload.id);
-              if (idx > -1) orders[idx] = { ...orders[idx], ...payload };
-              storage.set('orders', orders);
-              break;
-            }
-            case 'getUsers':
-              result.data = storage.get('users') || [];
-              break;
-            case 'updateUser': {
-              let users = storage.get('users') || [];
-              const idx = users.findIndex(u => u.id === payload.id);
-              if (idx > -1) { users[idx] = { ...users[idx], ...payload }; storage.set('users', users); result.data = users[idx]; }
-              break;
-            }
-          }
-          resolve(result);
-        }, 400 + Math.random() * 400);
-      });
+    function switchTab(target) {
+      document.querySelectorAll('.screen-panel').forEach(el => el.classList.add('hidden'));
+      document.getElementById('scr-' + target).classList.remove('hidden');
+      document.querySelectorAll('nav button').forEach(el => el.classList.remove('text-primary', 'nav-active'));
+      if(target !== 'publish') document.getElementById('nav-' + target).classList.add('nav-active', 'text-primary');
     }
 
-    // ==================== ROUTING ====================
-    function navigate(page, params = '') {
-      state.currentPage = page;
+    function previewImageFile() {
+      const file = document.getElementById('p-file').files[0];
+      const preview = document.getElementById('img-preview');
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onloadend = function() { base64ImageString = reader.result; preview.src = reader.result; preview.classList.remove('hidden'); };
+      reader.readAsDataURL(file);
+    }
 
-      // Auth pages
-      const authPages = ['login', 'register', 'verify'];
-      const isAuth = authPages.includes(page);
-      $('#app').style.display = isAuth ? 'none' : 'flex';
-      $('#authPages').style.display = isAuth ? 'block' : 'none';
-      $('#mainHeader').style.display = isAuth ? 'none' : 'block';
+    function loadAnnoncesFromSheets() {
+      google.script.run.withSuccessHandler(function(data) {
+        globalAnnonces = data || [];
+        renderFeed(globalAnnonces);
+      }).getAnnonces();
+    }
 
-      if (isAuth) {
-        $$('.auth-page').forEach(p => p.style.display = 'none');
-        $(`#page-${page}`).style.display = 'flex';
-        window.scrollTo(0, 0);
+    function renderFeed(items) {
+      const container = document.getElementById('feed-container');
+      if(!items || items.length === 0) {
+        container.innerHTML = `<p class="text-center text-xs py-8 text-slate-400 col-span-full">Aucun produit disponible.</p>`;
         return;
       }
-
-      // Protected pages
-      const protectedPages = ['profile', 'cart', 'orders', 'settings', 'admin'];
-      if (protectedPages.includes(page) && !state.user) { navigate('login'); return; }
-      if (page === 'admin' && !state.user?.isAdmin) { navigate('home'); return; }
-      if (page === 'cart' && state.cart.length === 0) { showToast('Votre panier est vide', 'warning'); navigate('services'); return; }
-
-      // Show page
-      $$('.page').forEach(p => p.classList.remove('active'));
-      const target = $(`#page-${page}`);
-      if (target) target.classList.add('active');
-      else { $(`#page-home`).classList.add('active'); state.currentPage = 'home'; }
-
-      // Update nav
-      $$('[data-nav]').forEach(el => el.classList.toggle('active', el.dataset.nav === page));
-
-      // Render
-      if (page === 'home') renderHome();
-      if (page === 'services') renderServices();
-      if (page === 'service-detail') renderServiceDetail(params);
-      if (page === 'cart') renderCart();
-      if (page === 'orders') renderOrders();
-      if (page === 'profile') renderProfile();
-      if (page === 'settings') renderSettings();
-      if (page === 'admin') renderAdmin();
-
-      window.scrollTo(0, 0);
-    }
-
-    window.addEventListener('hashchange', () => {
-      const [page, ...rest] = location.hash.slice(1).split('/');
-      navigate(page || 'home', rest.join('/'));
-    });
-
-    // ==================== RENDERERS ====================
-    async function renderHome() {
-      const services = (await apiCall('getServices')).data || demoServices;
-      const featured = services.slice(0, 3);
-      $('#featuredServices').innerHTML = featured.map(s => serviceCard(s)).join('') || '<div class="empty-state"><i class="fas fa-box-open"></i><h3>Aucun service disponible</h3></div>';
-    }
-
-    async function renderServices() {
-      const all = (await apiCall('getServices')).data || demoServices;
-      const filtered = all.filter(s => {
-        const matchCat = state.filter === 'all' || s.category === state.filter;
-        const matchSearch = !state.search || s.name.toLowerCase().includes(state.search.toLowerCase()) || s.description.toLowerCase().includes(state.search.toLowerCase());
-        return matchCat && matchSearch;
-      });
-      $('#servicesGrid').innerHTML = filtered.map(s => serviceCard(s)).join('') || '<div class="empty-state"><i class="fas fa-search"></i><h3>Aucun résultat</h3></div>';
-    }
-
-    function serviceCard(s) {
-      const price = state.user?.type === 'B2B' ? s.priceB2B : s.priceB2C;
-      const statusLabel = s.status === 'neuf' ? 'Neuf' : s.status === 'occasion' ? 'Occasion' : s.status === 'reconditionne' ? 'Réconditionné' : '';
-      const statusClass = s.status === 'neuf' ? 'status-completed' : 'status-pending';
-      const img = s.image ? `<img src="${s.image}" class="service-img" style="object-fit:cover">` : `<div class="service-img"><i class="fas fa-shopping-bag"></i></div>`;
-      return `
-        <div class="service-card">
-          <a href="#service-detail/${s.id}" style="text-decoration:none; color:inherit; position:relative;">
-            ${img}
-            ${statusLabel ? `<span class="order-status ${statusClass}" style="position:absolute; top:12px; left:12px; font-size:0.65rem; box-shadow:0 2px 8px rgba(0,0,0,0.2)">${statusLabel}</span>` : ''}
-          </a>
-          <div class="service-body">
-            <div class="service-cat">${s.category}</div>
-            <div class="service-title" style="min-height:50px"><a href="#service-detail/${s.id}" style="text-decoration:none; color:inherit">${s.name}</a></div>
-            <div class="service-price" style="font-size:1.3rem; margin-bottom:12px">${formatPrice(price)}</div>
-            <div class="service-footer">
-              <span style="font-size:0.75rem; color:var(--text-secondary)"><i class="far fa-clock"></i> Il y a 1h</span>
-              <button class="btn btn-primary btn-sm" onclick="addToCart(${s.id})"><i class="fas fa-cart-plus"></i></button>
-            </div>
-          </div>
-        </div>`;
-    }
-
-    async function renderServiceDetail(id) {
-      const services = (await apiCall('getServices')).data || demoServices;
-      const s = services.find(x => x.id == id);
-      if (!s) { navigate('services'); return; }
-      const price = state.user?.type === 'B2B' ? s.priceB2B : s.priceB2C;
-      const img = s.image ? `<img src="${s.image}" style="width:100%; height:300px; object-fit:cover; border-radius:var(--radius)">` : `<div style="width:100%; height:300px; border-radius:var(--radius); background:linear-gradient(135deg,#1a1a2e,#0f0f1a); display:flex; align-items:center; justify-content:center; color:var(--primary); font-size:4rem"><i class="fas fa-briefcase"></i></div>`;
-      $('#serviceDetailContent').innerHTML = `
-        <div class="grid grid-2" style="align-items:start">
-          <div>${img}</div>
-          <div>
-            <div class="service-cat">${s.category}</div>
-            <h1 style="font-size:1.5rem; font-weight:700; margin-bottom:12px">${s.name}</h1>
-            <p style="color:var(--text-secondary); line-height:1.7; margin-bottom:24px">${s.description}</p>
-            <div class="service-price" style="font-size:1.5rem; margin-bottom:24px">${formatPrice(price)}</div>
-            <button class="btn btn-primary" onclick="addToCart(${s.id})"><i class="fas fa-cart-plus"></i> Ajouter au panier</button>
-            <a href="#services" class="btn btn-outline" style="margin-left:8px"><i class="fas fa-arrow-left"></i> Retour</a>
-          </div>
-        </div>`;
-    }
-
-    function renderCart() {
-      if (state.cart.length === 0) { $('#cartItems').innerHTML = '<div class="empty-state"><i class="fas fa-shopping-cart"></i><h3>Votre panier est vide</h3><p>Ajoutez des services depuis le catalogue</p></div>'; $('#cartTotal').textContent = '0 DA'; return; }
-      $('#cartItems').innerHTML = state.cart.map(item => {
-        const s = item.service;
-        const price = state.user?.type === 'B2B' ? s.priceB2B : s.priceB2C;
-        const img = s.image ? `<img src="${s.image}" class="cart-item-img" style="object-fit:cover">` : `<div class="cart-item-img"><i class="fas fa-briefcase"></i></div>`;
+      container.innerHTML = items.map(item => {
+        var cleanTel = item.TelVendeur ? item.TelVendeur.trim() : "0550000000";
         return `
-          <div class="cart-item">
-            ${img}
-            <div class="cart-item-body">
-              <div class="cart-item-title">${s.name}</div>
-              <div class="cart-item-price">${formatPrice(price * item.qty)}</div>
-              <div class="qty-control">
-                <button class="qty-btn" onclick="updateQty(${s.id}, -1)"><i class="fas fa-minus"></i></button>
-                <span class="qty-value">${item.qty}</span>
-                <button class="qty-btn" onclick="updateQty(${s.id}, 1)"><i class="fas fa-plus"></i></button>
-                <button class="qty-btn" style="margin-left:auto; color:var(--danger)" onclick="removeFromCart(${s.id})"><i class="fas fa-trash"></i></button>
+          <div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+            <div>
+              <img src="${item.Photo}" class="w-full h-44 object-cover bg-slate-100 dark:bg-slate-950" onerror="this.src='https://images.unsplash.com/photo-1555696958-c5049b866f6f?w=500'">
+              <div class="p-3.5 space-y-1">
+                <div class="flex justify-between items-center">
+                  <span class="text-[9px] bg-blue-100 dark:bg-blue-950 text-primary dark:text-blue-300 font-bold px-2 py-0.5 rounded">${item.Categorie}</span>
+                  <span class="text-xs font-bold text-emerald-500">${item.Prix} DA</span>
+                </div>
+                <h3 class="font-bold text-sm text-slate-900 dark:text-slate-100">${item.Titre}</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">${item.Description}</p>
+                <div class="text-[10px] text-slate-400 pt-1"><span>👤 Vendeur: ${item.Localisation}</span></div>
               </div>
             </div>
-          </div>`;
-      }).join('');
-      const total = state.cart.reduce((sum, item) => {
-        const price = state.user?.type === 'B2B' ? item.service.priceB2B : item.service.priceB2C;
-        return sum + price * item.qty;
-      }, 0);
-      $('#cartTotal').textContent = formatPrice(total);
-    }
-
-    async function renderOrders() {
-      const orders = (await apiCall('getOrders', { userId: state.user?.id })).data || [];
-      if (!orders.length) { $('#ordersList').innerHTML = '<div class="empty-state"><i class="fas fa-clipboard-list"></i><h3>Aucune commande</h3></div>'; return; }
-      $('#ordersList').innerHTML = orders.map(o => {
-        const statusLabels = { pending: 'En attente', processing: 'En cours', completed: 'Terminée', cancelled: 'Annulée' };
-        const statusClass = 'status-' + o.status;
-        return `
-          <div class="card order-card">
-            <div class="order-header">
-              <div>
-                <div class="order-id">${o.id}</div>
-                <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:4px">${new Date(o.date).toLocaleDateString('fr-FR')}</div>
-              </div>
-              <span class="order-status ${statusClass}">${statusLabels[o.status] || o.status}</span>
+            <div class="p-3 bg-slate-50 dark:bg-slate-900/60 border-t dark:border-slate-800 grid grid-cols-2 gap-2">
+              <a href="tel:${cleanTel}" class="bg-primary text-white rounded-lg py-2 text-center text-xs font-bold flex items-center justify-center gap-1"><i class="fa-solid fa-phone"></i> Appeler</a>
+              <a href="https://wa.me/213${cleanTel.replace(/^0/, "")}" target="_blank" class="bg-emerald-500 text-white rounded-lg py-2 text-center text-xs font-bold flex items-center justify-center gap-1"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
             </div>
-            <div class="order-items">${o.items.map(i => `${i.qty}x ${i.name}`).join('<br>')}</div>
-            <div class="order-total">${formatPrice(o.total)}</div>
-          </div>`;
+          </div>
+        `;
       }).join('');
     }
 
-    function renderProfile() {
-      if (!state.user) return;
-      $('#profileName').textContent = state.user.name;
-      $('#profileEmail').textContent = state.user.email;
-      $('#profileType').textContent = state.user.type === 'B2B' ? 'Entreprise (B2B)' : 'Particulier (B2C)';
-      $('#profileType').className = 'badge-type ' + (state.user.type === 'B2B' ? 'badge-b2b' : 'badge-b2c');
-      $('#profileAvatar').textContent = state.user.name?.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'SZ';
-      if (state.user.avatar) { $('#profileAvatar').innerHTML = `<img src="${state.user.avatar}" style="width:100%;height:100%;border-radius:50%;object-fit:cover">`; }
-      $('#editName').value = state.user.name || '';
-      $('#editPhone').value = state.user.phone || '';
-      $('#editEmail').value = state.user.email || '';
-      $('#editType').value = state.user.type === 'B2B' ? 'Entreprise (B2B)' : 'Particulier (B2C)';
-      if (state.user.avatar) { $('#avatarPreview').src = state.user.avatar; $('#avatarPreview').style.display = 'block'; }
+    function soumettreAnnonce(e) {
+      e.preventDefault();
+      if(!userSession) return;
+      const btn = document.getElementById('btn-submit');
+      btn.disabled = true; btn.innerText = "...Publication...";
+
+      google.script.run.withSuccessHandler(function(res) {
+         alert(currentLang === 'fr' ? res.message_fr : res.message_ar);
+         document.getElementById('form-annonce').reset();
+         document.getElementById('img-preview').classList.add('hidden');
+         base64ImageString = ""; btn.disabled = false;
+         loadAnnoncesFromSheets(); switchTab('home');
+      }).ajouterAnnonce(
+        document.getElementById('p-titre').value, document.getElementById('p-desc').value,
+        document.getElementById('p-prix').value, document.getElementById('p-cat').value,
+        userSession.name, base64ImageString
+      );
     }
 
-    function renderSettings() {
-      $('#themeSelect').value = state.theme;
-    }
-
-    async function renderAdmin() {
-      const users = (await apiCall('getUsers')).data || [];
-      const services = (await apiCall('getServices')).data || [];
-      const orders = (await apiCall('getOrders')).data || [];
-      const revenue = orders.reduce((s, o) => o.status !== 'cancelled' ? s + (o.total || 0) : s, 0);
-      $('#statUsers').textContent = users.length;
-      $('#statServices').textContent = services.length;
-      $('#statOrders').textContent = orders.length;
-      $('#statRevenue').textContent = formatPrice(revenue);
-
-      $('#adminServicesList').innerHTML = services.map(s => `
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--border)">
-          <div><div style="font-weight:600">${s.name}</div><div style="font-size:0.8rem; color:var(--text-secondary)">${s.category} — B2C: ${formatPrice(s.priceB2C)} / B2B: ${formatPrice(s.priceB2B)}</div></div>
-          <div style="display:flex; gap:8px">
-            <button class="btn btn-sm btn-outline" onclick="editService(${s.id})"><i class="fas fa-edit"></i></button>
-            <button class="btn btn-sm btn-danger" onclick="deleteService(${s.id})"><i class="fas fa-trash"></i></button>
-          </div>
-        </div>
-      `).join('') || '<div class="empty-state">Aucun service</div>';
-
-      $('#adminOrdersList').innerHTML = orders.slice(0, 10).map(o => {
-        const statusLabels = { pending: 'En attente', processing: 'En cours', completed: 'Terminée', cancelled: 'Annulée' };
-        return `
-        <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--border)">
-          <div><div style="font-weight:600">${o.id}</div><div style="font-size:0.8rem; color:var(--text-secondary)">${o.userEmail || 'Utilisateur'} — ${new Date(o.date).toLocaleDateString('fr-FR')}</div></div>
-          <div style="display:flex; align-items:center; gap:12px">
-            <span class="order-status status-${o.status}">${statusLabels[o.status]}</span>
-            <select onchange="updateOrderStatus('${o.id}', this.value)" style="padding:4px 8px; border-radius:6px; border:1px solid var(--border); background:var(--surface); color:var(--text); font-size:0.8rem">
-              <option value="pending" ${o.status === 'pending' ? 'selected' : ''}>En attente</option>
-              <option value="processing" ${o.status === 'processing' ? 'selected' : ''}>En cours</option>
-              <option value="completed" ${o.status === 'completed' ? 'selected' : ''}>Terminée</option>
-              <option value="cancelled" ${o.status === 'cancelled' ? 'selected' : ''}>Annulée</option>
-            </select>
-          </div>
-        </div>`;
-      }).join('') || '<div class="empty-state">Aucune commande</div>';
-    }
-
-    // ==================== ACTIONS ====================
-    async function addToCart(serviceId) {
-      const services = (await apiCall('getServices')).data || demoServices;
-      const s = services.find(x => x.id == serviceId);
-      if (!s) return;
-      const existing = state.cart.find(i => i.service.id == serviceId);
-      if (existing) existing.qty++; else state.cart.push({ service: s, qty: 1 });
-      updateCartBadge();
-      showToast('Ajouté au panier');
-    }
-
-    function updateQty(serviceId, delta) {
-      const item = state.cart.find(i => i.service.id == serviceId);
-      if (!item) return;
-      item.qty += delta;
-      if (item.qty <= 0) removeFromCart(serviceId);
-      else { renderCart(); updateCartBadge(); }
-    }
-
-    function removeFromCart(serviceId) {
-      state.cart = state.cart.filter(i => i.service.id != serviceId);
-      renderCart(); updateCartBadge();
-    }
-
-    function updateCartBadge() {
-      const total = state.cart.reduce((s, i) => s + i.qty, 0);
-      const badge = $('#headerCartBadge');
-      badge.textContent = total;
-      badge.style.display = total ? 'flex' : 'none';
-    }
-
-    async function checkout() {
-      if (!state.user) { navigate('login'); return; }
-      if (!state.cart.length) return;
-      const total = state.cart.reduce((sum, item) => {
-        const price = state.user?.type === 'B2B' ? item.service.priceB2B : item.service.priceB2C;
-        return sum + price * item.qty;
-      }, 0);
-      const order = {
-        userId: state.user.id,
-        userEmail: state.user.email,
-        items: state.cart.map(i => ({ id: i.service.id, name: i.service.name, qty: i.qty, price: state.user?.type === 'B2B' ? i.service.priceB2B : i.service.priceB2C })),
-        total: total,
-        type: state.user.type
-      };
-      const res = await apiCall('createOrder', order);
-      if (res.success) {
-        state.cart = [];
-        updateCartBadge();
-        showToast('Commande passée avec succès !');
-        navigate('orders');
-      } else showToast(res.error || 'Erreur', 'error');
-    }
-
-    async function updateOrderStatus(id, status) {
-      await apiCall('updateOrder', { id, status });
-      showToast('Statut mis à jour');
-      renderAdmin();
-    }
-
-    async function deleteService(id) {
-      if (!confirm('Supprimer ce service ?')) return;
-      await apiCall('deleteService', { id });
-      showToast('Service supprimé');
-      renderAdmin();
-    }
-
-    async function editService(id) {
-      showToast('Fonction d\'édition à implémenter dans la modale', 'warning');
-    }
-
-    // ==================== EVENTS ====================
-    $('#themeToggle').addEventListener('click', () => {
-      const themes = ['system', 'light', 'dark'];
-      state.theme = themes[(themes.indexOf(state.theme) + 1) % themes.length];
-      localStorage.setItem('sz_theme', state.theme);
-      applyTheme();
-    });
-
-    $('#themeSelect').addEventListener('change', (e) => {
-      state.theme = e.target.value;
-      localStorage.setItem('sz_theme', state.theme);
-      applyTheme();
-    });
-
-    $('#menuToggle').addEventListener('click', () => {
-      $('#sidebar').classList.toggle('open');
-    });
-
-    $$('[data-nav]').forEach(el => {
-      el.addEventListener('click', () => {
-        const nav = el.dataset.nav;
-        if (nav === 'logout') { logout(); return; }
-        navigate(nav);
-      });
-    });
-
-    $('#fabContact').addEventListener('click', () => {
-      $('#fabContact').classList.toggle('active');
-      $('#fabMenu').classList.toggle('open');
-    });
-
-    $$('.filter-chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        $$('.filter-chip').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        state.filter = chip.dataset.filter;
-        renderServices();
-      });
-    });
-
-    $('#serviceSearch').addEventListener('input', (e) => {
-      state.search = e.target.value;
-      renderServices();
-    });
-
-    $('#registerBtn').addEventListener('click', async () => {
-      const name = $('#regName').value.trim();
-      const email = $('#regEmail').value.trim();
-      const phone = $('#regPhone').value.trim();
-      const password = $('#regPassword').value;
-      const confirm = $('#regConfirm').value;
-      const type = $('#regType').value;
-      const consent = $('#regConsent').checked;
-
-      if (!name || !email || !phone || !password) { showToast('Veuillez remplir tous les champs', 'error'); return; }
-      if (password.length < 8 || !/\d/.test(password)) { showToast('Le mot de passe doit contenir 8 caractères et un chiffre', 'error'); return; }
-      if (password !== confirm) { showToast('Les mots de passe ne correspondent pas', 'error'); return; }
-      if (!consent) { showToast('Vous devez accepter les conditions d\'utilisation', 'error'); return; }
-
-      const res = await apiCall('register', { name, email, phone, password, type });
-      if (res.success) {
-        showToast('Compte créé avec succès ! Connectez-vous.');
-        navigate('login');
-      } else showToast(res.error, 'error');
-    });
-
-
-
-    $('#loginBtn').addEventListener('click', async () => {
-      const email = $('#loginEmail').value.trim();
-      const password = $('#loginPassword').value;
-      if (!email || !password) { showToast('Veuillez remplir tous les champs', 'error'); return; }
-      const res = await apiCall('login', { email, password });
-      if (res.success) {
-        state.user = res.data;
-        storage.set('session', res.data);
-        showToast('Bienvenue, ' + res.data.name + ' !');
-        initApp();
-      } else showToast(res.error, 'error');
-    });
-
-    $('#saveProfileBtn').addEventListener('click', async () => {
-      if (!state.user) return;
-      const updates = {
-        id: state.user.id,
-        name: $('#editName').value,
-        phone: $('#editPhone').value,
-        avatar: $('#avatarPreview').style.display === 'block' ? $('#avatarPreview').src : ''
-      };
-      const res = await apiCall('updateUser', updates);
-      if (res.success) {
-        state.user = { ...state.user, ...updates };
-        storage.set('session', state.user);
-        showToast('Profil mis à jour');
-        renderProfile();
-      }
-    });
-
-    $('#avatarUpload').addEventListener('click', () => $('#avatarInput').click());
-    $('#avatarInput').addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => { 
-        compressImage(ev.target.result, 400).then(compressed => {
-          $('#avatarPreview').src = compressed; 
-          $('#avatarPreview').style.display = 'block'; 
-        });
-      };
-      reader.readAsDataURL(file);
-    });
-
-    $('#newArticleImgInput').addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => { 
-        compressImage(ev.target.result, 800).then(compressed => {
-          $('#newArticleImgPreview').src = compressed; 
-          $('#newArticleImgPreview').style.display = 'block'; 
-          $('#newServiceImg').value = compressed;
-        });
-      };
-      reader.readAsDataURL(file);
-    });
-
-    function compressImage(base64, maxWidth) {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.src = base64;
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          let width = img.width;
-          let height = img.height;
-          if (width > maxWidth) {
-            height = (maxWidth / width) * height;
-            width = maxWidth;
-          }
-          canvas.width = width;
-          canvas.height = height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, width, height);
-          resolve(canvas.toDataURL('image/jpeg', 0.7));
-        };
-      });
-    }
-
-    $('#checkoutBtn').addEventListener('click', checkout);
-
-    $('#addServiceBtn').addEventListener('click', () => $('#modalAddService').classList.add('active'));
-    $('#confirmAddService').addEventListener('click', async () => {
-      const s = {
-        name: $('#newServiceName').value,
-        priceB2C: parseInt($('#newServicePriceB2C').value) || 0,
-        priceB2B: parseInt($('#newServicePriceB2B').value) || 0,
-        category: $('#newServiceCat').value,
-        description: $('#newServiceDesc').value,
-        image: $('#newServiceImg').value,
-        status: $('#newArticleStatus').value
-      };
-      if (!s.name) { showToast('Titre requis', 'error'); return; }
-      const res = await apiCall('createService', s);
-      if (res.success) {
-        showToast('Annonce publiée avec succès');
-        $('#modalAddService').classList.remove('active');
-        $$('#modalAddService input, #modalAddService textarea').forEach(i => i.value = '');
-        $('#newArticleImgPreview').style.display = 'none';
-        renderAdmin();
-        renderHome();
+    function checkUserAuth() {
+      const blockPanel = document.getElementById('publish-blocked');
+      const formPanel = document.getElementById('publish-allowed');
+      if(userSession) {
+        document.getElementById('profile-unauth').classList.add('hidden');
+        document.getElementById('profile-auth').classList.remove('hidden');
+        document.getElementById('user-display-name').innerText = userSession.name;
+        document.getElementById('user-display-type').innerText = userSession.type;
+        blockPanel.classList.add('hidden'); formPanel.classList.remove('hidden');
       } else {
-        showToast(res.error, 'error');
+        document.getElementById('profile-unauth').classList.remove('hidden');
+        document.getElementById('profile-auth').classList.add('hidden');
+        blockPanel.classList.remove('hidden'); formPanel.classList.add('hidden');
       }
-    });
-
-    $('#changePasswordBtn').addEventListener('click', () => $('#modalPassword').classList.add('active'));
-    $('#confirmPasswordBtn').addEventListener('click', () => {
-      const oldP = $('#oldPassword').value;
-      const newP = $('#newPassword').value;
-      const conf = $('#confirmPassword').value;
-      if (!oldP || !newP) { showToast('Remplissez tous les champs', 'error'); return; }
-      if (newP !== conf) { showToast('Les mots de passe ne correspondent pas', 'error'); return; }
-      if (oldP !== state.user.password) { showToast('Ancien mot de passe incorrect', 'error'); return; }
-      state.user.password = newP;
-      let users = storage.get('users') || [];
-      const u = users.find(x => x.id === state.user.id);
-      if (u) u.password = newP;
-      storage.set('users', users);
-      storage.set('session', state.user);
-      showToast('Mot de passe changé');
-      $('#modalPassword').classList.remove('active');
-      $$('#modalPassword input').forEach(i => i.value = '');
-    });
-
-    $$('[data-close]').forEach(btn => btn.addEventListener('click', () => btn.closest('.modal-overlay').classList.remove('active')));
-    $$('.modal-overlay').forEach(m => m.addEventListener('click', (e) => { if (e.target === m) m.classList.remove('active'); }));
-
-    // ==================== INIT ====================
-    function logout() {
-      state.user = null;
-      state.cart = [];
-      storage.del('session');
-      updateCartBadge();
-      navigate('login');
-      showToast('Déconnecté');
     }
 
-    function initApp() {
-      const session = storage.get('session');
-      if (session) {
-        state.user = session;
-        // Inject admin link if admin
-        if (state.user.isAdmin) {
-          if (!$('[data-nav="admin"]')) {
-            $('#sidebar').insertBefore(document.createElement('div'), $('#sidebar').lastElementChild);
-            const btn = document.createElement('button');
-            btn.className = 'sidebar-link'; btn.dataset.nav = 'admin';
-            btn.innerHTML = '<i class="fas fa-shield-alt"></i> Administration';
-            btn.addEventListener('click', () => navigate('admin'));
-            $('#sidebar').insertBefore(btn, $('[data-nav="logout"]'));
-          }
+    function enregistrerCompte(e) {
+      e.preventDefault();
+      google.script.run.withSuccessHandler(function(res) {
+        if(res.status === "success") {
+          userSession = res;
+          localStorage.setItem('sog_user', JSON.stringify(res));
+          checkUserAuth();
+        } else {
+          alert(res.message_fr);
         }
-        navigate('home');
-      } else {
-        navigate('login');
-      }
-      updateCartBadge();
+      }).creerCompte(
+        document.getElementById('reg-name').value, document.getElementById('reg-email').value,
+        document.getElementById('reg-tel').value, document.getElementById('reg-wilaya').value,
+        document.getElementById('reg-type').value, document.getElementById('reg-cnrc').value || "N/A",
+        document.getElementById('reg-mdp').value
+      );
     }
 
-    // Init contacts
-    $('#fabWhatsApp').href = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}`;
-    $('#fabPhone').href = `tel:${CONFIG.PHONE_NUMBER}`;
+    function connexionCompte(e) {
+      e.preventDefault();
+      google.script.run.withSuccessHandler(function(res) {
+        if(res.status === "success") {
+          userSession = res;
+          localStorage.setItem('sog_user', JSON.stringify(res));
+          checkUserAuth();
+          switchTab('home');
+        } else {
+          alert(currentLang === 'fr' ? res.message_fr : res.message_ar);
+        }
+      }).connecterCompte(document.getElementById('log-email').value, document.getElementById('log-mdp').value);
+    }
 
-    applyTheme();
-    setTimeout(() => { $('#loader').classList.add('hidden'); initApp(); }, 1200);
+    function logout() { localStorage.removeItem('sog_user'); userSession = null; checkUserAuth(); }
+
+    function executeSearch() {
+      let query = document.getElementById('search-input').value.toLowerCase();
+      let results = globalAnnonces.filter(a => a.Titre.toLowerCase().includes(query) || a.Description.toLowerCase().includes(query));
+      document.getElementById('search-results').innerHTML = results.map(item => `
+        <div class="flex bg-white dark:bg-slate-900 p-2 border dark:border-slate-800 rounded-xl gap-3 items-center text-xs">
+          <img src="${item.Photo}" class="w-12 h-12 object-cover rounded-lg">
+          <div><h4 class="font-bold">${item.Titre}</h4><p class="text-emerald-500 font-bold">${item.Prix} DA</p></div>
+        </div>
+      `).join('');
+    }
+
+    function loadChatMessages() {
+      google.script.run.withSuccessHandler(function(msgs) {
+        document.getElementById('chat-messages').innerHTML = msgs.map(m => `
+          <div class="flex flex-col ${m.sender === 'Moi' ? 'items-end' : 'items-start'}">
+            <div class="p-2.5 rounded-2xl text-xs max-w-[80%] ${m.sender === 'Moi' ? 'bg-primary text-white rounded-tr-none' : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-tl-none'}">
+              ${m.text}
+            </div>
+          </div>
+        `).join('');
+      }).getMessages();
+    }
+
+    function postChatMessage() {
+      const input = document.getElementById('chat-input');
+      if(input.value.trim() === "") return;
+      google.script.run.withSuccessHandler(function() { input.value = ""; loadChatMessages(); }).envoyerMessage(userSession ? userSession.name : 'Visiteur', input.value);
+    }
   </script>
 </body>
-
 </html>
