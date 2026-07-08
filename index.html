@@ -20,6 +20,45 @@
             --radius: 8px;
         }
 
+        /* Dark mode */
+        body.dark-mode {
+            --bg: #1a1a2e;
+            --card-bg: #16213e;
+            --text: #ecf0f1;
+            --text-light: #bdc3c7;
+            --border: #2c3e50;
+            --shadow: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-hover: 0 8px 25px rgba(0,0,0,0.5);
+        }
+
+        body.dark-mode .header {
+            background: #16213e;
+            border-bottom-color: #2c3e50;
+        }
+
+        body.dark-mode .filter-card,
+        body.dark-mode .annonce-card {
+            background: #16213e;
+        }
+
+        body.dark-mode .btn-action {
+            background: #16213e;
+            color: #ecf0f1;
+            border-color: #2c3e50;
+        }
+
+        body.dark-mode .page-btn {
+            background: #16213e;
+            color: #ecf0f1;
+        }
+
+        body.dark-mode .filter-input,
+        body.dark-mode .filter-select {
+            background: #1a1a2e;
+            color: #ecf0f1;
+            border-color: #2c3e50;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -31,15 +70,17 @@
             background: var(--bg);
             color: var(--text);
             line-height: 1.5;
+            transition: all 0.3s ease;
         }
 
-        /* HEADER - Style Ouedkniss */
+        /* HEADER */
         .header {
             background: white;
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 1000;
+            transition: all 0.3s ease;
         }
 
         .header-top {
@@ -49,6 +90,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .logo {
@@ -57,6 +100,7 @@
             gap: 10px;
             text-decoration: none;
             color: var(--primary);
+            cursor: pointer;
         }
 
         .logo-img {
@@ -89,6 +133,7 @@
             display: flex;
             gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -127,6 +172,28 @@
             color: white;
         }
 
+        .btn-theme, .btn-lang {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text);
+            padding: 8px 12px;
+            font-size: 1.2rem;
+        }
+
+        .btn-admin {
+            background: #e74c3c;
+            color: white;
+            display: none;
+        }
+
+        .user-info {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+            font-weight: 600;
+        }
+
         /* NAVIGATION */
         .nav {
             background: var(--primary);
@@ -150,6 +217,7 @@
             font-weight: 500;
             transition: all 0.2s;
             border-bottom: 3px solid transparent;
+            cursor: pointer;
         }
 
         .nav-link:hover, .nav-link.active {
@@ -175,11 +243,12 @@
         }
 
         .filter-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: var(--radius);
             padding: 20px;
             box-shadow: var(--shadow);
             margin-bottom: 15px;
+            transition: all 0.3s ease;
         }
 
         .filter-card h3 {
@@ -210,6 +279,8 @@
             font-size: 0.9rem;
             transition: all 0.2s;
             font-family: inherit;
+            background: var(--card-bg);
+            color: var(--text);
         }
 
         .filter-input:focus, .filter-select:focus {
@@ -233,6 +304,7 @@
             gap: 8px;
             margin: 5px 0;
             font-size: 0.9rem;
+            color: var(--text);
         }
 
         .btn-filter {
@@ -247,14 +319,18 @@
             margin-top: 10px;
         }
 
-        /* ANNONCES GRID - Style Ouedkniss */
+        .btn-filter:hover {
+            background: #2471a3;
+        }
+
+        /* ANNONCES GRID */
         .annonces-grid {
             display: grid;
             gap: 15px;
         }
 
         .annonce-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
@@ -431,13 +507,14 @@
             padding: 6px 15px;
             border: 1px solid var(--border);
             border-radius: 5px;
-            background: white;
+            background: var(--card-bg);
             cursor: pointer;
             font-size: 0.8rem;
             transition: all 0.2s;
             display: flex;
             align-items: center;
             gap: 4px;
+            color: var(--text);
         }
 
         .btn-action:hover {
@@ -445,54 +522,158 @@
             border-color: var(--primary);
         }
 
-        /* LIST VIEW */
-        .view-toggle {
+        /* MODALS */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
             display: flex;
-            gap: 5px;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        .form-group {
             margin-bottom: 15px;
         }
 
-        .view-btn {
-            padding: 8px 15px;
-            border: 1px solid var(--border);
-            background: white;
-            cursor: pointer;
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--border);
             border-radius: 5px;
-            font-size: 0.9rem;
-            transition: all 0.2s;
+            font-family: inherit;
+            background: var(--card-bg);
+            color: var(--text);
         }
 
-        .view-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
         }
 
-        /* PAGINATION */
-        .pagination {
+        .form-actions {
             display: flex;
-            justify-content: center;
-            gap: 5px;
+            gap: 10px;
             margin-top: 20px;
         }
 
-        .page-btn {
-            padding: 8px 15px;
-            border: 1px solid var(--border);
+        .form-actions button {
+            flex: 1;
+        }
+
+        /* NOTIFICATION */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
             background: white;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.2s;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+            max-width: 350px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .page-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
+        .notification.success {
+            border-left: 4px solid #27ae60;
         }
 
-        .page-btn:hover {
-            background: #f8f9fa;
+        .notification.error {
+            border-left: 4px solid #e74c3c;
+        }
+
+        .notification.info {
+            border-left: 4px solid #3498db;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* RTL Support */
+        body.rtl {
+            direction: rtl;
+        }
+
+        body.rtl .annonce-badges {
+            left: auto;
+            right: 10px;
+        }
+
+        body.rtl .annonce-favorite {
+            right: auto;
+            left: 10px;
+        }
+
+        body.rtl .annonce-price {
+            margin-left: 0;
+            margin-right: 15px;
         }
 
         /* RESPONSIVE */
@@ -503,6 +684,9 @@
             .sidebar {
                 position: static;
                 display: none;
+            }
+            .sidebar.mobile-visible {
+                display: block;
             }
             .annonce-card {
                 grid-template-columns: 1fr;
@@ -529,22 +713,6 @@
                 margin-top: 5px;
             }
         }
-
-        /* ANIMATIONS */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .annonce-card {
-            animation: fadeInUp 0.5s ease forwards;
-        }
     </style>
 </head>
 <body>
@@ -552,28 +720,45 @@
     <!-- HEADER -->
     <header class="header">
         <div class="header-top">
-            <a href="#" class="logo">
+            <a class="logo" onclick="location.reload()">
                 <div class="logo-img">SZ</div>
                 <div class="logo-text">
-                    <h1>SOGE ZABANA</h1>
-                    <small>Pôle Urbain Ahmed Zabana - Misserghine</small>
+                    <h1 data-i18n="appName">SOGE ZABANA</h1>
+                    <small data-i18n="subtitle">Pôle Urbain Ahmed Zabana - Misserghine</small>
                 </div>
             </a>
             <div class="header-actions">
-                <button class="btn btn-outline">👤 Connexion</button>
-                <button class="btn btn-primary">+ Déposer une annonce</button>
+                <button class="btn btn-lang" onclick="toggleLanguage()" title="Changer la langue">
+                    <span data-i18n="langBtn">عربي</span>
+                </button>
+                <button class="btn btn-theme" onclick="toggleTheme()" title="Mode sombre/clair">
+                    <span id="themeIcon">🌙</span>
+                </button>
+                <button class="btn btn-outline" id="loginBtn" onclick="openModal('loginModal')">
+                    👤 <span data-i18n="login">Connexion</span>
+                </button>
+                <button class="btn btn-admin" id="adminBtn" onclick="openModal('adminModal')">
+                    ⚙️ <span data-i18n="admin">Admin</span>
+                </button>
+                <div class="user-info" id="userInfo">
+                    <span id="userName"></span>
+                    <button class="btn btn-outline" onclick="logout()" style="padding:5px 10px;font-size:0.8rem;">🚪</button>
+                </div>
+                <button class="btn btn-primary" onclick="openModal('adModal')">
+                    + <span data-i18n="postAd">Déposer une annonce</span>
+                </button>
             </div>
         </div>
         <nav class="nav">
-            <div class="nav-container">
-                <a href="#" class="nav-link active">🏠 Toutes les annonces</a>
-                <a href="#" class="nav-link">🏢 Immobilier</a>
-                <a href="#" class="nav-link">🚗 Véhicules</a>
-                <a href="#" class="nav-link">🔧 Services</a>
-                <a href="#" class="nav-link">💼 Emploi</a>
-                <a href="#" class="nav-link">🏪 Commerces</a>
-                <a href="#" class="nav-link">📱 Téléphones</a>
-                <a href="#" class="nav-link">🏠 Électroménager</a>
+            <div class="nav-container" id="navContainer">
+                <a class="nav-link active" onclick="filterByCategory('all')" data-i18n="allAds">🏠 Toutes les annonces</a>
+                <a class="nav-link" onclick="filterByCategory('immobilier')">🏢 Immobilier</a>
+                <a class="nav-link" onclick="filterByCategory('vehicules')">🚗 Véhicules</a>
+                <a class="nav-link" onclick="filterByCategory('services')">🔧 Services</a>
+                <a class="nav-link" onclick="filterByCategory('emploi')">💼 Emploi</a>
+                <a class="nav-link" onclick="filterByCategory('commerces')">🏪 Commerces</a>
+                <a class="nav-link" onclick="filterByCategory('telephones')">📱 Téléphones</a>
+                <a class="nav-link" onclick="filterByCategory('electromenager')">🏠 Électroménager</a>
             </div>
         </nav>
     </header>
@@ -582,319 +767,734 @@
     <div class="main-content">
         
         <!-- SIDEBAR -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="filter-card">
-                <h3>🔍 Filtrer les annonces</h3>
+                <h3 data-i18n="filters">🔍 Filtrer les annonces</h3>
                 
                 <div class="filter-group">
-                    <label class="filter-label">Catégorie</label>
-                    <select class="filter-select">
-                        <option>Toutes les catégories</option>
-                        <option>Immobilier</option>
-                        <option>Véhicules</option>
-                        <option>Services</option>
-                        <option>Emploi</option>
-                        <option>Commerces</option>
+                    <label class="filter-label" data-i18n="category">Catégorie</label>
+                    <select class="filter-select" id="filterCategory" onchange="applyFilters()">
+                        <option value="all">Toutes les catégories</option>
+                        <option value="immobilier">Immobilier</option>
+                        <option value="vehicules">Véhicules</option>
+                        <option value="services">Services</option>
+                        <option value="emploi">Emploi</option>
+                        <option value="commerces">Commerces</option>
+                        <option value="telephones">Téléphones</option>
+                        <option value="electromenager">Électroménager</option>
                     </select>
                 </div>
 
                 <div class="filter-group">
-                    <label class="filter-label">Wilaya</label>
-                    <select class="filter-select">
-                        <option>Oran</option>
-                        <option>Alger</option>
-                        <option>Constantine</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label class="filter-label">Prix (DZD)</label>
+                    <label class="filter-label" data-i18n="price">Prix (DZD)</label>
                     <div class="price-range">
-                        <input type="number" class="filter-input" placeholder="Min">
-                        <input type="number" class="filter-input" placeholder="Max">
+                        <input type="number" class="filter-input" placeholder="Min" id="filterPriceMin" onchange="applyFilters()">
+                        <input type="number" class="filter-input" placeholder="Max" id="filterPriceMax" onchange="applyFilters()">
                     </div>
                 </div>
 
                 <div class="filter-group">
-                    <label class="filter-label">Quartier</label>
-                    <select class="filter-select">
-                        <option>Tous les quartiers</option>
-                        <option>Quartier Centre</option>
-                        <option>Quartier Nord</option>
-                        <option>Quartier Sud</option>
-                        <option>Quartier Est</option>
+                    <label class="filter-label" data-i18n="district">Quartier</label>
+                    <select class="filter-select" id="filterDistrict" onchange="applyFilters()">
+                        <option value="all">Tous les quartiers</option>
+                        <option value="Centre">Quartier Centre</option>
+                        <option value="Nord">Quartier Nord</option>
+                        <option value="Sud">Quartier Sud</option>
+                        <option value="Est">Quartier Est</option>
                     </select>
                 </div>
 
                 <div class="filter-group">
                     <label class="filter-checkbox">
-                        <input type="checkbox"> Uniquement les annonces urgentes
-                    </label>
-                    <label class="filter-checkbox">
-                        <input type="checkbox"> Avec photos uniquement
-                    </label>
-                    <label class="filter-checkbox">
-                        <input type="checkbox"> Prix négociable
+                        <input type="checkbox" id="filterUrgent" onchange="applyFilters()">
+                        <span data-i18n="urgentOnly">Uniquement les annonces urgentes</span>
                     </label>
                 </div>
 
-                <button class="btn-filter">Appliquer les filtres</button>
-            </div>
-
-            <div class="filter-card">
-                <h3>📊 Statistiques</h3>
-                <div style="text-align:center; padding:10px;">
-                    <div style="font-size:2rem; font-weight:700; color:var(--primary);">1,247</div>
-                    <div style="color:var(--text-light);">Annonces en ligne</div>
-                </div>
+                <button class="btn-filter" onclick="resetFilters()" data-i18n="resetFilters">
+                    Réinitialiser les filtres
+                </button>
             </div>
         </aside>
 
         <!-- ANNONCES LIST -->
         <div class="annonces-list">
-            
-            <!-- VIEW TOGGLE -->
-            <div class="view-toggle">
-                <button class="view-btn active">📋 Liste</button>
-                <button class="view-btn">🔲 Grille</button>
-                <span style="margin-left:auto; color:var(--text-light);">
-                    <strong>12</strong> annonces trouvées
-                </span>
+            <div style="margin-bottom:15px; color:var(--text-light);" id="resultsCount">
+                <strong>12</strong> <span data-i18n="adsFound">annonces trouvées</span>
             </div>
 
             <!-- ANNONCES GRID -->
             <div class="annonces-grid" id="annoncesGrid">
                 <!-- Les annonces seront générées par JavaScript -->
             </div>
+        </div>
+    </div>
 
-            <!-- PAGINATION -->
-            <div class="pagination">
-                <button class="page-btn">← Précédent</button>
-                <button class="page-btn active">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <button class="page-btn">4</button>
-                <button class="page-btn">5</button>
-                <button class="page-btn">Suivant →</button>
+    <!-- MODAL: Déposer une annonce -->
+    <div class="modal" id="adModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-i18n="postAd">📝 Déposer une annonce</h2>
+                <button class="modal-close" onclick="closeModal('adModal')">✕</button>
+            </div>
+            <form id="adForm" onsubmit="submitAd(event)">
+                <div class="form-group">
+                    <label data-i18n="title">Titre de l'annonce *</label>
+                    <input type="text" id="adTitle" required placeholder="Ex: Appartement F3 à vendre">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="category">Catégorie *</label>
+                    <select id="adCategory" required>
+                        <option value="">Sélectionnez une catégorie</option>
+                        <option value="immobilier">Immobilier</option>
+                        <option value="vehicules">Véhicules</option>
+                        <option value="services">Services</option>
+                        <option value="emploi">Emploi</option>
+                        <option value="commerces">Commerces</option>
+                        <option value="telephones">Téléphones</option>
+                        <option value="electromenager">Électroménager</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="description">Description *</label>
+                    <textarea id="adDescription" required placeholder="Décrivez votre annonce en détail..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="price">Prix (DZD) *</label>
+                    <input type="number" id="adPrice" required placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="district">Quartier *</label>
+                    <select id="adDistrict" required>
+                        <option value="">Sélectionnez un quartier</option>
+                        <option>Quartier Centre</option>
+                        <option>Quartier Nord</option>
+                        <option>Quartier Sud</option>
+                        <option>Quartier Est</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="phone">Téléphone *</label>
+                    <input type="tel" id="adPhone" required placeholder="0550 XX XX XX">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="adUrgent">
+                        <span data-i18n="urgent">Annonce urgente</span>
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" data-i18n="publish">Publier l'annonce</button>
+                    <button type="button" class="btn btn-outline" onclick="closeModal('adModal')" data-i18n="cancel">Annuler</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Connexion -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-i18n="login">👤 Connexion</h2>
+                <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+            </div>
+            <form onsubmit="login(event)">
+                <div class="form-group">
+                    <label data-i18n="email">Email</label>
+                    <input type="email" id="loginEmail" required placeholder="votre@email.com">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="password">Mot de passe</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" data-i18n="connect">Se connecter</button>
+                </div>
+                <p style="text-align:center;margin-top:15px;font-size:0.9rem;color:var(--text-light);">
+                    <span data-i18n="noAccount">Pas de compte ?</span> 
+                    <a href="#" onclick="closeModal('loginModal');openModal('registerModal')" style="color:var(--primary);" data-i18n="register">S'inscrire</a>
+                </p>
+                <p style="text-align:center;font-size:0.8rem;color:#999;margin-top:10px;">
+                    Admin: admin@sogezabana.dz / admin123
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Inscription -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-i18n="register">📝 Inscription</h2>
+                <button class="modal-close" onclick="closeModal('registerModal')">✕</button>
+            </div>
+            <form onsubmit="register(event)">
+                <div class="form-group">
+                    <label data-i18n="fullName">Nom complet *</label>
+                    <input type="text" id="regName" required>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="email">Email *</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="password">Mot de passe *</label>
+                    <input type="password" id="regPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="phone">Téléphone</label>
+                    <input type="tel" id="regPhone">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" data-i18n="register">S'inscrire</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Admin -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content" style="max-width:700px;">
+            <div class="modal-header">
+                <h2>⚙️ Administration</h2>
+                <button class="modal-close" onclick="closeModal('adminModal')">✕</button>
+            </div>
+            <div id="adminContent">
+                <h3>Gestion des annonces</h3>
+                <div id="adminAnnoncesList" style="max-height:400px;overflow-y:auto;"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // Données des annonces avec images réelles (Unsplash - gratuites)
-        const annonces = [
+        // ============================================
+        // APPLICATION PRINCIPALE
+        // ============================================
+
+        // État de l'application
+        let appState = {
+            currentLanguage: 'fr',
+            darkMode: false,
+            currentUser: null,
+            currentFilter: 'all',
+            favorites: JSON.parse(localStorage.getItem('favorites') || '[]')
+        };
+
+        // Base de données des utilisateurs
+        let users = JSON.parse(localStorage.getItem('users') || '[]');
+        
+        // Admin par défaut
+        const ADMIN = {
+            email: 'admin@sogezabana.dz',
+            password: 'admin123',
+            name: 'Administrateur',
+            isAdmin: true
+        };
+
+        // Ajouter l'admin si pas présent
+        if (!users.find(u => u.email === ADMIN.email)) {
+            users.push(ADMIN);
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        // Traductions
+        const translations = {
+            fr: {
+                appName: 'SOGE ZABANA',
+                subtitle: 'Pôle Urbain Ahmed Zabana - Misserghine',
+                langBtn: 'عربي',
+                login: 'Connexion',
+                admin: 'Admin',
+                postAd: 'Déposer une annonce',
+                allAds: '🏠 Toutes les annonces',
+                filters: '🔍 Filtrer les annonces',
+                category: 'Catégorie',
+                price: 'Prix (DZD)',
+                district: 'Quartier',
+                urgentOnly: 'Uniquement les annonces urgentes',
+                resetFilters: 'Réinitialiser les filtres',
+                adsFound: 'annonces trouvées',
+                title: 'Titre de l\'annonce',
+                description: 'Description',
+                phone: 'Téléphone',
+                urgent: 'Annonce urgente',
+                publish: 'Publier l\'annonce',
+                cancel: 'Annuler',
+                email: 'Email',
+                password: 'Mot de passe',
+                connect: 'Se connecter',
+                noAccount: 'Pas de compte ?',
+                register: 'S\'inscrire',
+                fullName: 'Nom complet',
+                welcome: 'Bienvenue',
+                logout: 'Déconnexion',
+                adPublished: 'Annonce publiée avec succès !',
+                loginSuccess: 'Connexion réussie !',
+                registerSuccess: 'Inscription réussie !',
+                adminAccess: 'Accès administrateur',
+                favoriteAdded: 'Ajouté aux favoris',
+                favoriteRemoved: 'Retiré des favoris',
+                themeChanged: 'Thème changé',
+                langChanged: 'Langue changée'
+            },
+            ar: {
+                appName: 'سوق زبانة',
+                subtitle: 'القطب الحضري أحمد زبانة - مسرغين',
+                langBtn: 'FR',
+                login: 'تسجيل الدخول',
+                admin: 'المشرف',
+                postAd: 'نشر إعلان',
+                allAds: '🏠 جميع الإعلانات',
+                filters: '🔍 تصفية الإعلانات',
+                category: 'الفئة',
+                price: 'السعر (دج)',
+                district: 'الحي',
+                urgentOnly: 'الإعلانات العاجلة فقط',
+                resetFilters: 'إعادة تعيين',
+                adsFound: 'إعلان موجود',
+                title: 'عنوان الإعلان',
+                description: 'الوصف',
+                phone: 'الهاتف',
+                urgent: 'إعلان عاجل',
+                publish: 'نشر الإعلان',
+                cancel: 'إلغاء',
+                email: 'البريد الإلكتروني',
+                password: 'كلمة المرور',
+                connect: 'تسجيل الدخول',
+                noAccount: 'ليس لديك حساب؟',
+                register: 'التسجيل',
+                fullName: 'الاسم الكامل',
+                welcome: 'مرحباً',
+                logout: 'تسجيل الخروج',
+                adPublished: 'تم نشر الإعلان بنجاح!',
+                loginSuccess: 'تم تسجيل الدخول بنجاح!',
+                registerSuccess: 'تم التسجيل بنجاح!',
+                adminAccess: 'وصول المشرف',
+                favoriteAdded: 'تمت الإضافة إلى المفضلة',
+                favoriteRemoved: 'تمت الإزالة من المفضلة',
+                themeChanged: 'تم تغيير السمة',
+                langChanged: 'تم تغيير اللغة'
+            }
+        };
+
+        // Données des annonces
+        const allAnnonces = [
             {
                 id: 1,
                 title: "Appartement F3 Neuf - Quartier Centre",
-                category: "Immobilier",
-                price: "8,500,000",
-                description: "Magnifique appartement F3 de 90m², bien ensoleillé, proche de toutes commodités. Cuisine équipée, climatisation, parking. Idéal pour famille.",
-                location: "Quartier Centre, Misserghine",
+                category: "immobilier",
+                price: 8500000,
+                description: "Magnifique appartement F3 de 90m², bien ensoleillé, proche de toutes commodités.",
+                location: "Quartier Centre",
                 date: "Aujourd'hui, 14:30",
                 phone: "0550 12 34 56",
                 surface: "90 m²",
                 pieces: 3,
                 urgent: true,
-                images: [
-                    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&h=400&fit=crop"
-                ]
+                images: ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop"]
             },
             {
                 id: 2,
                 title: "Toyota Corolla 2023 - 15,000 km",
-                category: "Véhicules",
-                price: "2,800,000",
-                description: "Véhicule en excellent état, première main, faible kilométrage. Couleur blanche, climatisation automatique, GPS, caméra de recul.",
-                location: "Quartier Nord, Misserghine",
+                category: "vehicules",
+                price: 2800000,
+                description: "Véhicule en excellent état, première main, faible kilométrage.",
+                location: "Quartier Nord",
                 date: "Hier, 10:15",
                 phone: "0550 78 94 56",
                 surface: null,
                 pieces: null,
                 urgent: false,
-                images: [
-                    "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1550355291-bbee04a92027?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop"
-                ]
+                images: ["https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&h=400&fit=crop"]
             },
             {
                 id: 3,
                 title: "Villa F5 avec Jardin - Vue sur Mer",
-                category: "Immobilier",
-                price: "15,000,000",
-                description: "Superbe villa de 250m² avec jardin paysager, piscine, garage double. Vue panoramique sur la mer. Quartier résidentiel calme.",
-                location: "Quartier Sud, Misserghine",
+                category: "immobilier",
+                price: 15000000,
+                description: "Superbe villa de 250m² avec jardin paysager, piscine, garage double.",
+                location: "Quartier Sud",
                 date: "Il y a 2 jours",
                 phone: "0550 45 67 89",
                 surface: "250 m²",
                 pieces: 5,
                 urgent: true,
-                images: [
-                    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1560184897-ae75f418493e?w=600&h=400&fit=crop"
-                ]
+                images: ["https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop"]
             },
             {
                 id: 4,
                 title: "iPhone 15 Pro Max - 256Go",
-                category: "Téléphones",
-                price: "180,000",
-                description: "iPhone 15 Pro Max noir titane, 256Go, état comme neuf, facture d'achat disponible. Sous garantie jusqu'en décembre 2025.",
-                location: "Quartier Est, Misserghine",
+                category: "telephones",
+                price: 180000,
+                description: "iPhone 15 Pro Max noir titane, 256Go, état comme neuf.",
+                location: "Quartier Est",
                 date: "Il y a 3 jours",
                 phone: "0550 32 16 54",
                 surface: null,
                 pieces: null,
                 urgent: false,
-                images: [
-                    "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&h=400&fit=crop"
-                ]
+                images: ["https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&h=400&fit=crop"]
             },
             {
                 id: 5,
-                title: "Local Commercial 120m² - Emplacement Premium",
-                category: "Commerces",
-                price: "12,000,000",
-                description: "Local commercial idéalement situé sur avenue principale. Grande vitrine, bon passage, surface adaptée à tout type de commerce.",
-                location: "Quartier Centre, Misserghine",
+                title: "Local Commercial 120m²",
+                category: "commerces",
+                price: 12000000,
+                description: "Local commercial idéalement situé sur avenue principale.",
+                location: "Quartier Centre",
                 date: "Il y a 4 jours",
                 phone: "0550 98 76 54",
                 surface: "120 m²",
                 pieces: 1,
                 urgent: false,
-                images: [
-                    "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop"
-                ]
+                images: ["https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&h=400&fit=crop"]
             },
             {
                 id: 6,
                 title: "Renault Symbol 2022 - Diesel",
-                category: "Véhicules",
-                price: "1,950,000",
-                description: "Renault Symbol diesel, excellent état, 35000km. Économique et fiable. Idéal pour famille ou usage professionnel.",
-                location: "Quartier Nord, Misserghine",
+                category: "vehicules",
+                price: 1950000,
+                description: "Renault Symbol diesel, excellent état, 35000km.",
+                location: "Quartier Nord",
                 date: "Il y a 5 jours",
                 phone: "0550 11 22 33",
                 surface: null,
                 pieces: null,
                 urgent: false,
-                images: [
-                    "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=600&h=400&fit=crop"
-                ]
+                images: ["https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop"]
             },
             {
                 id: 7,
                 title: "Service Plomberie Professionnel 24/7",
-                category: "Services",
-                price: "5,000",
-                description: "Plombier expérimenté, intervention rapide sur tout type de problème. Devis gratuit, garantie sur travaux. Disponible 24h/24 et 7j/7.",
-                location: "Misserghine et environs",
+                category: "services",
+                price: 5000,
+                description: "Plombier expérimenté, intervention rapide. Devis gratuit.",
+                location: "Misserghine",
                 date: "Il y a 6 jours",
                 phone: "0550 44 55 66",
                 surface: null,
                 pieces: null,
                 urgent: false,
-                images: [
-                    "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=600&h=400&fit=crop"
-                ]
+                images: ["https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=400&fit=crop"]
             },
             {
                 id: 8,
                 title: "Comptable Senior - CDI",
-                category: "Emploi",
-                price: "45,000",
-                description: "Entreprise recherche comptable senior avec 5 ans d'expérience minimum. Maîtrise du SCF obligatoire. Salaire motivant + avantages.",
+                category: "emploi",
+                price: 45000,
+                description: "Entreprise recherche comptable senior avec 5 ans d'expérience.",
                 location: "Zone d'activité, Misserghine",
                 date: "Il y a 1 semaine",
                 phone: "0550 77 88 99",
                 surface: null,
                 pieces: null,
                 urgent: true,
-                images: [
-                    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop"
-                ]
+                images: ["https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop"]
             },
             {
                 id: 9,
                 title: "Terrain à Bâtir - 500m²",
-                category: "Immobilier",
-                price: "6,500,000",
-                description: "Terrain constructible de 500m², viabilisé, titre foncier disponible. Idéal pour construction villa. Proximité commodités.",
-                location: "Quartier Est, Misserghine",
+                category: "immobilier",
+                price: 6500000,
+                description: "Terrain constructible de 500m², viabilisé, titre foncier disponible.",
+                location: "Quartier Est",
                 date: "Il y a 1 semaine",
                 phone: "0550 12 98 76",
                 surface: "500 m²",
                 pieces: null,
                 urgent: false,
-                images: [
-                    "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1448630360428-65456859c650?w=600&h=400&fit=crop"
-                ]
+                images: ["https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=400&fit=crop"]
             },
             {
                 id: 10,
                 title: "Climatiseur Split Samsung - Neuf",
-                category: "Électroménager",
-                price: "85,000",
-                description: "Climatiseur split Samsung 12000 BTU, neuf dans emballage. Garantie 2 ans. Installation possible.",
-                location: "Quartier Centre, Misserghine",
+                category: "electromenager",
+                price: 85000,
+                description: "Climatiseur split Samsung 12000 BTU, neuf dans emballage.",
+                location: "Quartier Centre",
                 date: "Il y a 1 semaine",
                 phone: "0550 55 44 33",
                 surface: null,
                 pieces: null,
                 urgent: false,
-                images: [
-                    "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1631545806609-30bbf2f51cc5?w=600&h=400&fit=crop"
-                ]
+                images: ["https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&h=400&fit=crop"]
             },
             {
                 id: 11,
                 title: "Boulangerie-Pâtisserie à Céder",
-                category: "Commerces",
-                price: "18,000,000",
-                description: "Fonds de commerce boulangerie-pâtisserie bien établi. Clientèle fidèle, matériel professionnel inclus. Chiffre d'affaires stable.",
+                category: "commerces",
+                price: 18000000,
+                description: "Fonds de commerce boulangerie-pâtisserie bien établi. Clientèle fidèle.",
                 location: "Avenue principale, Misserghine",
                 date: "Il y a 2 semaines",
                 phone: "0550 66 77 88",
                 surface: "150 m²",
                 pieces: null,
                 urgent: false,
-                images: [
-                    "https://images.unsplash.com/photo-1555507036-ab1f4038024a?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=400&fit=crop"
-                ]
+                images: ["https://images.unsplash.com/photo-1555507036-ab1f4038024a?w=600&h=400&fit=crop"]
             },
             {
                 id: 12,
                 title: "Cours de Soutien Scolaire - Math/Physique",
-                category: "Services",
-                price: "2,000",
-                description: "Professeur expérimenté donne cours de soutien en mathématiques et physique. Tous niveaux. Préparation examens. À domicile ou en ligne.",
+                category: "services",
+                price: 2000,
+                description: "Professeur expérimenté donne cours de soutien. Tous niveaux.",
                 location: "Misserghine",
                 date: "Il y a 2 semaines",
                 phone: "0550 99 88 77",
                 surface: null,
                 pieces: null,
                 urgent: false,
-                images: [
-                    "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop",
-                    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=400&fit=crop"
-                ]
+                images: ["https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop"]
             }
         ];
 
-        // Générer les cartes d'annonces
-        function renderAnnonces() {
+        // Fonctions utilitaires
+        function t(key) {
+            return translations[appState.currentLanguage][key] || key;
+        }
+
+        function updateTranslations() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (el.tagName === 'INPUT' && (el.type === 'submit' || el.type === 'button')) {
+                    el.value = t(key);
+                } else if (el.tagName === 'INPUT' && el.type === 'text') {
+                    el.placeholder = t(key);
+                } else {
+                    el.textContent = t(key);
+                }
+            });
+            document.getElementById('resultsCount').innerHTML = 
+                `<strong id="countAnnonces">12</strong> ${t('adsFound')}`;
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // Fermer les modals en cliquant dehors
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+
+        // Thème sombre/clair
+        function toggleTheme() {
+            appState.darkMode = !appState.darkMode;
+            document.body.classList.toggle('dark-mode', appState.darkMode);
+            document.getElementById('themeIcon').textContent = appState.darkMode ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', appState.darkMode);
+            showNotification(t('themeChanged'), 'info');
+        }
+
+        // Langue
+        function toggleLanguage() {
+            appState.currentLanguage = appState.currentLanguage === 'fr' ? 'ar' : 'fr';
+            document.body.classList.toggle('rtl', appState.currentLanguage === 'ar');
+            localStorage.setItem('language', appState.currentLanguage);
+            updateTranslations();
+            showNotification(t('langChanged'), 'info');
+        }
+
+        // Connexion
+        function login(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                appState.currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                closeModal('loginModal');
+                updateUIForUser();
+                showNotification(t('loginSuccess'), 'success');
+                
+                if (user.isAdmin) {
+                    document.getElementById('adminBtn').style.display = 'inline-flex';
+                    showNotification(t('adminAccess'), 'info');
+                }
+            } else {
+                showNotification('Email ou mot de passe incorrect', 'error');
+            }
+        }
+
+        // Inscription
+        function register(event) {
+            event.preventDefault();
+            const newUser = {
+                name: document.getElementById('regName').value,
+                email: document.getElementById('regEmail').value,
+                password: document.getElementById('regPassword').value,
+                phone: document.getElementById('regPhone').value,
+                isAdmin: false
+            };
+            
+            if (users.find(u => u.email === newUser.email)) {
+                showNotification('Cet email est déjà utilisé', 'error');
+                return;
+            }
+            
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            appState.currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            closeModal('registerModal');
+            updateUIForUser();
+            showNotification(t('registerSuccess'), 'success');
+        }
+
+        // Déconnexion
+        function logout() {
+            appState.currentUser = null;
+            localStorage.removeItem('currentUser');
+            updateUIForUser();
+            document.getElementById('adminBtn').style.display = 'none';
+            showNotification(t('logout'), 'info');
+        }
+
+        // Mise à jour de l'interface utilisateur
+        function updateUIForUser() {
+            const loginBtn = document.getElementById('loginBtn');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            const adminBtn = document.getElementById('adminBtn');
+            
+            if (appState.currentUser) {
+                loginBtn.style.display = 'none';
+                userInfo.style.display = 'flex';
+                userName.textContent = `${t('welcome')}, ${appState.currentUser.name}`;
+                if (appState.currentUser.isAdmin) {
+                    adminBtn.style.display = 'inline-flex';
+                }
+            } else {
+                loginBtn.style.display = 'inline-flex';
+                userInfo.style.display = 'none';
+                adminBtn.style.display = 'none';
+            }
+        }
+
+        // Publier une annonce
+        function submitAd(event) {
+            event.preventDefault();
+            
+            const newAd = {
+                id: allAnnonces.length + 1,
+                title: document.getElementById('adTitle').value,
+                category: document.getElementById('adCategory').value,
+                price: parseInt(document.getElementById('adPrice').value),
+                description: document.getElementById('adDescription').value,
+                location: document.getElementById('adDistrict').value,
+                date: "À l'instant",
+                phone: document.getElementById('adPhone').value,
+                surface: null,
+                pieces: null,
+                urgent: document.getElementById('adUrgent').checked,
+                images: ["https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&h=400&fit=crop"]
+            };
+            
+            allAnnonces.unshift(newAd);
+            document.getElementById('adForm').reset();
+            closeModal('adModal');
+            filterByCategory(appState.currentFilter);
+            showNotification(t('adPublished'), 'success');
+        }
+
+        // Filtrage
+        function filterByCategory(category) {
+            appState.currentFilter = category;
+            
+            // Mise à jour de la navigation
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            const navLinks = document.querySelectorAll('.nav-link');
+            const categoryMap = {
+                'all': 0, 'immobilier': 1, 'vehicules': 2, 'services': 3,
+                'emploi': 4, 'commerces': 5, 'telephones': 6, 'electromenager': 7
+            };
+            if (categoryMap[category] !== undefined) {
+                navLinks[categoryMap[category]].classList.add('active');
+            }
+            
+            // Mise à jour du filtre sidebar
+            document.getElementById('filterCategory').value = category;
+            
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const category = document.getElementById('filterCategory').value;
+            const priceMin = document.getElementById('filterPriceMin').value;
+            const priceMax = document.getElementById('filterPriceMax').value;
+            const district = document.getElementById('filterDistrict').value;
+            const urgentOnly = document.getElementById('filterUrgent').checked;
+            
+            let filtered = allAnnonces;
+            
+            if (category && category !== 'all') {
+                filtered = filtered.filter(a => a.category === category);
+            }
+            if (priceMin) {
+                filtered = filtered.filter(a => a.price >= parseInt(priceMin));
+            }
+            if (priceMax) {
+                filtered = filtered.filter(a => a.price <= parseInt(priceMax));
+            }
+            if (district && district !== 'all') {
+                filtered = filtered.filter(a => a.location.includes(district));
+            }
+            if (urgentOnly) {
+                filtered = filtered.filter(a => a.urgent);
+            }
+            
+            renderAnnonces(filtered);
+            document.getElementById('countAnnonces').textContent = filtered.length;
+        }
+
+        function resetFilters() {
+            document.getElementById('filterCategory').value = 'all';
+            document.getElementById('filterPriceMin').value = '';
+            document.getElementById('filterPriceMax').value = '';
+            document.getElementById('filterDistrict').value = 'all';
+            document.getElementById('filterUrgent').checked = false;
+            appState.currentFilter = 'all';
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            document.querySelector('.nav-link').classList.add('active');
+            filterByCategory('all');
+        }
+
+        // Rendu des annonces
+        function renderAnnonces(annonces) {
             const grid = document.getElementById('annoncesGrid');
+            
+            if (annonces.length === 0) {
+                grid.innerHTML = '<p style="text-align:center;padding:50px;color:var(--text-light);">Aucune annonce trouvée</p>';
+                return;
+            }
+            
+            const categoryNames = {
+                immobilier: 'Immobilier',
+                vehicules: 'Véhicules',
+                services: 'Services',
+                emploi: 'Emploi',
+                commerces: 'Commerces',
+                telephones: 'Téléphones',
+                electromenager: 'Électroménager'
+            };
             
             grid.innerHTML = annonces.map(annonce => `
                 <div class="annonce-card">
@@ -907,25 +1507,20 @@
                         
                         <div class="annonce-badges">
                             ${annonce.urgent ? '<span class="badge-urgent">URGENT</span>' : ''}
-                            <span class="badge-category">${annonce.category}</span>
+                            <span class="badge-category">${categoryNames[annonce.category] || annonce.category}</span>
                         </div>
                         
-                        <button class="annonce-favorite" onclick="toggleFavorite(${annonce.id}, this)" title="Ajouter aux favoris">
-                            🤍
+                        <button class="annonce-favorite ${appState.favorites.includes(annonce.id) ? 'liked' : ''}" 
+                                onclick="event.stopPropagation();toggleFavorite(${annonce.id}, this)">
+                            ${appState.favorites.includes(annonce.id) ? '❤️' : '🤍'}
                         </button>
-                        
-                        ${annonce.images.length > 1 ? `
-                            <div class="image-counter">
-                                📷 ${annonce.images.length} photos
-                            </div>
-                        ` : ''}
                     </div>
                     
                     <div class="annonce-content">
                         <div>
                             <div class="annonce-header">
                                 <h3 class="annonce-title">${annonce.title}</h3>
-                                <div class="annonce-price">${annonce.price} DZD</div>
+                                <div class="annonce-price">${annonce.price.toLocaleString('fr-DZ')} DZD</div>
                             </div>
                             
                             <p class="annonce-description">${annonce.description}</p>
@@ -941,10 +1536,10 @@
                         <div class="annonce-footer">
                             <span class="annonce-date">📅 ${annonce.date}</span>
                             <div class="annonce-actions">
-                                <button class="btn-action" onclick="viewAnnonce(${annonce.id})">
+                                <button class="btn-action" onclick="event.stopPropagation();viewDetails(${annonce.id})">
                                     👁️ Voir détails
                                 </button>
-                                <button class="btn-action" onclick="contactAnnonce(${annonce.id})">
+                                <button class="btn-action" onclick="event.stopPropagation();contactSeller(${annonce.id})">
                                     💬 Contacter
                                 </button>
                             </div>
@@ -952,69 +1547,79 @@
                     </div>
                 </div>
             `).join('');
-
-            // Animation d'entrée
-            const cards = document.querySelectorAll('.annonce-card');
-            cards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
-            });
         }
 
-        // Fonctions d'interaction
+        // Interactions
         function toggleFavorite(id, button) {
-            button.classList.toggle('liked');
-            if (button.classList.contains('liked')) {
-                button.innerHTML = '❤️';
-                showNotification('Ajouté aux favoris');
-            } else {
+            const index = appState.favorites.indexOf(id);
+            if (index > -1) {
+                appState.favorites.splice(index, 1);
+                button.classList.remove('liked');
                 button.innerHTML = '🤍';
-                showNotification('Retiré des favoris');
+                showNotification(t('favoriteRemoved'), 'info');
+            } else {
+                appState.favorites.push(id);
+                button.classList.add('liked');
+                button.innerHTML = '❤️';
+                showNotification(t('favoriteAdded'), 'success');
             }
+            localStorage.setItem('favorites', JSON.stringify(appState.favorites));
         }
 
-        function viewAnnonce(id) {
-            const annonce = annonces.find(a => a.id === id);
-            showNotification(`Détails de l'annonce: ${annonce.title}`);
+        function viewDetails(id) {
+            const annonce = allAnnonces.find(a => a.id === id);
+            showNotification(`📋 ${annonce.title} - ${annonce.price.toLocaleString('fr-DZ')} DZD`, 'info');
         }
 
-        function contactAnnonce(id) {
-            const annonce = annonces.find(a => a.id === id);
-            showNotification(`Contact pour: ${annonce.title}\nTéléphone: ${annonce.phone}`);
-        }
-
-        function showNotification(message) {
-            // Créer une notification temporaire
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: white;
-                padding: 15px 20px;
-                border-radius: 8px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-                z-index: 9999;
-                animation: slideIn 0.3s ease;
-                max-width: 300px;
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
+        function contactSeller(id) {
+            const annonce = allAnnonces.find(a => a.id === id);
+            showNotification(`📞 Contact: ${annonce.phone} - ${annonce.title}`, 'info');
         }
 
         // Initialisation
-        document.addEventListener('DOMContentLoaded', () => {
-            renderAnnonces();
-            console.log('✅ SOGE ZABANA - Annonces chargées avec succès');
-        });
+        function init() {
+            // Restaurer les préférences
+            const savedTheme = localStorage.getItem('darkMode');
+            if (savedTheme === 'true') {
+                appState.darkMode = true;
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeIcon').textContent = '☀️';
+            }
+            
+            const savedLang = localStorage.getItem('language');
+            if (savedLang === 'ar') {
+                appState.currentLanguage = 'ar';
+                document.body.classList.add('rtl');
+            }
+            
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                appState.currentUser = JSON.parse(savedUser);
+            }
+            
+            updateTranslations();
+            updateUIForUser();
+            renderAnnonces(allAnnonces);
+        }
+
+        // Démarrer l'application
+        document.addEventListener('DOMContentLoaded', init);
 
         // Exposer les fonctions globalement
+        window.openModal = openModal;
+        window.closeModal = closeModal;
+        window.toggleTheme = toggleTheme;
+        window.toggleLanguage = toggleLanguage;
+        window.login = login;
+        window.register = register;
+        window.logout = logout;
+        window.submitAd = submitAd;
+        window.filterByCategory = filterByCategory;
+        window.applyFilters = applyFilters;
+        window.resetFilters = resetFilters;
         window.toggleFavorite = toggleFavorite;
-        window.viewAnnonce = viewAnnonce;
-        window.contactAnnonce = contactAnnonce;
+        window.viewDetails = viewDetails;
+        window.contactSeller = contactSeller;
     </script>
 </body>
 </html>
