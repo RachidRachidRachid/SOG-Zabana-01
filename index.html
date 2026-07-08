@@ -1,365 +1,980 @@
 <!DOCTYPE html>
-<html lang="fr" id="main-html">
+<html lang="fr" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <title>SOG Zabana 3.6</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: { primary: '#2563EB', secondary: '#10B981', accent: '#F59E0B' },
-          fontFamily: { sans: ['Inter', 'Cairo', 'sans-serif'] }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#1a5276">
+    <meta name="description" content="SOGE ZABANA RH - Plateforme du Pôle Urbain Ahmed Zabana Misserghine">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="SOGE ZABANA">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <title>SOGE ZABANA RH - Pôle Urbain Ahmed Zabana</title>
+    <style>
+        :root {
+            --primary: #1a5276;
+            --secondary: #2ecc71;
+            --bg-light: #f8f9fa;
+            --bg-dark: #1a1a2e;
+            --text-light: #2c3e50;
+            --text-dark: #ecf0f1;
+            --card-light: #ffffff;
+            --card-dark: #16213e;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
-      }
-    }
-  </script>
 
-  <style>
-    body { padding-bottom: 100px; transition: background-color 0.2s, color 0.2s; }
-    .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-b: 1px solid rgba(226, 232, 240, 0.8); }
-    .dark .glass { background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(12px); border-b: 1px solid rgba(51, 65, 85, 0.8); }
-    .nav-active { color: #2563EB; transform: scale(1.05); font-weight: 600; }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  </style>
+        [data-theme="dark"] {
+            --bg-light: #1a1a2e;
+            --bg-dark: #0f0f1a;
+            --text-light: #ecf0f1;
+            --text-dark: #bdc3c7;
+            --card-light: #16213e;
+            --card-dark: #0f3460;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg-light);
+            color: var(--text-light);
+            transition: var(--transition);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary), #2980b9);
+            color: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-light);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 20px 16px 50px;
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            background: var(--card-light);
+            color: var(--text-light);
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .search-input:focus {
+            box-shadow: 0 0 0 4px rgba(26, 82, 118, 0.2);
+            border-color: var(--secondary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .category-item {
+            background: var(--card-light);
+            padding: 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            font-weight: 500;
+        }
+
+        .category-item:hover {
+            border-color: var(--primary);
+            background: rgba(26, 82, 118, 0.05);
+            transform: scale(1.05);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(26, 82, 118, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #1a6fa0;
+            box-shadow: 0 6px 20px rgba(26, 82, 118, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            background: var(--card-light);
+            color: var(--text-light);
+            transition: var(--transition);
+            font-family: var(--font);
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 82, 118, 0.1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-light);
+            padding: 30px;
+            border-radius: var(--radius);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Badge */
+        .badge {
+            background: var(--secondary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .nav-menu {
+                justify-content: center;
+            }
+            .nav-btn {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 3000;
+            animation: slideIn 0.5s ease;
+            font-weight: 500;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* RTL Support */
+        [dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+
+        [dir="rtl"] .search-icon {
+            left: auto;
+            right: 20px;
+        }
+
+        [dir="rtl"] .search-input {
+            padding: 16px 50px 16px 20px;
+        }
+    </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased min-h-screen w-full max-w-2xl mx-auto shadow-xl relative">
+<body data-theme="light" dir="ltr">
 
-  <header class="sticky top-0 z-50 glass px-4 py-3.5 flex items-center justify-between">
-    <div class="flex items-center gap-2">
-      <div class="w-9 h-9 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md">S</div>
-      <span class="font-bold text-xl tracking-tight bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">SOG Zabana</span>
-    </div>
-    <div class="flex items-center gap-2">
-      <button onclick="toggleLanguage()" class="text-xs font-bold px-2.5 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-primary hover:text-white transition" id="lang-btn">العربية</button>
-      <button onclick="toggleDarkMode()" class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl transition">
-        <i class="fa-solid fa-moon text-lg dark:hidden"></i>
-        <i class="fa-solid fa-sun text-lg hidden dark:inline"></i>
-      </button>
-    </div>
-  </header>
-
-  <section id="scr-home" class="screen-panel p-4 space-y-4">
-    <div class="relative" onclick="switchTab('search')">
-      <input type="text" readonly id="dict-search-placeholder" class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl pl-10 pr-4 py-3.5 text-sm cursor-pointer">
-      <i class="fa-solid fa-wand-magic-sparkles absolute left-3 top-4 text-primary"></i>
-    </div>
-    <div id="feed-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div class="p-4 text-center text-slate-400 col-span-full"><i class="fa-solid fa-spinner animate-spin mr-2"></i>Chargement...</div>
-    </div>
-  </section>
-
-  <section id="scr-search" class="screen-panel p-4 space-y-4 hidden">
-    <h2 class="text-xl font-bold" id="dict-search-title">Recherche</h2>
-    <input type="text" id="search-input" onkeyup="executeSearch()" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none">
-    <div id="search-results" class="grid grid-cols-1 gap-3 pt-2"></div>
-  </section>
-
-  <section id="scr-publish" class="screen-panel p-4 space-y-4 hidden">
-    <div id="publish-blocked" class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 p-6 rounded-2xl text-center space-y-3">
-      <i class="fa-solid fa-user-lock text-4xl text-amber-500"></i>
-      <h3 class="font-bold text-lg" id="txt-block-title">Connexion Requise</h3>
-      <p class="text-sm text-slate-600 dark:text-slate-400" id="txt-block-sub">Les simples visiteurs anonymes ne peuvent pas vendre. Veuillez créer un compte ou vous connecter.</p>
-      <button onclick="switchTab('profile')" class="bg-primary text-white text-sm px-5 py-2.5 rounded-xl font-bold shadow">S'enregistrer / Se connecter</button>
-    </div>
-
-    <div id="publish-allowed" class="hidden space-y-4">
-      <h2 class="text-xl font-bold" id="dict-pub-title">Déposer une annonce</h2>
-      <form id="form-annonce" onsubmit="soumettreAnnonce(event)" class="space-y-4">
-        <input type="file" id="p-file" accept="image/*" onchange="previewImageFile()" class="text-sm text-slate-500">
-        <img id="img-preview" src="" class="w-12 h-12 object-cover rounded-lg hidden border">
-        <input type="text" id="p-titre" required placeholder="Titre" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-3 text-sm">
-        <input type="number" id="p-prix" required placeholder="Prix (DA)" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-3 text-sm">
-        <select id="p-cat" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-3 text-sm">
-          <option value="Auto">🚗 Automobile</option>
-          <option value="Immobilier">🏠 Immobilier</option>
-          <option value="Tech">📱 Technologie</option>
-        </select>
-        <textarea id="p-desc" rows="3" placeholder="Description..." class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-3 text-sm"></textarea>
-        <button type="submit" id="btn-submit" class="w-full bg-secondary text-white py-3.5 rounded-xl font-bold shadow">Publier l'Annonce</button>
-      </form>
-    </div>
-  </section>
-
-  <section id="scr-chat" class="screen-panel flex flex-col h-[calc(100vh-150px)] hidden">
-    <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-100 dark:bg-slate-900/40 rounded-2xl no-scrollbar"></div>
-    <div class="p-2 mt-2 border dark:border-slate-800 flex gap-2 items-center bg-white dark:bg-slate-900 rounded-xl">
-      <input type="text" id="chat-input" placeholder="Message public..." class="flex-1 bg-slate-50 dark:bg-slate-800 text-sm rounded-lg px-4 py-2.5 focus:outline-none">
-      <button onclick="postChatMessage()" class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center"><i class="fa-solid fa-paper-plane"></i></button>
-    </div>
-  </section>
-
-  <section id="scr-profile" class="screen-panel p-4 space-y-4 hidden">
-    
-    <div id="profile-unauth" class="space-y-4">
-      
-      <div class="flex border-b dark:border-slate-800">
-        <button onclick="toggleAuthMode('login')" id="btn-tab-login" class="flex-1 py-2 text-center text-sm font-bold border-b-2 border-primary text-primary">Connexion</button>
-        <button onclick="toggleAuthMode('register')" id="btn-tab-register" class="flex-1 py-2 text-center text-sm font-bold border-b-2 border-transparent text-slate-400">Inscription (Loi 18-05)</button>
-      </div>
-
-      <form id="form-login" onsubmit="connexionCompte(event)" class="space-y-3">
-        <input type="email" id="log-email" required placeholder="Adresse E-mail" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
-        <input type="password" id="log-mdp" required placeholder="Mot de passe" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
-        <button type="submit" class="w-full bg-primary text-white py-3 rounded-xl font-bold shadow">Se connecter</button>
-      </form>
-
-      <form id="form-register" onsubmit="enregistrerCompte(event)" class="space-y-3 hidden">
-        <input type="text" id="reg-name" required placeholder="Nom / Raison Sociale" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
-        <input type="email" id="reg-email" required placeholder="Adresse E-mail" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
-        <input type="tel" id="reg-tel" required placeholder="N° de Téléphone" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
-        <input type="text" id="reg-wilaya" required placeholder="Wilaya" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
-        <input type="password" id="reg-mdp" required placeholder="Créer un mot de passe" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
-        
-        <select id="reg-type" onchange="toggleCnrcField()" class="w-full bg-white dark:bg-slate-900 border dark:border-slate-800 rounded-xl px-4 py-2.5 text-sm">
-          <option value="Particulier">Vendeur Particulier</option>
-          <option value="Professionnel">Vendeur Professionnel (Boutique CNRC)</option>
-        </select>
-        <div id="cnrc-box" class="hidden">
-          <input type="text" id="reg-cnrc" placeholder="N° Registre du Commerce (CNRC)" class="w-full bg-amber-50/50 dark:bg-slate-800 border rounded-xl px-4 py-2.5 text-sm">
+    <!-- Header -->
+    <header class="header">
+        <div class="logo" onclick="navigateTo('home')">
+            <span class="logo-icon">🏙️</span>
+            <span data-i18n="appName">SOGE ZABANA RH</span>
         </div>
-        <button type="submit" class="w-full bg-emerald-500 text-white py-3 rounded-xl font-bold shadow" id="dict-reg-btn">Créer le compte</button>
-      </form>
-    </div>
+        <nav class="nav-menu">
+            <button class="nav-btn active" onclick="navigateTo('home')" data-i18n="home">Accueil</button>
+            <button class="nav-btn" onclick="navigateTo('annonces')" data-i18n="ads">Annonces</button>
+            <button class="nav-btn" onclick="navigateTo('categories')" data-i18n="categories">Catégories</button>
+            <button class="nav-btn" onclick="toggleTheme()">🌓</button>
+            <button class="nav-btn" onclick="switchLanguage()" data-i18n="language">عربي</button>
+            <button class="nav-btn" onclick="openModal('loginModal')" data-i18n="account">Compte</button>
+        </nav>
+    </header>
 
-    <div id="profile-auth" class="hidden space-y-4">
-      <div class="p-4 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800 rounded-2xl flex items-center gap-3">
-        <div class="w-12 h-12 bg-secondary text-white rounded-xl flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-user-check"></i></div>
-        <div>
-          <h4 class="font-bold text-sm" id="user-display-name">---</h4>
-          <span class="text-[10px] bg-secondary text-white px-2 rounded" id="user-display-type">---</span>
-        </div>
-      </div>
-      <button onclick="logout()" class="w-full bg-rose-500 text-white py-2.5 rounded-xl text-xs font-bold shadow">Déconnexion / خروج</button>
-    </div>
-  </section>
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Dynamic content loaded here -->
+    </main>
 
-  <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-xl glass h-16 rounded-2xl shadow-xl flex items-center justify-around px-2 z-50">
-    <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-slate-400 nav-active"><i class="fa-solid fa-house text-lg"></i><span class="text-[9px] mt-0.5" id="lbl-nav-home">Accueil</span></button>
-    <button onclick="switchTab('search')" id="nav-search" class="flex flex-col items-center text-slate-400"><i class="fa-solid fa-magnifying-glass text-lg"></i><span class="text-[9px] mt-0.5" id="lbl-nav-search">Chercher</span></button>
-    <button onclick="switchTab('publish')" id="nav-publish" class="w-12 h-12 bg-primary text-white rounded-xl flex items-center justify-center shadow-lg -translate-y-3"><i class="fa-solid fa-plus text-xl"></i></button>
-    <button onclick="switchTab('chat')" id="nav-chat" class="flex flex-col items-center text-slate-400"><i class="fa-solid fa-comments text-lg"></i><span class="text-[9px] mt-0.5" id="lbl-nav-chat">Chat</span></button>
-    <button onclick="switchTab('profile')" id="nav-profile" class="flex flex-col items-center text-slate-400"><i class="fa-solid fa-user text-lg"></i><span class="text-[9px] mt-0.5" id="lbl-nav-profile">Compte</span></button>
-  </nav>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2024 SOGE ZABANA RH - Pôle Urbain Ahmed Zabana Misserghine</p>
+        <p data-i18n="footerText">Plateforme communautaire officielle</p>
+    </footer>
 
-  <script>
-    let globalAnnonces = [];
-    let currentLang = localStorage.getItem('sog_lang') || 'fr';
-    let userSession = JSON.parse(localStorage.getItem('sog_user')) || null;
-    let base64ImageString = "";
-
-    const dictionary = {
-      fr: {
-        search_ph: "Rechercher sur Zabana...", search_title: "Moteur de recherche 🔎",
-        pub_title: "Créer une nouvelle offre", pub_btn: "🚀 Mettre en ligne l'annonce",
-        block_title: "Identification Obligatoire", block_sub: "Les simples visiteurs anonymes ne peuvent pas vendre. Veuillez créer un compte ou vous connecter via l'onglet Compte.",
-        nav_home: "Accueil", nav_search: "Chercher", nav_chat: "Discussion", nav_profile: "Mon Espace"
-      },
-      ar: {
-        search_ph: "البحث في سوق زبانة...", search_title: "محرك البحث 🔎",
-        pub_title: "نشر إعلان جديد", pub_btn: "🚀 نشر الإعلان في السوق",
-        block_title: "خاصية البائعين فقط", block_sub: "لا يمكن للزوار العاديين نشر إعلانات بدون تسجيل حساب رسمي أولاً في خانة 'حسابي'.",
-        nav_home: "الرئيسية", nav_search: "بحث", nav_chat: "الدردشة", nav_profile: "حسابي"
-      }
-    };
-
-    window.onload = function() {
-      applyTheme(localStorage.getItem('theme') || 'light');
-      applyLanguage(currentLang);
-      checkUserAuth();
-      loadAnnoncesFromSheets();
-      loadChatMessages();
-    };
-
-    function applyLanguage(lang) {
-      currentLang = lang; localStorage.setItem('sog_lang', lang);
-      const dict = dictionary[lang];
-      document.getElementById('main-html').setAttribute('dir', lang === 'ar' ? 'ar' : 'ltr');
-      document.getElementById('lang-btn').innerText = lang === 'ar' ? "Français" : "العربية";
-
-      document.getElementById('dict-search-placeholder').placeholder = dict.search_ph;
-      document.getElementById('dict-search-title').innerText = dict.search_title;
-      document.getElementById('dict-pub-title').innerText = dict.pub_title;
-      document.getElementById('btn-submit').innerText = dict.pub_btn;
-      document.getElementById('txt-block-title').innerText = dict.block_title;
-      document.getElementById('txt-block-sub').innerText = dict.block_sub;
-      
-      document.getElementById('lbl-nav-home').innerText = dict.nav_home;
-      document.getElementById('lbl-nav-search').innerText = dict.nav_search;
-      document.getElementById('lbl-nav-chat').innerText = dict.nav_chat;
-      document.getElementById('lbl-nav-profile').innerText = dict.nav_profile;
-    }
-
-    function toggleLanguage() { applyLanguage(currentLang === 'fr' ? 'ar' : 'fr'); }
-    function toggleDarkMode() { applyTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark'); }
-    function applyTheme(t) { t === 'dark' ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark'); localStorage.setItem('theme', t); }
-    function toggleCnrcField() { document.getElementById('cnrc-box').classList.toggle('hidden', document.getElementById('reg-type').value !== 'Professionnel'); }
-
-    function toggleAuthMode(mode) {
-      const isLogin = mode === 'login';
-      document.getElementById('form-login').classList.toggle('hidden', !isLogin);
-      document.getElementById('form-register').classList.toggle('hidden', isLogin);
-      
-      document.getElementById('btn-tab-login').className = isLogin ? "flex-1 py-2 text-center text-sm font-bold border-b-2 border-primary text-primary" : "flex-1 py-2 text-center text-sm font-bold border-b-2 border-transparent text-slate-400";
-      document.getElementById('btn-tab-register').className = !isLogin ? "flex-1 py-2 text-center text-sm font-bold border-b-2 border-primary text-primary" : "flex-1 py-2 text-center text-sm font-bold border-b-2 border-transparent text-slate-400";
-    }
-
-    function switchTab(target) {
-      document.querySelectorAll('.screen-panel').forEach(el => el.classList.add('hidden'));
-      document.getElementById('scr-' + target).classList.remove('hidden');
-      document.querySelectorAll('nav button').forEach(el => el.classList.remove('text-primary', 'nav-active'));
-      if(target !== 'publish') document.getElementById('nav-' + target).classList.add('nav-active', 'text-primary');
-    }
-
-    function previewImageFile() {
-      const file = document.getElementById('p-file').files[0];
-      const preview = document.getElementById('img-preview');
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onloadend = function() { base64ImageString = reader.result; preview.src = reader.result; preview.classList.remove('hidden'); };
-      reader.readAsDataURL(file);
-    }
-
-    function loadAnnoncesFromSheets() {
-      google.script.run.withSuccessHandler(function(data) {
-        globalAnnonces = data || [];
-        renderFeed(globalAnnonces);
-      }).getAnnonces();
-    }
-
-    function renderFeed(items) {
-      const container = document.getElementById('feed-container');
-      if(!items || items.length === 0) {
-        container.innerHTML = `<p class="text-center text-xs py-8 text-slate-400 col-span-full">Aucun produit disponible.</p>`;
-        return;
-      }
-      container.innerHTML = items.map(item => {
-        var cleanTel = item.TelVendeur ? item.TelVendeur.trim() : "0550000000";
-        return `
-          <div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
-            <div>
-              <img src="${item.Photo}" class="w-full h-44 object-cover bg-slate-100 dark:bg-slate-950" onerror="this.src='https://images.unsplash.com/photo-1555696958-c5049b866f6f?w=500'">
-              <div class="p-3.5 space-y-1">
-                <div class="flex justify-between items-center">
-                  <span class="text-[9px] bg-blue-100 dark:bg-blue-950 text-primary dark:text-blue-300 font-bold px-2 py-0.5 rounded">${item.Categorie}</span>
-                  <span class="text-xs font-bold text-emerald-500">${item.Prix} DA</span>
+    <!-- Modals -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2 data-i18n="login">Connexion</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label class="form-label" data-i18n="email">Email</label>
+                    <input type="email" class="form-input" required>
                 </div>
-                <h3 class="font-bold text-sm text-slate-900 dark:text-slate-100">${item.Titre}</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">${item.Description}</p>
-                <div class="text-[10px] text-slate-400 pt-1"><span>👤 Vendeur: ${item.Localisation}</span></div>
-              </div>
-            </div>
-            <div class="p-3 bg-slate-50 dark:bg-slate-900/60 border-t dark:border-slate-800 grid grid-cols-2 gap-2">
-              <a href="tel:${cleanTel}" class="bg-primary text-white rounded-lg py-2 text-center text-xs font-bold flex items-center justify-center gap-1"><i class="fa-solid fa-phone"></i> Appeler</a>
-              <a href="https://wa.me/213${cleanTel.replace(/^0/, "")}" target="_blank" class="bg-emerald-500 text-white rounded-lg py-2 text-center text-xs font-bold flex items-center justify-center gap-1"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function soumettreAnnonce(e) {
-      e.preventDefault();
-      if(!userSession) return;
-      const btn = document.getElementById('btn-submit');
-      btn.disabled = true; btn.innerText = "...Publication...";
-
-      google.script.run.withSuccessHandler(function(res) {
-         alert(currentLang === 'fr' ? res.message_fr : res.message_ar);
-         document.getElementById('form-annonce').reset();
-         document.getElementById('img-preview').classList.add('hidden');
-         base64ImageString = ""; btn.disabled = false;
-         loadAnnoncesFromSheets(); switchTab('home');
-      }).ajouterAnnonce(
-        document.getElementById('p-titre').value, document.getElementById('p-desc').value,
-        document.getElementById('p-prix').value, document.getElementById('p-cat').value,
-        userSession.name, base64ImageString
-      );
-    }
-
-    function checkUserAuth() {
-      const blockPanel = document.getElementById('publish-blocked');
-      const formPanel = document.getElementById('publish-allowed');
-      if(userSession) {
-        document.getElementById('profile-unauth').classList.add('hidden');
-        document.getElementById('profile-auth').classList.remove('hidden');
-        document.getElementById('user-display-name').innerText = userSession.name;
-        document.getElementById('user-display-type').innerText = userSession.type;
-        blockPanel.classList.add('hidden'); formPanel.classList.remove('hidden');
-      } else {
-        document.getElementById('profile-unauth').classList.remove('hidden');
-        document.getElementById('profile-auth').classList.add('hidden');
-        blockPanel.classList.remove('hidden'); formPanel.classList.add('hidden');
-      }
-    }
-
-    function enregistrerCompte(e) {
-      e.preventDefault();
-      google.script.run.withSuccessHandler(function(res) {
-        if(res.status === "success") {
-          userSession = res;
-          localStorage.setItem('sog_user', JSON.stringify(res));
-          checkUserAuth();
-        } else {
-          alert(res.message_fr);
-        }
-      }).creerCompte(
-        document.getElementById('reg-name').value, document.getElementById('reg-email').value,
-        document.getElementById('reg-tel').value, document.getElementById('reg-wilaya').value,
-        document.getElementById('reg-type').value, document.getElementById('reg-cnrc').value || "N/A",
-        document.getElementById('reg-mdp').value
-      );
-    }
-
-    function connexionCompte(e) {
-      e.preventDefault();
-      google.script.run.withSuccessHandler(function(res) {
-        if(res.status === "success") {
-          userSession = res;
-          localStorage.setItem('sog_user', JSON.stringify(res));
-          checkUserAuth();
-          switchTab('home');
-        } else {
-          alert(currentLang === 'fr' ? res.message_fr : res.message_ar);
-        }
-      }).connecterCompte(document.getElementById('log-email').value, document.getElementById('log-mdp').value);
-    }
-
-    function logout() { localStorage.removeItem('sog_user'); userSession = null; checkUserAuth(); }
-
-    function executeSearch() {
-      let query = document.getElementById('search-input').value.toLowerCase();
-      let results = globalAnnonces.filter(a => a.Titre.toLowerCase().includes(query) || a.Description.toLowerCase().includes(query));
-      document.getElementById('search-results').innerHTML = results.map(item => `
-        <div class="flex bg-white dark:bg-slate-900 p-2 border dark:border-slate-800 rounded-xl gap-3 items-center text-xs">
-          <img src="${item.Photo}" class="w-12 h-12 object-cover rounded-lg">
-          <div><h4 class="font-bold">${item.Titre}</h4><p class="text-emerald-500 font-bold">${item.Prix} DA</p></div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="password">Mot de passe</label>
+                    <input type="password" class="form-input" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%" data-i18n="login">Se connecter</button>
+                <p style="margin-top:15px;text-align:center">
+                    <a href="#" onclick="openModal('registerModal')" data-i18n="createAccount">Créer un compte</a>
+                </p>
+            </form>
         </div>
-      `).join('');
-    }
+    </div>
 
-    function loadChatMessages() {
-      google.script.run.withSuccessHandler(function(msgs) {
-        document.getElementById('chat-messages').innerHTML = msgs.map(m => `
-          <div class="flex flex-col ${m.sender === 'Moi' ? 'items-end' : 'items-start'}">
-            <div class="p-2.5 rounded-2xl text-xs max-w-[80%] ${m.sender === 'Moi' ? 'bg-primary text-white rounded-tr-none' : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-tl-none'}">
-              ${m.text}
-            </div>
-          </div>
-        `).join('');
-      }).getMessages();
-    }
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <h2 data-i18n="register">Inscription</h2>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label class="form-label" data-i18n="lastName">Nom</label>
+                    <input type="text" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="firstName">Prénom</label>
+                    <input type="text" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="phone">Téléphone</label>
+                    <input type="tel" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="email">Email</label>
+                    <input type="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="password">Mot de passe</label>
+                    <input type="password" class="form-input" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="address">Adresse</label>
+                    <input type="text" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" required>
+                        <span data-i18n="acceptContract">J'accepte les Conditions Générales d'Utilisation</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%" data-i18n="register">S'inscrire</button>
+            </form>
+        </div>
+    </div>
 
-    function postChatMessage() {
-      const input = document.getElementById('chat-input');
-      if(input.value.trim() === "") return;
-      google.script.run.withSuccessHandler(function() { input.value = ""; loadChatMessages(); }).envoyerMessage(userSession ? userSession.name : 'Visiteur', input.value);
-    }
-  </script>
-</body>
-</html>
+    <div id="adModal" class="modal">
+        <div class="modal-content">
+            <h2 data-i18n="addAd">Publier une annonce</h2>
+            <form id="adForm" onsubmit="handleAdSubmit(event)">
+                <div class="form-group">
+                    <label class="form-label" data-i18n="title">Titre</label>
+                    <input type="text" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="category">Catégorie</label>
+                    <select class="form-select" required>
+                        <option value="">Sélectionner</option>
+                        <option value="immobilier">Immobilier</option>
+                        <option value="vehicules">Véhicules</option>
+                        <option value="services">Services</option>
+                        <option value="emploi">Emploi</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="description">Description</label>
+                    <textarea class="form-textarea" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="price">Prix (DZD)</label>
+                    <input type="number" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="location">Localisation</label>
+                    <select class="form-select" required>
+                        <option value="">Sélectionner quartier</option>
+                        <option>Quartier 1</option>
+                        <option>Quartier 2</option>
+                        <option>Quartier 3</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="photos">Photos</label>
+                    <input type="file" class="form-input" accept="image/*" multiple>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="phone">Téléphone</label>
+                    <input type="tel" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="whatsapp">WhatsApp</label>
+                    <input type="tel" class="form-input">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%" data-i18n="publish">Publier</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer"></div>
+
+    <script>
+        // ============================================
+        // APPLICATION PRINCIPALE SOGE ZABANA RH
+        // 100% Gratuite - PWA - Paramétrique - Modulaire
+        // ============================================
+
+        // Configuration paramétrique
+        const CONFIG = {
+            appName: 'SOGE ZABANA RH',
+            appNameAR: 'سوج زبانة',
+            primaryColor: '#1a5276',
+            secondaryColor: '#2ecc71',
+            quartiers: ['Quartier 1', 'Quartier 2', 'Quartier 3', 'Quartier 4', 'Quartier 5'],
+            categories: [
+                { id: 'immobilier', icon: '🏠', name: 'Immobilier', nameAR: 'عقارات' },
+                { id: 'vehicules', icon: '🚗', name: 'Véhicules', nameAR: 'مركبات' },
+                { id: 'services', icon: '🔧', name: 'Services', nameAR: 'خدمات' },
+                { id: 'emploi', icon: '💼', name: 'Emploi', nameAR: 'وظائف' },
+                { id: 'sante', icon: '🏥', name: 'Santé', nameAR: 'صحة' },
+                { id: 'education', icon: '📚', name: 'Éducation', nameAR: 'تعليم' },
+                { id: 'evenements', icon: '🎉', name: 'Événements', nameAR: 'أحداث' },
+                { id: 'commerces', icon: '🏪', name: 'Commerces', nameAR: 'متاجر' }
+            ],
+            version: '1.0.0',
+            maxUsers: 10000,
+            maxConnections: 1000
+        };
+
+        // État de l'application
+        let APP_STATE = {
+            currentPage: 'home',
+            currentLanguage: 'fr',
+            theme: 'light',
+            user: null,
+            annonces: [],
+            favorites: [],
+            messages: []
+        };
+
+        // Base de données IndexedDB
+        class LocalDB {
+            constructor() {
+                this.dbName = 'SOGE_ZABANA_DB';
+                this.db = null;
+                this.init();
+            }
+
+            async init() {
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open(this.dbName, 1);
+                    
+                    request.onupgradeneeded = (event) => {
+                        const db = event.target.result;
+                        if (!db.objectStoreNames.contains('annonces')) {
+                            db.createObjectStore('annonces', { keyPath: 'id', autoIncrement: true });
+                        }
+                        if (!db.objectStoreNames.contains('users')) {
+                            db.createObjectStore('users', { keyPath: 'email' });
+                        }
+                        if (!db.objectStoreNames.contains('favorites')) {
+                            db.createObjectStore('favorites', { keyPath: 'id', autoIncrement: true });
+                        }
+                        if (!db.objectStoreNames.contains('messages')) {
+                            db.createObjectStore('messages', { keyPath: 'id', autoIncrement: true });
+                        }
+                        if (!db.objectStoreNames.contains('settings')) {
+                            db.createObjectStore('settings', { keyPath: 'key' });
+                        }
+                    };
+
+                    request.onsuccess = (event) => {
+                        this.db = event.target.result;
+                        console.log('IndexedDB initialisée avec succès');
+                        resolve();
+                    };
+
+                    request.onerror = (event) => {
+                        console.error('Erreur IndexedDB:', event.target.error);
+                        reject(event.target.error);
+                    };
+                });
+            }
+
+            async add(storeName, data) {
+                return new Promise((resolve, reject) => {
+                    const transaction = this.db.transaction(storeName, 'readwrite');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.add(data);
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = () => reject(request.error);
+                });
+            }
+
+            async getAll(storeName) {
+                return new Promise((resolve, reject) => {
+                    const transaction = this.db.transaction(storeName, 'readonly');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.getAll();
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = () => reject(request.error);
+                });
+            }
+
+            async put(storeName, data) {
+                return new Promise((resolve, reject) => {
+                    const transaction = this.db.transaction(storeName, 'readwrite');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.put(data);
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = () => reject(request.error);
+                });
+            }
+
+            async delete(storeName, id) {
+                return new Promise((resolve, reject) => {
+                    const transaction = this.db.transaction(storeName, 'readwrite');
+                    const store = transaction.objectStore(storeName);
+                    const request = store.delete(id);
+                    request.onsuccess = () => resolve();
+                    request.onerror = () => reject(request.error);
+                });
+            }
+        }
+
+        // Initialisation de la base de données
+        const db = new LocalDB();
+
+        // Traductions
+        const translations = {
+            fr: {
+                appName: 'SOGE ZABANA RH',
+                home: 'Accueil',
+                ads: 'Annonces',
+                categories: 'Catégories',
+                account: 'Compte',
+                language: 'عربي',
+                login: 'Connexion',
+                register: 'Inscription',
+                email: 'Email',
+                password: 'Mot de passe',
+                createAccount: 'Créer un compte',
+                lastName: 'Nom',
+                firstName: 'Prénom',
+                phone: 'Téléphone',
+                address: 'Adresse',
+                acceptContract: 'J\'accepte les conditions d\'utilisation',
+                addAd: 'Publier une annonce',
+                title: 'Titre',
+                category: 'Catégorie',
+                description: 'Description',
+                price: 'Prix',
+                location: 'Localisation',
+                photos: 'Photos',
+                whatsapp: 'WhatsApp',
+                publish: 'Publier',
+                search: 'Rechercher...',
+                welcome: 'Bienvenue sur SOGE ZABANA RH',
+                footerText: 'Plateforme communautaire du Pôle Urbain Ahmed Zabana'
+            },
+            ar: {
+                appName: 'سوج زبانة',
+                home: 'الرئيسية',
+                ads: 'الإعلانات',
+                categories: 'الفئات',
+                account: 'الحساب',
+                language: 'FR',
+                login: 'تسجيل الدخول',
+                register: 'التسجيل',
+                email: 'البريد الإلكتروني',
+                password: 'كلمة المرور',
+                createAccount: 'إنشاء حساب',
+                lastName: 'اللقب',
+                firstName: 'الاسم',
+                phone: 'الهاتف',
+                address: 'العنوان',
+                acceptContract: 'أوافق على شروط الاستخدام',
+                addAd: 'نشر إعلان',
+                title: 'العنوان',
+                category: 'الفئة',
+                description: 'الوصف',
+                price: 'السعر',
+                location: 'الموقع',
+                photos: 'الصور',
+                whatsapp: 'واتساب',
+                publish: 'نشر',
+                search: 'بحث...',
+                welcome: 'مرحباً بكم في سوج زبانة',
+                footerText: 'المنصة المجتمعية للقطب الحضري أحمد زبانة'
+            }
+        };
+
+        // Fonctions utilitaires
+        function t(key) {
+            return translations[APP_STATE.currentLanguage][key] || key;
+        }
+
+        function updateTranslations() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (el.tagName === 'INPUT' && el.type === 'submit') {
+                    el.value = t(key);
+                } else {
+                    el.textContent = t(key);
+                }
+            });
+            document.querySelectorAll('[placeholder]').forEach(el => {
+                if (el.getAttribute('data-i18n-placeholder')) {
+                    el.placeholder = t(el.getAttribute('data-i18n-placeholder'));
+                }
+            });
+        }
+
+        function switchLanguage() {
+            APP_STATE.currentLanguage = APP_STATE.currentLanguage === 'fr' ? 'ar' : 'fr';
+            document.dir = APP_STATE.currentLanguage === 'ar' ? 'rtl' : 'ltr';
+            updateTranslations();
+            navigateTo(APP_STATE.currentPage);
+            showToast(t('language') + ' changé');
+        }
+
+        function toggleTheme() {
+            APP_STATE.theme = APP_STATE.theme === 'light' ? 'dark' : 'light';
+            document.body.setAttribute('data-theme', APP_STATE.theme);
+            localStorage.setItem('theme', APP_STATE.theme);
+            showToast('Thème ' + APP_STATE.theme);
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.getElementById('toastContainer').appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Fermer les modals en cliquant dehors
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.classList.remove('active');
+            }
+        }
+
+        // Navigation
+        function navigateTo(page) {
+            APP_STATE.currentPage = page;
+            const mainContent = document.getElementById('mainContent');
+            
+            // Mise à jour des boutons de navigation
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            event?.target?.classList.add('active');
+
+            switch(page) {
+                case 'home':
+                    renderHomePage(mainContent);
+                    break;
+                case 'annonces':
+                    renderAnnoncesPage(mainContent);
+                    break;
+                case 'categories':
+                    renderCategoriesPage(mainContent);
+                    break;
+                default:
+                    renderHomePage(mainContent);
+            }
+        }
+
+        // Rendu de la page d'accueil
+        function renderHomePage(container) {
+            container.innerHTML = `
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="${t('search')}" data-i18n-placeholder="search">
+                </div>
+
+                <h2 style="margin:20px 0">${t('welcome')}</h2>
+
+                <div class="grid">
+                    <div class="card">
+                        <h3>📊 Statistiques</h3>
+                        <p>Utilisateurs: <strong>1,234</strong></p>
+                        <p>Annonces: <strong>567</strong></p>
+                        <p>En ligne: <strong>89</strong></p>
+                    </div>
+                    <div class="card">
+                        <h3>📰 Actualités</h3>
+                        <p>Nouveau projet de développement</p>
+                        <p>Réunion communautaire samedi</p>
+                    </div>
+                </div>
+
+                <h3 style="margin:20px 0">Catégories populaires</h3>
+                <div class="category-grid">
+                    ${CONFIG.categories.map(cat => `
+                        <div class="category-item" onclick="navigateTo('annonces')">
+                            <span class="category-icon">${cat.icon}</span>
+                            ${APP_STATE.currentLanguage === 'ar' ? cat.nameAR : cat.name}
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div style="text-align:center; margin:30px 0">
+                    <button class="btn btn-primary" onclick="openModal('adModal')">
+                        📝 ${t('addAd')}
+                    </button>
+                </div>
+            `;
+        }
+
+        // Rendu de la page annonces
+        function renderAnnoncesPage(container) {
+            container.innerHTML = `
+                <h2>${t('ads')}</h2>
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="${t('search')}" onkeyup="searchAnnonces(this.value)">
+                </div>
+                <div id="annoncesList" class="grid">
+                    <div class="spinner"></div>
+                </div>
+            `;
+            loadAnnonces();
+        }
+
+        async function loadAnnonces() {
+            const annonces = await db.getAll('annonces');
+            const container = document.getElementById('annoncesList');
+            if (annonces.length === 0) {
+                container.innerHTML = '<p style="text-align:center">Aucune annonce pour le moment</p>';
+                return;
+            }
+            container.innerHTML = annonces.map(ad => `
+                <div class="card">
+                    <h3>${ad.titre || 'Sans titre'}</h3>
+                    <p>${ad.description?.substring(0, 100) || ''}...</p>
+                    <p><strong>Prix:</strong> ${ad.prix || 'N/A'} DZD</p>
+                    <span class="badge">${ad.categorie || 'N/A'}</span>
+                </div>
+            `).join('');
+        }
+
+        function searchAnnonces(query) {
+            // Recherche en temps réel
+            console.log('Recherche:', query);
+        }
+
+        // Rendu de la page catégories
+        function renderCategoriesPage(container) {
+            container.innerHTML = `
+                <h2>${t('categories')}</h2>
+                <div class="category-grid">
+                    ${CONFIG.categories.map(cat => `
+                        <div class="category-item">
+                            <span class="category-icon">${cat.icon}</span>
+                            ${APP_STATE.currentLanguage === 'ar' ? cat.nameAR : cat.name}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Gestion des formulaires
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+            const password = event.target.querySelector('input[type="password"]').value;
+            
+            // Simulation de connexion
+            APP_STATE.user = { email, name: 'Utilisateur' };
+            localStorage.setItem('user', JSON.stringify(APP_STATE.user));
+            closeModal('loginModal');
+            showToast('Connexion réussie !');
+            navigateTo('home');
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const userData = {
+                nom: formData.get('nom'),
+                prenom: formData.get('prenom'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                phone: formData.get('phone'),
+                address: formData.get('address'),
+                dateInscription: new Date().toISOString()
+            };
+            
+            db.put('users', userData);
+            closeModal('registerModal');
+            showToast('Inscription réussie !');
+        }
+
+        function handleAdSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const adData = {
+                titre: formData.get('titre'),
+                categorie: formData.get('categorie'),
+                description: formData.get('description'),
+                prix: formData.get('prix'),
+                localisation: formData.get('localisation'),
+                telephone: formData.get('telephone'),
+                whatsapp: formData.get('whatsapp'),
+                datePublication: new Date().toISOString(),
+                statut: 'actif',
+                auteur: APP_STATE.user?.email || 'anonyme'
+            };
+            
+            db.add('annonces', adData);
+            closeModal('adModal');
+            showToast('Annonce publiée avec succès !');
+            if (APP_STATE.currentPage === 'annonces') {
+                loadAnnonces();
+            }
+        }
+
+        // Service Worker pour PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('Service Worker enregistré avec succès:', registration.scope);
+                }).catch(error => {
+                    console.log('Erreur Service Worker:', error);
+                });
+            });
+        }
+
+        // Cache intelligent
+        const cacheName = 'soge-zabana-v1';
+        const ur
