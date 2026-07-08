@@ -20,7 +20,6 @@
             --radius: 8px;
         }
 
-        /* Dark mode */
         body.dark-mode {
             --bg: #1a1a2e;
             --card-bg: #16213e;
@@ -31,39 +30,14 @@
             --shadow-hover: 0 8px 25px rgba(0,0,0,0.5);
         }
 
-        body.dark-mode .header {
-            background: #16213e;
-            border-bottom-color: #2c3e50;
-        }
+        body.dark-mode .header { background: #16213e; border-bottom-color: #2c3e50; }
+        body.dark-mode .filter-card, body.dark-mode .annonce-card { background: #16213e; }
+        body.dark-mode .btn-action { background: #16213e; color: #ecf0f1; border-color: #2c3e50; }
+        body.dark-mode .page-btn { background: #16213e; color: #ecf0f1; }
+        body.dark-mode .filter-input, body.dark-mode .filter-select { background: #1a1a2e; color: #ecf0f1; border-color: #2c3e50; }
+        body.dark-mode .modal-content { background: #16213e; }
 
-        body.dark-mode .filter-card,
-        body.dark-mode .annonce-card {
-            background: #16213e;
-        }
-
-        body.dark-mode .btn-action {
-            background: #16213e;
-            color: #ecf0f1;
-            border-color: #2c3e50;
-        }
-
-        body.dark-mode .page-btn {
-            background: #16213e;
-            color: #ecf0f1;
-        }
-
-        body.dark-mode .filter-input,
-        body.dark-mode .filter-select {
-            background: #1a1a2e;
-            color: #ecf0f1;
-            border-color: #2c3e50;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -73,7 +47,6 @@
             transition: all 0.3s ease;
         }
 
-        /* HEADER */
         .header {
             background: white;
             border-bottom: 1px solid var(--border);
@@ -116,25 +89,10 @@
             font-weight: bold;
         }
 
-        .logo-text h1 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 0;
-        }
+        .logo-text h1 { font-size: 1.4rem; font-weight: 700; color: var(--primary); margin: 0; }
+        .logo-text small { font-size: 0.7rem; color: var(--text-light); display: block; }
 
-        .logo-text small {
-            font-size: 0.7rem;
-            color: var(--text-light);
-            display: block;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+        .header-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 
         .btn {
             padding: 10px 20px;
@@ -150,568 +108,174 @@
             gap: 5px;
         }
 
-        .btn-primary {
-            background: var(--accent);
-            color: #000;
-        }
+        .btn-primary { background: var(--accent); color: #000; }
+        .btn-primary:hover { background: #e67e22; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(243,156,18,0.3); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; }
+        .btn-admin { background: #e74c3c; color: white; font-weight: 700; }
+        .btn-admin:hover { background: #c0392b; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(231,76,60,0.3); }
+        .btn-theme, .btn-lang { background: transparent; border: 2px solid var(--border); color: var(--text); padding: 8px 12px; font-size: 1.2rem; }
+        .user-info { display: none; align-items: center; gap: 8px; color: var(--text); font-weight: 600; }
+        .user-badge { background: var(--success); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; }
 
-        .btn-primary:hover {
-            background: #e67e22;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(243,156,18,0.3);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-theme, .btn-lang {
-            background: transparent;
-            border: 2px solid var(--border);
-            color: var(--text);
-            padding: 8px 12px;
-            font-size: 1.2rem;
-        }
-
-        .btn-admin {
-            background: #e74c3c;
-            color: white;
-            display: none;
-        }
-
-        .user-info {
-            display: none;
-            align-items: center;
-            gap: 8px;
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        /* NAVIGATION */
-        .nav {
-            background: var(--primary);
-            padding: 0;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
+        .nav { background: var(--primary); padding: 0; }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; }
         .nav-link {
-            color: white;
-            text-decoration: none;
-            padding: 12px 20px;
-            white-space: nowrap;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.2s;
-            border-bottom: 3px solid transparent;
-            cursor: pointer;
+            color: white; text-decoration: none; padding: 12px 20px; white-space: nowrap;
+            font-size: 0.9rem; font-weight: 500; transition: all 0.2s;
+            border-bottom: 3px solid transparent; cursor: pointer;
         }
+        .nav-link:hover, .nav-link.active { background: rgba(255,255,255,0.1); border-bottom-color: var(--accent); }
 
-        .nav-link:hover, .nav-link.active {
-            background: rgba(255,255,255,0.1);
-            border-bottom-color: var(--accent);
-        }
-
-        /* MAIN CONTENT */
-        .main-content {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 20px;
-        }
-
-        /* SIDEBAR FILTERS */
-        .sidebar {
-            position: sticky;
-            top: 120px;
-            height: fit-content;
-        }
-
-        .filter-card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 20px;
-            box-shadow: var(--shadow);
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .filter-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            color: var(--primary);
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 10px;
-        }
-
-        .filter-group {
-            margin-bottom: 15px;
-        }
-
-        .filter-label {
-            display: block;
-            font-weight: 600;
-            font-size: 0.85rem;
-            margin-bottom: 5px;
-            color: var(--text);
-        }
-
+        .main-content { max-width: 1200px; margin: 20px auto; padding: 0 20px; display: grid; grid-template-columns: 280px 1fr; gap: 20px; }
+        .sidebar { position: sticky; top: 120px; height: fit-content; }
+        .filter-card { background: var(--card-bg); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); margin-bottom: 15px; transition: all 0.3s ease; }
+        .filter-card h3 { font-size: 1.1rem; margin-bottom: 15px; color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+        .filter-group { margin-bottom: 15px; }
+        .filter-label { display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 5px; color: var(--text); }
         .filter-input, .filter-select {
-            width: 100%;
-            padding: 8px 12px;
-            border: 2px solid var(--border);
-            border-radius: 5px;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-            font-family: inherit;
-            background: var(--card-bg);
-            color: var(--text);
+            width: 100%; padding: 8px 12px; border: 2px solid var(--border); border-radius: 5px;
+            font-size: 0.9rem; transition: all 0.2s; font-family: inherit;
+            background: var(--card-bg); color: var(--text);
         }
+        .filter-input:focus, .filter-select:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(26,82,118,0.1); }
+        .price-range { display: flex; gap: 8px; }
+        .price-range input { width: 50%; }
+        .filter-checkbox { display: flex; align-items: center; gap: 8px; margin: 5px 0; font-size: 0.9rem; color: var(--text); }
+        .btn-filter { width: 100%; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 5px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+        .btn-filter:hover { background: #2471a3; }
 
-        .filter-input:focus, .filter-select:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(26,82,118,0.1);
-        }
-
-        .price-range {
-            display: flex;
-            gap: 8px;
-        }
-
-        .price-range input {
-            width: 50%;
-        }
-
-        .filter-checkbox {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin: 5px 0;
-            font-size: 0.9rem;
-            color: var(--text);
-        }
-
-        .btn-filter {
-            width: 100%;
-            padding: 10px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .btn-filter:hover {
-            background: #2471a3;
-        }
-
-        /* ANNONCES GRID */
-        .annonces-grid {
-            display: grid;
-            gap: 15px;
-        }
-
+        .annonces-grid { display: grid; gap: 15px; }
         .annonce-card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: all 0.3s;
-            cursor: pointer;
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            position: relative;
+            background: var(--card-bg); border-radius: var(--radius); overflow: hidden;
+            box-shadow: var(--shadow); transition: all 0.3s; cursor: pointer;
+            display: grid; grid-template-columns: 300px 1fr; position: relative;
         }
-
-        .annonce-card:hover {
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-2px);
-        }
-
-        .annonce-image-container {
-            position: relative;
-            height: 220px;
-            overflow: hidden;
-            background: #f8f9fa;
-        }
-
-        .annonce-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s;
-        }
-
-        .annonce-card:hover .annonce-image {
-            transform: scale(1.05);
-        }
-
-        .annonce-badges {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            display: flex;
-            gap: 5px;
-        }
-
-        .badge-urgent {
-            background: #e74c3c;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 3px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .badge-category {
-            background: var(--primary);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 3px;
-            font-size: 0.75rem;
-        }
-
+        .annonce-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+        .annonce-image-container { position: relative; height: 220px; overflow: hidden; background: #f8f9fa; }
+        .annonce-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .annonce-card:hover .annonce-image { transform: scale(1.05); }
+        .annonce-badges { position: absolute; top: 10px; left: 10px; display: flex; gap: 5px; flex-wrap: wrap; }
+        .badge-urgent { background: #e74c3c; color: white; padding: 4px 10px; border-radius: 3px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .badge-category { background: var(--primary); color: white; padding: 4px 10px; border-radius: 3px; font-size: 0.75rem; }
+        .badge-new { background: var(--success); color: white; padding: 4px 10px; border-radius: 3px; font-size: 0.75rem; font-weight: 700; }
         .annonce-favorite {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: white;
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            transition: all 0.2s;
+            position: absolute; top: 10px; right: 10px; background: white; border: none;
+            width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; cursor: pointer; font-size: 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: all 0.2s;
         }
-
-        .annonce-favorite:hover {
-            transform: scale(1.1);
-        }
-
-        .annonce-favorite.liked {
-            color: #e74c3c;
-        }
-
+        .annonce-favorite:hover { transform: scale(1.1); }
+        .annonce-favorite.liked { color: #e74c3c; }
         .image-counter {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 10px;
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 3px;
+            position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7);
+            color: white; padding: 4px 8px; border-radius: 10px; font-size: 0.75rem;
+            display: flex; align-items: center; gap: 3px;
         }
+        .image-nav { position: absolute; bottom: 10px; left: 10px; display: flex; gap: 4px; }
+        .image-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; }
+        .image-dot.active { background: white; }
 
-        .annonce-content {
-            padding: 15px 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .annonce-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 10px;
-        }
-
-        .annonce-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text);
-            margin: 0;
-            line-height: 1.3;
-        }
-
-        .annonce-price {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--secondary);
-            white-space: nowrap;
-            margin-left: 15px;
-        }
-
-        .annonce-description {
-            color: var(--text-light);
-            font-size: 0.9rem;
-            margin-bottom: 12px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .annonce-meta {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            font-size: 0.85rem;
-            color: var(--text-light);
-        }
-
-        .annonce-meta span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .annonce-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid var(--border);
-        }
-
-        .annonce-date {
-            font-size: 0.8rem;
-            color: #999;
-        }
-
-        .annonce-actions {
-            display: flex;
-            gap: 8px;
-        }
-
+        .annonce-content { padding: 15px 20px; display: flex; flex-direction: column; justify-content: space-between; }
+        .annonce-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .annonce-title { font-size: 1.2rem; font-weight: 700; color: var(--text); margin: 0; line-height: 1.3; }
+        .annonce-price { font-size: 1.3rem; font-weight: 700; color: var(--secondary); white-space: nowrap; margin-left: 15px; }
+        .annonce-description { color: var(--text-light); font-size: 0.9rem; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .annonce-meta { display: flex; gap: 15px; flex-wrap: wrap; font-size: 0.85rem; color: var(--text-light); }
+        .annonce-meta span { display: flex; align-items: center; gap: 4px; }
+        .annonce-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+        .annonce-date { font-size: 0.8rem; color: #999; }
+        .annonce-actions { display: flex; gap: 8px; }
         .btn-action {
-            padding: 6px 15px;
-            border: 1px solid var(--border);
-            border-radius: 5px;
-            background: var(--card-bg);
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: var(--text);
+            padding: 6px 15px; border: 1px solid var(--border); border-radius: 5px;
+            background: var(--card-bg); cursor: pointer; font-size: 0.8rem;
+            transition: all 0.2s; display: flex; align-items: center; gap: 4px; color: var(--text);
         }
-
-        .btn-action:hover {
-            background: #f8f9fa;
-            border-color: var(--primary);
-        }
+        .btn-action:hover { background: #f8f9fa; border-color: var(--primary); }
 
         /* MODALS */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;
         }
-
-        .modal.active {
-            display: flex;
-        }
-
+        .modal.active { display: flex; }
         .modal-content {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: var(--radius);
-            max-width: 500px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: modalIn 0.3s ease;
+            background: var(--card-bg); padding: 30px; border-radius: var(--radius);
+            max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: modalIn 0.3s ease;
         }
-
         @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9) translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            from { opacity: 0; transform: scale(0.9) translateY(-20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: var(--text); }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 10px; border: 2px solid var(--border); border-radius: 5px;
+            font-family: inherit; background: var(--card-bg); color: var(--text);
         }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .form-actions button { flex: 1; }
 
-        .modal-close {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text);
+        /* Upload images */
+        .upload-area {
+            border: 3px dashed var(--border); border-radius: 10px; padding: 30px;
+            text-align: center; cursor: pointer; transition: all 0.3s; margin-bottom: 10px;
         }
-
-        .form-group {
-            margin-bottom: 15px;
+        .upload-area:hover { border-color: var(--primary); background: rgba(26,82,118,0.05); }
+        .upload-area.dragover { border-color: var(--success); background: rgba(39,174,96,0.05); }
+        .upload-icon { font-size: 3rem; margin-bottom: 10px; }
+        .preview-container { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+        .preview-image {
+            width: 100px; height: 100px; object-fit: cover; border-radius: 5px;
+            border: 2px solid var(--border); position: relative;
         }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid var(--border);
-            border-radius: 5px;
-            font-family: inherit;
-            background: var(--card-bg);
-            color: var(--text);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .form-actions button {
-            flex: 1;
+        .preview-remove {
+            position: absolute; top: -8px; right: -8px; background: #e74c3c; color: white;
+            border: none; width: 22px; height: 22px; border-radius: 50%; cursor: pointer;
+            font-size: 0.7rem; display: flex; align-items: center; justify-content: center;
         }
 
         /* NOTIFICATION */
         .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            z-index: 9999;
-            animation: slideIn 0.3s ease;
-            max-width: 350px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            position: fixed; top: 20px; right: 20px; padding: 15px 20px;
+            border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 9999; animation: slideIn 0.3s ease; max-width: 350px;
+            display: flex; align-items: center; gap: 10px; background: white;
         }
-
-        .notification.success {
-            border-left: 4px solid #27ae60;
-        }
-
-        .notification.error {
-            border-left: 4px solid #e74c3c;
-        }
-
-        .notification.info {
-            border-left: 4px solid #3498db;
-        }
-
+        .notification.success { border-left: 4px solid #27ae60; }
+        .notification.error { border-left: 4px solid #e74c3c; }
+        .notification.info { border-left: 4px solid #3498db; }
+        .notification.warning { border-left: 4px solid #f39c12; }
         @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
-        /* RTL Support */
-        body.rtl {
-            direction: rtl;
-        }
+        body.rtl { direction: rtl; }
+        body.rtl .annonce-price { margin-left: 0; margin-right: 15px; }
+        body.rtl .annonce-badges { left: auto; right: 10px; }
+        body.rtl .annonce-favorite { right: auto; left: 10px; }
 
-        body.rtl .annonce-badges {
-            left: auto;
-            right: 10px;
-        }
+        .detail-modal-content { max-width: 800px !important; }
+        .detail-images { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 20px; }
+        .detail-image { width: 300px; height: 200px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
 
-        body.rtl .annonce-favorite {
-            right: auto;
-            left: 10px;
-        }
-
-        body.rtl .annonce-price {
-            margin-left: 0;
-            margin-right: 15px;
-        }
-
-        /* RESPONSIVE */
         @media (max-width: 900px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            .sidebar {
-                position: static;
-                display: none;
-            }
-            .sidebar.mobile-visible {
-                display: block;
-            }
-            .annonce-card {
-                grid-template-columns: 1fr;
-            }
-            .annonce-image-container {
-                height: 200px;
-            }
+            .main-content { grid-template-columns: 1fr; }
+            .sidebar { position: static; display: none; }
+            .sidebar.mobile-visible { display: block; }
+            .annonce-card { grid-template-columns: 1fr; }
+            .annonce-image-container { height: 200px; }
         }
-
         @media (max-width: 600px) {
-            .header-top {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .header-actions {
-                width: 100%;
-                justify-content: center;
-            }
-            .annonce-header {
-                flex-direction: column;
-            }
-            .annonce-price {
-                margin-left: 0;
-                margin-top: 5px;
-            }
+            .header-top { flex-direction: column; gap: 10px; }
+            .header-actions { width: 100%; justify-content: center; }
+            .annonce-header { flex-direction: column; }
+            .annonce-price { margin-left: 0; margin-top: 5px; }
         }
     </style>
 </head>
@@ -734,17 +298,19 @@
                 <button class="btn btn-theme" onclick="toggleTheme()" title="Mode sombre/clair">
                     <span id="themeIcon">🌙</span>
                 </button>
+                <!-- Bouton Admin TOUJOURS visible -->
+                <button class="btn btn-admin" onclick="openModal('adminLoginModal')" title="Accès Administrateur">
+                    ⚙️ <span data-i18n="admin">Admin</span>
+                </button>
                 <button class="btn btn-outline" id="loginBtn" onclick="openModal('loginModal')">
                     👤 <span data-i18n="login">Connexion</span>
                 </button>
-                <button class="btn btn-admin" id="adminBtn" onclick="openModal('adminModal')">
-                    ⚙️ <span data-i18n="admin">Admin</span>
-                </button>
                 <div class="user-info" id="userInfo">
                     <span id="userName"></span>
+                    <span class="user-badge" id="userBadge" style="display:none;">Admin</span>
                     <button class="btn btn-outline" onclick="logout()" style="padding:5px 10px;font-size:0.8rem;">🚪</button>
                 </div>
-                <button class="btn btn-primary" onclick="openModal('adModal')">
+                <button class="btn btn-primary" id="postAdBtn" onclick="handlePostAdClick()">
                     + <span data-i18n="postAd">Déposer une annonce</span>
                 </button>
             </div>
@@ -820,19 +386,15 @@
         <!-- ANNONCES LIST -->
         <div class="annonces-list">
             <div style="margin-bottom:15px; color:var(--text-light);" id="resultsCount">
-                <strong>12</strong> <span data-i18n="adsFound">annonces trouvées</span>
+                <strong id="countAnnonces">12</strong> <span data-i18n="adsFound">annonces trouvées</span>
             </div>
-
-            <!-- ANNONCES GRID -->
-            <div class="annonces-grid" id="annoncesGrid">
-                <!-- Les annonces seront générées par JavaScript -->
-            </div>
+            <div class="annonces-grid" id="annoncesGrid"></div>
         </div>
     </div>
 
     <!-- MODAL: Déposer une annonce -->
     <div class="modal" id="adModal">
-        <div class="modal-content">
+        <div class="modal-content" style="max-width:600px;">
             <div class="modal-header">
                 <h2 data-i18n="postAd">📝 Déposer une annonce</h2>
                 <button class="modal-close" onclick="closeModal('adModal')">✕</button>
@@ -877,6 +439,17 @@
                     <label data-i18n="phone">Téléphone *</label>
                     <input type="tel" id="adPhone" required placeholder="0550 XX XX XX">
                 </div>
+                <!-- UPLOAD IMAGES -->
+                <div class="form-group">
+                    <label data-i18n="photos">Photos de l'annonce</label>
+                    <div class="upload-area" id="uploadArea" onclick="document.getElementById('imageInput').click()">
+                        <div class="upload-icon">📷</div>
+                        <p>Cliquez pour ajouter des photos</p>
+                        <small>Ou glissez-déposez vos images ici</small>
+                    </div>
+                    <input type="file" id="imageInput" accept="image/*" multiple style="display:none;" onchange="handleImageUpload(event)">
+                    <div class="preview-container" id="previewContainer"></div>
+                </div>
                 <div class="form-group">
                     <label>
                         <input type="checkbox" id="adUrgent">
@@ -914,9 +487,6 @@
                     <span data-i18n="noAccount">Pas de compte ?</span> 
                     <a href="#" onclick="closeModal('loginModal');openModal('registerModal')" style="color:var(--primary);" data-i18n="register">S'inscrire</a>
                 </p>
-                <p style="text-align:center;font-size:0.8rem;color:#999;margin-top:10px;">
-                    Admin: admin@sogezabana.dz / admin123
-                </p>
             </form>
         </div>
     </div>
@@ -952,23 +522,44 @@
         </div>
     </div>
 
-    <!-- MODAL: Admin -->
-    <div class="modal" id="adminModal">
-        <div class="modal-content" style="max-width:700px;">
+    <!-- MODAL: Admin Login -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
             <div class="modal-header">
-                <h2>⚙️ Administration</h2>
-                <button class="modal-close" onclick="closeModal('adminModal')">✕</button>
+                <h2>⚙️ Accès Administrateur</h2>
+                <button class="modal-close" onclick="closeModal('adminLoginModal')">✕</button>
             </div>
-            <div id="adminContent">
-                <h3>Gestion des annonces</h3>
-                <div id="adminAnnoncesList" style="max-height:400px;overflow-y:auto;"></div>
+            <form onsubmit="adminLogin(event)">
+                <div class="form-group">
+                    <label>Email Admin</label>
+                    <input type="email" id="adminEmail" required placeholder="admin@sogezabana.dz">
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe Admin</label>
+                    <input type="password" id="adminPassword" required placeholder="••••••••">
+                </div>
+                <p style="font-size:0.8rem;color:#999;margin-bottom:15px;">Défaut: admin@sogezabana.dz / admin123</p>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Accéder à l'administration</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Détail annonce -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content detail-modal-content">
+            <div class="modal-header">
+                <h2 id="detailTitle">Détails de l'annonce</h2>
+                <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
             </div>
+            <div id="detailContent"></div>
         </div>
     </div>
 
     <script>
         // ============================================
-        // APPLICATION PRINCIPALE
+        // APPLICATION SOGE ZABANA RH - COMPLÈTE
         // ============================================
 
         // État de l'application
@@ -977,13 +568,14 @@
             darkMode: false,
             currentUser: null,
             currentFilter: 'all',
-            favorites: JSON.parse(localStorage.getItem('favorites') || '[]')
+            favorites: JSON.parse(localStorage.getItem('favorites') || '[]'),
+            uploadedImages: [],
+            annonces: []
         };
 
-        // Base de données des utilisateurs
+        // Base de données
         let users = JSON.parse(localStorage.getItem('users') || '[]');
         
-        // Admin par défaut
         const ADMIN = {
             email: 'admin@sogezabana.dz',
             password: 'admin123',
@@ -991,268 +583,76 @@
             isAdmin: true
         };
 
-        // Ajouter l'admin si pas présent
         if (!users.find(u => u.email === ADMIN.email)) {
             users.push(ADMIN);
             localStorage.setItem('users', JSON.stringify(users));
         }
 
+        // Charger les annonces sauvegardées
+        const savedAnnonces = JSON.parse(localStorage.getItem('annonces') || 'null');
+        
+        // Annonces par défaut
+        const defaultAnnonces = [
+            { id: 1, title: "Appartement F3 Neuf - Quartier Centre", category: "immobilier", price: 8500000, description: "Magnifique appartement F3 de 90m², bien ensoleillé, proche de toutes commodités. Cuisine équipée, climatisation, parking.", location: "Quartier Centre", date: "Aujourd'hui, 14:30", phone: "0550 12 34 56", surface: "90 m²", pieces: 3, urgent: true, images: ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop", "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&h=400&fit=crop"] },
+            { id: 2, title: "Toyota Corolla 2023 - 15,000 km", category: "vehicules", price: 2800000, description: "Véhicule en excellent état, première main, faible kilométrage. Couleur blanche, climatisation automatique, GPS.", location: "Quartier Nord", date: "Hier, 10:15", phone: "0550 78 94 56", surface: null, pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&h=400&fit=crop", "https://images.unsplash.com/photo-1550355291-bbee04a92027?w=600&h=400&fit=crop"] },
+            { id: 3, title: "Villa F5 avec Jardin - Vue sur Mer", category: "immobilier", price: 15000000, description: "Superbe villa de 250m² avec jardin paysager, piscine, garage double. Vue panoramique sur la mer.", location: "Quartier Sud", date: "Il y a 2 jours", phone: "0550 45 67 89", surface: "250 m²", pieces: 5, urgent: true, images: ["https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop", "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&h=400&fit=crop"] },
+            { id: 4, title: "iPhone 15 Pro Max - 256Go", category: "telephones", price: 180000, description: "iPhone 15 Pro Max noir titane, 256Go, état comme neuf, facture disponible.", location: "Quartier Est", date: "Il y a 3 jours", phone: "0550 32 16 54", surface: null, pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&h=400&fit=crop"] },
+            { id: 5, title: "Local Commercial 120m² - Premium", category: "commerces", price: 12000000, description: "Local commercial idéalement situé sur avenue principale. Grande vitrine, bon passage.", location: "Quartier Centre", date: "Il y a 4 jours", phone: "0550 98 76 54", surface: "120 m²", pieces: 1, urgent: false, images: ["https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&h=400&fit=crop"] },
+            { id: 6, title: "Renault Symbol 2022 - Diesel", category: "vehicules", price: 1950000, description: "Renault Symbol diesel, excellent état, 35000km. Économique et fiable.", location: "Quartier Nord", date: "Il y a 5 jours", phone: "0550 11 22 33", surface: null, pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop"] },
+            { id: 7, title: "Service Plomberie Professionnel 24/7", category: "services", price: 5000, description: "Plombier expérimenté, intervention rapide. Devis gratuit, garantie sur travaux.", location: "Misserghine", date: "Il y a 6 jours", phone: "0550 44 55 66", surface: null, pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=400&fit=crop"] },
+            { id: 8, title: "Comptable Senior - CDI", category: "emploi", price: 45000, description: "Entreprise recherche comptable senior avec 5 ans d'expérience. Salaire motivant + avantages.", location: "Zone d'activité, Misserghine", date: "Il y a 1 semaine", phone: "0550 77 88 99", surface: null, pieces: null, urgent: true, images: ["https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop"] },
+            { id: 9, title: "Terrain à Bâtir - 500m²", category: "immobilier", price: 6500000, description: "Terrain constructible de 500m², viabilisé, titre foncier disponible.", location: "Quartier Est", date: "Il y a 1 semaine", phone: "0550 12 98 76", surface: "500 m²", pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=400&fit=crop"] },
+            { id: 10, title: "Climatiseur Split Samsung - Neuf", category: "electromenager", price: 85000, description: "Climatiseur split Samsung 12000 BTU, neuf dans emballage. Garantie 2 ans.", location: "Quartier Centre", date: "Il y a 1 semaine", phone: "0550 55 44 33", surface: null, pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&h=400&fit=crop"] },
+            { id: 11, title: "Boulangerie-Pâtisserie à Céder", category: "commerces", price: 18000000, description: "Fonds de commerce boulangerie-pâtisserie bien établi. Clientèle fidèle, matériel inclus.", location: "Avenue principale, Misserghine", date: "Il y a 2 semaines", phone: "0550 66 77 88", surface: "150 m²", pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1555507036-ab1f4038024a?w=600&h=400&fit=crop"] },
+            { id: 12, title: "Cours de Soutien Scolaire - Math/Physique", category: "services", price: 2000, description: "Professeur expérimenté donne cours de soutien. Tous niveaux. Préparation examens.", location: "Misserghine", date: "Il y a 2 semaines", phone: "0550 99 88 77", surface: null, pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop"] }
+        ];
+
+        appState.annonces = savedAnnonces || defaultAnnonces;
+        if (!savedAnnonces) {
+            localStorage.setItem('annonces', JSON.stringify(defaultAnnonces));
+        }
+
         // Traductions
         const translations = {
             fr: {
-                appName: 'SOGE ZABANA',
-                subtitle: 'Pôle Urbain Ahmed Zabana - Misserghine',
-                langBtn: 'عربي',
-                login: 'Connexion',
-                admin: 'Admin',
-                postAd: 'Déposer une annonce',
-                allAds: '🏠 Toutes les annonces',
-                filters: '🔍 Filtrer les annonces',
-                category: 'Catégorie',
-                price: 'Prix (DZD)',
-                district: 'Quartier',
-                urgentOnly: 'Uniquement les annonces urgentes',
-                resetFilters: 'Réinitialiser les filtres',
-                adsFound: 'annonces trouvées',
-                title: 'Titre de l\'annonce',
-                description: 'Description',
-                phone: 'Téléphone',
-                urgent: 'Annonce urgente',
-                publish: 'Publier l\'annonce',
-                cancel: 'Annuler',
-                email: 'Email',
-                password: 'Mot de passe',
-                connect: 'Se connecter',
-                noAccount: 'Pas de compte ?',
-                register: 'S\'inscrire',
-                fullName: 'Nom complet',
-                welcome: 'Bienvenue',
-                logout: 'Déconnexion',
-                adPublished: 'Annonce publiée avec succès !',
-                loginSuccess: 'Connexion réussie !',
-                registerSuccess: 'Inscription réussie !',
-                adminAccess: 'Accès administrateur',
-                favoriteAdded: 'Ajouté aux favoris',
-                favoriteRemoved: 'Retiré des favoris',
-                themeChanged: 'Thème changé',
-                langChanged: 'Langue changée'
+                appName: 'SOGE ZABANA', subtitle: 'Pôle Urbain Ahmed Zabana - Misserghine',
+                langBtn: 'عربي', login: 'Connexion', admin: 'Admin', postAd: 'Déposer une annonce',
+                allAds: '🏠 Toutes les annonces', filters: '🔍 Filtrer les annonces',
+                category: 'Catégorie', price: 'Prix (DZD)', district: 'Quartier',
+                urgentOnly: 'Uniquement les annonces urgentes', resetFilters: 'Réinitialiser les filtres',
+                adsFound: 'annonces trouvées', title: 'Titre de l\'annonce',
+                description: 'Description', phone: 'Téléphone', urgent: 'Annonce urgente',
+                publish: 'Publier l\'annonce', cancel: 'Annuler', email: 'Email',
+                password: 'Mot de passe', connect: 'Se connecter', noAccount: 'Pas de compte ?',
+                register: 'S\'inscrire', fullName: 'Nom complet', welcome: 'Bienvenue',
+                logout: 'Déconnexion', photos: 'Photos de l\'annonce',
+                loginRequired: 'Vous devez être connecté pour déposer une annonce',
+                adPublished: 'Annonce publiée avec succès !', loginSuccess: 'Connexion réussie !',
+                registerSuccess: 'Inscription réussie !', adminAccess: 'Accès administrateur',
+                favoriteAdded: 'Ajouté aux favoris', favoriteRemoved: 'Retiré des favoris',
+                themeChanged: 'Thème changé', langChanged: 'Langue changée'
             },
             ar: {
-                appName: 'سوق زبانة',
-                subtitle: 'القطب الحضري أحمد زبانة - مسرغين',
-                langBtn: 'FR',
-                login: 'تسجيل الدخول',
-                admin: 'المشرف',
-                postAd: 'نشر إعلان',
-                allAds: '🏠 جميع الإعلانات',
-                filters: '🔍 تصفية الإعلانات',
-                category: 'الفئة',
-                price: 'السعر (دج)',
-                district: 'الحي',
-                urgentOnly: 'الإعلانات العاجلة فقط',
-                resetFilters: 'إعادة تعيين',
-                adsFound: 'إعلان موجود',
-                title: 'عنوان الإعلان',
-                description: 'الوصف',
-                phone: 'الهاتف',
-                urgent: 'إعلان عاجل',
-                publish: 'نشر الإعلان',
-                cancel: 'إلغاء',
-                email: 'البريد الإلكتروني',
-                password: 'كلمة المرور',
-                connect: 'تسجيل الدخول',
-                noAccount: 'ليس لديك حساب؟',
-                register: 'التسجيل',
-                fullName: 'الاسم الكامل',
-                welcome: 'مرحباً',
-                logout: 'تسجيل الخروج',
-                adPublished: 'تم نشر الإعلان بنجاح!',
-                loginSuccess: 'تم تسجيل الدخول بنجاح!',
-                registerSuccess: 'تم التسجيل بنجاح!',
-                adminAccess: 'وصول المشرف',
-                favoriteAdded: 'تمت الإضافة إلى المفضلة',
-                favoriteRemoved: 'تمت الإزالة من المفضلة',
-                themeChanged: 'تم تغيير السمة',
-                langChanged: 'تم تغيير اللغة'
+                appName: 'سوق زبانة', subtitle: 'القطب الحضري أحمد زبانة - مسرغين',
+                langBtn: 'FR', login: 'تسجيل الدخول', admin: 'المشرف', postAd: 'نشر إعلان',
+                allAds: '🏠 جميع الإعلانات', filters: '🔍 تصفية الإعلانات',
+                category: 'الفئة', price: 'السعر (دج)', district: 'الحي',
+                urgentOnly: 'الإعلانات العاجلة فقط', resetFilters: 'إعادة تعيين',
+                adsFound: 'إعلان موجود', title: 'عنوان الإعلان',
+                description: 'الوصف', phone: 'الهاتف', urgent: 'إعلان عاجل',
+                publish: 'نشر الإعلان', cancel: 'إلغاء', email: 'البريد الإلكتروني',
+                password: 'كلمة المرور', connect: 'تسجيل الدخول', noAccount: 'ليس لديك حساب؟',
+                register: 'التسجيل', fullName: 'الاسم الكامل', welcome: 'مرحباً',
+                logout: 'تسجيل الخروج', photos: 'صور الإعلان',
+                loginRequired: 'يجب تسجيل الدخول لنشر إعلان',
+                adPublished: 'تم نشر الإعلان بنجاح!', loginSuccess: 'تم تسجيل الدخول بنجاح!',
+                registerSuccess: 'تم التسجيل بنجاح!', adminAccess: 'وصول المشرف',
+                favoriteAdded: 'تمت الإضافة إلى المفضلة', favoriteRemoved: 'تمت الإزالة من المفضلة',
+                themeChanged: 'تم تغيير السمة', langChanged: 'تم تغيير اللغة'
             }
         };
 
-        // Données des annonces
-        const allAnnonces = [
-            {
-                id: 1,
-                title: "Appartement F3 Neuf - Quartier Centre",
-                category: "immobilier",
-                price: 8500000,
-                description: "Magnifique appartement F3 de 90m², bien ensoleillé, proche de toutes commodités.",
-                location: "Quartier Centre",
-                date: "Aujourd'hui, 14:30",
-                phone: "0550 12 34 56",
-                surface: "90 m²",
-                pieces: 3,
-                urgent: true,
-                images: ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop"]
-            },
-            {
-                id: 2,
-                title: "Toyota Corolla 2023 - 15,000 km",
-                category: "vehicules",
-                price: 2800000,
-                description: "Véhicule en excellent état, première main, faible kilométrage.",
-                location: "Quartier Nord",
-                date: "Hier, 10:15",
-                phone: "0550 78 94 56",
-                surface: null,
-                pieces: null,
-                urgent: false,
-                images: ["https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&h=400&fit=crop"]
-            },
-            {
-                id: 3,
-                title: "Villa F5 avec Jardin - Vue sur Mer",
-                category: "immobilier",
-                price: 15000000,
-                description: "Superbe villa de 250m² avec jardin paysager, piscine, garage double.",
-                location: "Quartier Sud",
-                date: "Il y a 2 jours",
-                phone: "0550 45 67 89",
-                surface: "250 m²",
-                pieces: 5,
-                urgent: true,
-                images: ["https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop"]
-            },
-            {
-                id: 4,
-                title: "iPhone 15 Pro Max - 256Go",
-                category: "telephones",
-                price: 180000,
-                description: "iPhone 15 Pro Max noir titane, 256Go, état comme neuf.",
-                location: "Quartier Est",
-                date: "Il y a 3 jours",
-                phone: "0550 32 16 54",
-                surface: null,
-                pieces: null,
-                urgent: false,
-                images: ["https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&h=400&fit=crop"]
-            },
-            {
-                id: 5,
-                title: "Local Commercial 120m²",
-                category: "commerces",
-                price: 12000000,
-                description: "Local commercial idéalement situé sur avenue principale.",
-                location: "Quartier Centre",
-                date: "Il y a 4 jours",
-                phone: "0550 98 76 54",
-                surface: "120 m²",
-                pieces: 1,
-                urgent: false,
-                images: ["https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&h=400&fit=crop"]
-            },
-            {
-                id: 6,
-                title: "Renault Symbol 2022 - Diesel",
-                category: "vehicules",
-                price: 1950000,
-                description: "Renault Symbol diesel, excellent état, 35000km.",
-                location: "Quartier Nord",
-                date: "Il y a 5 jours",
-                phone: "0550 11 22 33",
-                surface: null,
-                pieces: null,
-                urgent: false,
-                images: ["https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop"]
-            },
-            {
-                id: 7,
-                title: "Service Plomberie Professionnel 24/7",
-                category: "services",
-                price: 5000,
-                description: "Plombier expérimenté, intervention rapide. Devis gratuit.",
-                location: "Misserghine",
-                date: "Il y a 6 jours",
-                phone: "0550 44 55 66",
-                surface: null,
-                pieces: null,
-                urgent: false,
-                images: ["https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=400&fit=crop"]
-            },
-            {
-                id: 8,
-                title: "Comptable Senior - CDI",
-                category: "emploi",
-                price: 45000,
-                description: "Entreprise recherche comptable senior avec 5 ans d'expérience.",
-                location: "Zone d'activité, Misserghine",
-                date: "Il y a 1 semaine",
-                phone: "0550 77 88 99",
-                surface: null,
-                pieces: null,
-                urgent: true,
-                images: ["https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop"]
-            },
-            {
-                id: 9,
-                title: "Terrain à Bâtir - 500m²",
-                category: "immobilier",
-                price: 6500000,
-                description: "Terrain constructible de 500m², viabilisé, titre foncier disponible.",
-                location: "Quartier Est",
-                date: "Il y a 1 semaine",
-                phone: "0550 12 98 76",
-                surface: "500 m²",
-                pieces: null,
-                urgent: false,
-                images: ["https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=400&fit=crop"]
-            },
-            {
-                id: 10,
-                title: "Climatiseur Split Samsung - Neuf",
-                category: "electromenager",
-                price: 85000,
-                description: "Climatiseur split Samsung 12000 BTU, neuf dans emballage.",
-                location: "Quartier Centre",
-                date: "Il y a 1 semaine",
-                phone: "0550 55 44 33",
-                surface: null,
-                pieces: null,
-                urgent: false,
-                images: ["https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&h=400&fit=crop"]
-            },
-            {
-                id: 11,
-                title: "Boulangerie-Pâtisserie à Céder",
-                category: "commerces",
-                price: 18000000,
-                description: "Fonds de commerce boulangerie-pâtisserie bien établi. Clientèle fidèle.",
-                location: "Avenue principale, Misserghine",
-                date: "Il y a 2 semaines",
-                phone: "0550 66 77 88",
-                surface: "150 m²",
-                pieces: null,
-                urgent: false,
-                images: ["https://images.unsplash.com/photo-1555507036-ab1f4038024a?w=600&h=400&fit=crop"]
-            },
-            {
-                id: 12,
-                title: "Cours de Soutien Scolaire - Math/Physique",
-                category: "services",
-                price: 2000,
-                description: "Professeur expérimenté donne cours de soutien. Tous niveaux.",
-                location: "Misserghine",
-                date: "Il y a 2 semaines",
-                phone: "0550 99 88 77",
-                surface: null,
-                pieces: null,
-                urgent: false,
-                images: ["https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop"]
-            }
-        ];
-
-        // Fonctions utilitaires
-        function t(key) {
-            return translations[appState.currentLanguage][key] || key;
-        }
+        function t(key) { return translations[appState.currentLanguage][key] || key; }
 
         function updateTranslations() {
             document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1265,8 +665,7 @@
                     el.textContent = t(key);
                 }
             });
-            document.getElementById('resultsCount').innerHTML = 
-                `<strong id="countAnnonces">12</strong> ${t('adsFound')}`;
+            document.getElementById('countAnnonces').textContent = appState.annonces.length;
         }
 
         function showNotification(message, type = 'success') {
@@ -1277,22 +676,76 @@
             setTimeout(() => notification.remove(), 3000);
         }
 
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
-        }
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
-        }
-
-        // Fermer les modals en cliquant dehors
         window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {
                 event.target.classList.remove('active');
             }
         }
 
-        // Thème sombre/clair
+        // Gérer le clic sur "Déposer une annonce"
+        function handlePostAdClick() {
+            if (!appState.currentUser) {
+                showNotification(t('loginRequired'), 'warning');
+                openModal('loginModal');
+            } else {
+                openModal('adModal');
+            }
+        }
+
+        // Upload d'images
+        function handleImageUpload(event) {
+            const files = event.target.files;
+            const previewContainer = document.getElementById('previewContainer');
+            
+            for (let file of files) {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        appState.uploadedImages.push(e.target.result);
+                        renderPreviews();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+
+        function renderPreviews() {
+            const container = document.getElementById('previewContainer');
+            container.innerHTML = appState.uploadedImages.map((img, index) => `
+                <div style="position:relative;display:inline-block;">
+                    <img src="${img}" class="preview-image" alt="Preview ${index + 1}">
+                    <button class="preview-remove" onclick="removeImage(${index})">×</button>
+                </div>
+            `).join('');
+        }
+
+        function removeImage(index) {
+            appState.uploadedImages.splice(index, 1);
+            renderPreviews();
+        }
+
+        // Drag & drop
+        const uploadArea = document.getElementById('uploadArea');
+        if (uploadArea) {
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                handleImageUpload({ target: { files } });
+            });
+        }
+
+        // Thème
         function toggleTheme() {
             appState.darkMode = !appState.darkMode;
             document.body.classList.toggle('dark-mode', appState.darkMode);
@@ -1310,7 +763,7 @@
             showNotification(t('langChanged'), 'info');
         }
 
-        // Connexion
+        // Connexion utilisateur
         function login(event) {
             event.preventDefault();
             const email = document.getElementById('loginEmail').value;
@@ -1324,13 +777,25 @@
                 closeModal('loginModal');
                 updateUIForUser();
                 showNotification(t('loginSuccess'), 'success');
-                
-                if (user.isAdmin) {
-                    document.getElementById('adminBtn').style.display = 'inline-flex';
-                    showNotification(t('adminAccess'), 'info');
-                }
             } else {
                 showNotification('Email ou mot de passe incorrect', 'error');
+            }
+        }
+
+        // Connexion admin
+        function adminLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            if (email === ADMIN.email && password === ADMIN.password) {
+                appState.currentUser = ADMIN;
+                localStorage.setItem('currentUser', JSON.stringify(ADMIN));
+                closeModal('adminLoginModal');
+                updateUIForUser();
+                showNotification(t('adminAccess'), 'success');
+            } else {
+                showNotification('Identifiants admin incorrects', 'error');
             }
         }
 
@@ -1364,28 +829,28 @@
             appState.currentUser = null;
             localStorage.removeItem('currentUser');
             updateUIForUser();
-            document.getElementById('adminBtn').style.display = 'none';
             showNotification(t('logout'), 'info');
         }
 
-        // Mise à jour de l'interface utilisateur
         function updateUIForUser() {
             const loginBtn = document.getElementById('loginBtn');
             const userInfo = document.getElementById('userInfo');
             const userName = document.getElementById('userName');
-            const adminBtn = document.getElementById('adminBtn');
+            const userBadge = document.getElementById('userBadge');
             
             if (appState.currentUser) {
                 loginBtn.style.display = 'none';
                 userInfo.style.display = 'flex';
                 userName.textContent = `${t('welcome')}, ${appState.currentUser.name}`;
                 if (appState.currentUser.isAdmin) {
-                    adminBtn.style.display = 'inline-flex';
+                    userBadge.style.display = 'inline';
+                } else {
+                    userBadge.style.display = 'none';
                 }
             } else {
                 loginBtn.style.display = 'inline-flex';
                 userInfo.style.display = 'none';
-                adminBtn.style.display = 'none';
+                userBadge.style.display = 'none';
             }
         }
 
@@ -1393,8 +858,19 @@
         function submitAd(event) {
             event.preventDefault();
             
+            if (!appState.currentUser) {
+                showNotification(t('loginRequired'), 'warning');
+                closeModal('adModal');
+                openModal('loginModal');
+                return;
+            }
+            
+            const images = appState.uploadedImages.length > 0 
+                ? appState.uploadedImages 
+                : ["https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&h=400&fit=crop"];
+            
             const newAd = {
-                id: allAnnonces.length + 1,
+                id: Date.now(),
                 title: document.getElementById('adTitle').value,
                 category: document.getElementById('adCategory').value,
                 price: parseInt(document.getElementById('adPrice').value),
@@ -1405,11 +881,17 @@
                 surface: null,
                 pieces: null,
                 urgent: document.getElementById('adUrgent').checked,
-                images: ["https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&h=400&fit=crop"]
+                images: images,
+                author: appState.currentUser.name,
+                authorEmail: appState.currentUser.email
             };
             
-            allAnnonces.unshift(newAd);
+            appState.annonces.unshift(newAd);
+            localStorage.setItem('annonces', JSON.stringify(appState.annonces));
+            
             document.getElementById('adForm').reset();
+            appState.uploadedImages = [];
+            document.getElementById('previewContainer').innerHTML = '';
             closeModal('adModal');
             filterByCategory(appState.currentFilter);
             showNotification(t('adPublished'), 'success');
@@ -1418,21 +900,15 @@
         // Filtrage
         function filterByCategory(category) {
             appState.currentFilter = category;
-            
-            // Mise à jour de la navigation
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            const navLinks = document.querySelectorAll('.nav-link');
             const categoryMap = {
                 'all': 0, 'immobilier': 1, 'vehicules': 2, 'services': 3,
                 'emploi': 4, 'commerces': 5, 'telephones': 6, 'electromenager': 7
             };
             if (categoryMap[category] !== undefined) {
-                navLinks[categoryMap[category]].classList.add('active');
+                document.querySelectorAll('.nav-link')[categoryMap[category]].classList.add('active');
             }
-            
-            // Mise à jour du filtre sidebar
             document.getElementById('filterCategory').value = category;
-            
             applyFilters();
         }
 
@@ -1443,7 +919,7 @@
             const district = document.getElementById('filterDistrict').value;
             const urgentOnly = document.getElementById('filterUrgent').checked;
             
-            let filtered = allAnnonces;
+            let filtered = appState.annonces;
             
             if (category && category !== 'all') {
                 filtered = filtered.filter(a => a.category === category);
@@ -1487,17 +963,12 @@
             }
             
             const categoryNames = {
-                immobilier: 'Immobilier',
-                vehicules: 'Véhicules',
-                services: 'Services',
-                emploi: 'Emploi',
-                commerces: 'Commerces',
-                telephones: 'Téléphones',
-                electromenager: 'Électroménager'
+                immobilier: 'Immobilier', vehicules: 'Véhicules', services: 'Services',
+                emploi: 'Emploi', commerces: 'Commerces', telephones: 'Téléphones', electromenager: 'Électroménager'
             };
             
             grid.innerHTML = annonces.map(annonce => `
-                <div class="annonce-card">
+                <div class="annonce-card" onclick="viewDetails(${annonce.id})">
                     <div class="annonce-image-container">
                         <img src="${annonce.images[0]}" 
                              alt="${annonce.title}" 
@@ -1508,12 +979,17 @@
                         <div class="annonce-badges">
                             ${annonce.urgent ? '<span class="badge-urgent">URGENT</span>' : ''}
                             <span class="badge-category">${categoryNames[annonce.category] || annonce.category}</span>
+                            ${annonce.author ? '<span class="badge-new">Par ' + annonce.author + '</span>' : ''}
                         </div>
                         
                         <button class="annonce-favorite ${appState.favorites.includes(annonce.id) ? 'liked' : ''}" 
                                 onclick="event.stopPropagation();toggleFavorite(${annonce.id}, this)">
                             ${appState.favorites.includes(annonce.id) ? '❤️' : '🤍'}
                         </button>
+                        
+                        ${annonce.images.length > 1 ? `
+                            <div class="image-counter">📷 ${annonce.images.length} photos</div>
+                        ` : ''}
                     </div>
                     
                     <div class="annonce-content">
@@ -1567,18 +1043,36 @@
         }
 
         function viewDetails(id) {
-            const annonce = allAnnonces.find(a => a.id === id);
-            showNotification(`📋 ${annonce.title} - ${annonce.price.toLocaleString('fr-DZ')} DZD`, 'info');
+            const annonce = appState.annonces.find(a => a.id === id);
+            if (!annonce) return;
+            
+            const detailContent = document.getElementById('detailContent');
+            document.getElementById('detailTitle').textContent = annonce.title;
+            
+            detailContent.innerHTML = `
+                <div class="detail-images">
+                    ${annonce.images.map(img => `<img src="${img}" class="detail-image" alt="${annonce.title}">`).join('')}
+                </div>
+                <h3 style="color:var(--secondary);font-size:1.5rem;">${annonce.price.toLocaleString('fr-DZ')} DZD</h3>
+                <p style="margin:15px 0;"><strong>Catégorie:</strong> ${annonce.category}</p>
+                <p style="margin:15px 0;"><strong>Description:</strong><br>${annonce.description}</p>
+                <p><strong>📍 Localisation:</strong> ${annonce.location}</p>
+                <p><strong>📞 Téléphone:</strong> ${annonce.phone}</p>
+                <p><strong>📅 Date:</strong> ${annonce.date}</p>
+                ${annonce.author ? `<p><strong>👤 Publié par:</strong> ${annonce.author}</p>` : ''}
+            `;
+            
+            openModal('detailModal');
         }
 
         function contactSeller(id) {
-            const annonce = allAnnonces.find(a => a.id === id);
-            showNotification(`📞 Contact: ${annonce.phone} - ${annonce.title}`, 'info');
+            const annonce = appState.annonces.find(a => a.id === id);
+            if (!annonce) return;
+            showNotification(`📞 Contact pour "${annonce.title}": ${annonce.phone}`, 'info');
         }
 
         // Initialisation
         function init() {
-            // Restaurer les préférences
             const savedTheme = localStorage.getItem('darkMode');
             if (savedTheme === 'true') {
                 appState.darkMode = true;
@@ -1599,10 +1093,9 @@
             
             updateTranslations();
             updateUIForUser();
-            renderAnnonces(allAnnonces);
+            renderAnnonces(appState.annonces);
         }
 
-        // Démarrer l'application
         document.addEventListener('DOMContentLoaded', init);
 
         // Exposer les fonctions globalement
@@ -1611,9 +1104,13 @@
         window.toggleTheme = toggleTheme;
         window.toggleLanguage = toggleLanguage;
         window.login = login;
+        window.adminLogin = adminLogin;
         window.register = register;
         window.logout = logout;
+        window.handlePostAdClick = handlePostAdClick;
         window.submitAd = submitAd;
+        window.handleImageUpload = handleImageUpload;
+        window.removeImage = removeImage;
         window.filterByCategory = filterByCategory;
         window.applyFilters = applyFilters;
         window.resetFilters = resetFilters;
