@@ -977,4 +977,46 @@
 
         // Cache intelligent
         const cacheName = 'soge-zabana-v1';
-        const ur
+        const urlsToCache = [
+            '/',
+            '/index.html',
+            '/manifest.json'
+        ];
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Restaurer les préférences
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                APP_STATE.theme = savedTheme;
+                document.body.setAttribute('data-theme', savedTheme);
+            }
+            
+            const savedUser = localStorage.getItem('user');
+            if (savedUser) {
+                APP_STATE.user = JSON.parse(savedUser);
+            }
+            
+            await db.init();
+            updateTranslations();
+            navigateTo('home');
+            
+            // Charger les annonces initiales
+            const annonces = await db.getAll('annonces');
+            APP_STATE.annonces = annonces;
+        });
+
+        // Exposer les fonctions globalement
+        window.navigateTo = navigateTo;
+        window.openModal = openModal;
+        window.closeModal = closeModal;
+        window.toggleTheme = toggleTheme;
+        window.switchLanguage = switchLanguage;
+        window.handleLogin = handleLogin;
+        window.handleRegister = handleRegister;
+        window.handleAdSubmit = handleAdSubmit;
+        window.searchAnnonces = searchAnnonces;
+    </script>
+
+</body>
+</html>
