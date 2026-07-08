@@ -36,6 +36,10 @@
         body.dark-mode .page-btn { background: #16213e; color: #ecf0f1; }
         body.dark-mode .filter-input, body.dark-mode .filter-select { background: #1a1a2e; color: #ecf0f1; border-color: #2c3e50; }
         body.dark-mode .modal-content { background: #16213e; }
+        body.dark-mode .admin-panel { background: #16213e; }
+        body.dark-mode .stat-card { background: #1a1a2e; }
+        body.dark-mode table th { background: #1a1a2e; }
+        body.dark-mode table td { border-bottom-color: #2c3e50; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -47,6 +51,7 @@
             transition: all 0.3s ease;
         }
 
+        /* HEADER */
         .header {
             background: white;
             border-bottom: 1px solid var(--border);
@@ -112,9 +117,10 @@
         .btn-primary:hover { background: #e67e22; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(243,156,18,0.3); }
         .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
         .btn-outline:hover { background: var(--primary); color: white; }
+        .btn-theme, .btn-lang { background: transparent; border: 2px solid var(--border); color: var(--text); padding: 8px 12px; font-size: 1.2rem; }
         .btn-admin { background: #e74c3c; color: white; font-weight: 700; }
         .btn-admin:hover { background: #c0392b; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(231,76,60,0.3); }
-        .btn-theme, .btn-lang { background: transparent; border: 2px solid var(--border); color: var(--text); padding: 8px 12px; font-size: 1.2rem; }
+        .btn-back { background: var(--primary); color: white; }
         .user-info { display: none; align-items: center; gap: 8px; color: var(--text); font-weight: 600; }
         .user-badge { background: var(--success); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; }
 
@@ -145,6 +151,7 @@
         .btn-filter { width: 100%; padding: 10px; background: var(--primary); color: white; border: none; border-radius: 5px; font-weight: 600; cursor: pointer; margin-top: 10px; }
         .btn-filter:hover { background: #2471a3; }
 
+        /* ANNONCES */
         .annonces-grid { display: grid; gap: 15px; }
         .annonce-card {
             background: var(--card-bg); border-radius: var(--radius); overflow: hidden;
@@ -172,10 +179,6 @@
             color: white; padding: 4px 8px; border-radius: 10px; font-size: 0.75rem;
             display: flex; align-items: center; gap: 3px;
         }
-        .image-nav { position: absolute; bottom: 10px; left: 10px; display: flex; gap: 4px; }
-        .image-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; }
-        .image-dot.active { background: white; }
-
         .annonce-content { padding: 15px 20px; display: flex; flex-direction: column; justify-content: space-between; }
         .annonce-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
         .annonce-title { font-size: 1.2rem; font-weight: 700; color: var(--text); margin: 0; line-height: 1.3; }
@@ -192,6 +195,102 @@
             transition: all 0.2s; display: flex; align-items: center; gap: 4px; color: var(--text);
         }
         .btn-action:hover { background: #f8f9fa; border-color: var(--primary); }
+
+        /* ADMIN PANEL */
+        .admin-panel {
+            display: none;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        .admin-panel.active { display: block; }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--accent);
+        }
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 15px;
+        }
+        .admin-tab {
+            padding: 10px 20px;
+            background: var(--bg);
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: var(--text);
+        }
+        .admin-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary), #2980b9);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        .stat-card.green { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+        .stat-card.orange { background: linear-gradient(135deg, #e67e22, #f39c12); }
+        .stat-card.red { background: linear-gradient(135deg, #c0392b, #e74c3c); }
+        .stat-card.purple { background: linear-gradient(135deg, #8e44ad, #9b59b6); }
+        .stat-value { font-size: 2.5rem; font-weight: 700; }
+        .stat-label { font-size: 0.9rem; opacity: 0.9; margin-top: 5px; }
+        .stat-icon { font-size: 2rem; margin-bottom: 5px; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th {
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+        tr:hover td { background: rgba(26,82,118,0.05); }
+
+        .btn-sm {
+            padding: 5px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin: 0 3px;
+            transition: all 0.2s;
+        }
+        .btn-edit { background: #3498db; color: white; }
+        .btn-delete { background: #e74c3c; color: white; }
+        .btn-validate { background: #27ae60; color: white; }
+        .btn-sm:hover { transform: scale(1.05); }
 
         /* MODALS */
         .modal {
@@ -219,8 +318,9 @@
         .form-group textarea { resize: vertical; min-height: 80px; }
         .form-actions { display: flex; gap: 10px; margin-top: 20px; }
         .form-actions button { flex: 1; }
+        .required-field::after { content: " *"; color: #e74c3c; }
 
-        /* Upload images */
+        /* UPLOAD */
         .upload-area {
             border: 3px dashed var(--border); border-radius: 10px; padding: 30px;
             text-align: center; cursor: pointer; transition: all 0.3s; margin-bottom: 10px;
@@ -255,6 +355,31 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
+        /* FOOTER */
+        .footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 15px 20px;
+            margin-top: 40px;
+            font-size: 0.8rem;
+        }
+        .footer a { color: var(--accent); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+
+        /* CONTRACT CHECKBOX */
+        .contract-box {
+            background: var(--bg);
+            padding: 15px;
+            border-radius: var(--radius);
+            margin: 15px 0;
+            max-height: 150px;
+            overflow-y: auto;
+            font-size: 0.8rem;
+            border: 1px solid var(--border);
+        }
+        .contract-box h4 { margin-bottom: 8px; color: var(--primary); }
+
         body.rtl { direction: rtl; }
         body.rtl .annonce-price { margin-left: 0; margin-right: 15px; }
         body.rtl .annonce-badges { left: auto; right: 10px; }
@@ -264,27 +389,31 @@
         .detail-images { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 20px; }
         .detail-image { width: 300px; height: 200px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
 
+        .hidden { display: none !important; }
+
         @media (max-width: 900px) {
             .main-content { grid-template-columns: 1fr; }
             .sidebar { position: static; display: none; }
             .sidebar.mobile-visible { display: block; }
             .annonce-card { grid-template-columns: 1fr; }
             .annonce-image-container { height: 200px; }
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 600px) {
             .header-top { flex-direction: column; gap: 10px; }
             .header-actions { width: 100%; justify-content: center; }
             .annonce-header { flex-direction: column; }
             .annonce-price { margin-left: 0; margin-top: 5px; }
+            .kpi-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <!-- HEADER -->
-    <header class="header">
+    <header class="header" id="mainHeader">
         <div class="header-top">
-            <a class="logo" onclick="location.reload()">
+            <a class="logo" onclick="showMainPage()">
                 <div class="logo-img">SZ</div>
                 <div class="logo-text">
                     <h1 data-i18n="appName">SOGE ZABANA</h1>
@@ -298,7 +427,6 @@
                 <button class="btn btn-theme" onclick="toggleTheme()" title="Mode sombre/clair">
                     <span id="themeIcon">🌙</span>
                 </button>
-                <!-- Bouton Admin TOUJOURS visible -->
                 <button class="btn btn-admin" onclick="openModal('adminLoginModal')" title="Accès Administrateur">
                     ⚙️ <span data-i18n="admin">Admin</span>
                 </button>
@@ -315,7 +443,7 @@
                 </button>
             </div>
         </div>
-        <nav class="nav">
+        <nav class="nav" id="mainNav">
             <div class="nav-container" id="navContainer">
                 <a class="nav-link active" onclick="filterByCategory('all')" data-i18n="allAds">🏠 Toutes les annonces</a>
                 <a class="nav-link" onclick="filterByCategory('immobilier')">🏢 Immobilier</a>
@@ -330,13 +458,10 @@
     </header>
 
     <!-- MAIN CONTENT -->
-    <div class="main-content">
-        
-        <!-- SIDEBAR -->
+    <div class="main-content" id="mainContent">
         <aside class="sidebar" id="sidebar">
             <div class="filter-card">
                 <h3 data-i18n="filters">🔍 Filtrer les annonces</h3>
-                
                 <div class="filter-group">
                     <label class="filter-label" data-i18n="category">Catégorie</label>
                     <select class="filter-select" id="filterCategory" onchange="applyFilters()">
@@ -350,7 +475,6 @@
                         <option value="electromenager">Électroménager</option>
                     </select>
                 </div>
-
                 <div class="filter-group">
                     <label class="filter-label" data-i18n="price">Prix (DZD)</label>
                     <div class="price-range">
@@ -358,7 +482,6 @@
                         <input type="number" class="filter-input" placeholder="Max" id="filterPriceMax" onchange="applyFilters()">
                     </div>
                 </div>
-
                 <div class="filter-group">
                     <label class="filter-label" data-i18n="district">Quartier</label>
                     <select class="filter-select" id="filterDistrict" onchange="applyFilters()">
@@ -369,21 +492,15 @@
                         <option value="Est">Quartier Est</option>
                     </select>
                 </div>
-
                 <div class="filter-group">
                     <label class="filter-checkbox">
                         <input type="checkbox" id="filterUrgent" onchange="applyFilters()">
                         <span data-i18n="urgentOnly">Uniquement les annonces urgentes</span>
                     </label>
                 </div>
-
-                <button class="btn-filter" onclick="resetFilters()" data-i18n="resetFilters">
-                    Réinitialiser les filtres
-                </button>
+                <button class="btn-filter" onclick="resetFilters()" data-i18n="resetFilters">Réinitialiser les filtres</button>
             </div>
         </aside>
-
-        <!-- ANNONCES LIST -->
         <div class="annonces-list">
             <div style="margin-bottom:15px; color:var(--text-light);" id="resultsCount">
                 <strong id="countAnnonces">12</strong> <span data-i18n="adsFound">annonces trouvées</span>
@@ -392,79 +509,206 @@
         </div>
     </div>
 
-    <!-- MODAL: Déposer une annonce -->
-    <div class="modal" id="adModal">
-        <div class="modal-content" style="max-width:600px;">
-            <div class="modal-header">
-                <h2 data-i18n="postAd">📝 Déposer une annonce</h2>
-                <button class="modal-close" onclick="closeModal('adModal')">✕</button>
+    <!-- ADMIN PANEL -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h2>📊 Tableau de Bord Administrateur - SOGE ZABANA RH</h2>
+            <button class="btn btn-back" onclick="showMainPage()">🏠 Retour au site</button>
+        </div>
+        
+        <!-- KPI -->
+        <div class="kpi-grid" id="kpiGrid">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-value" id="kpiUsers">0</div>
+                <div class="stat-label">Utilisateurs inscrits</div>
             </div>
-            <form id="adForm" onsubmit="submitAd(event)">
+            <div class="stat-card green">
+                <div class="stat-icon">📋</div>
+                <div class="stat-value" id="kpiAnnonces">0</div>
+                <div class="stat-label">Annonces actives</div>
+            </div>
+            <div class="stat-card orange">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-value" id="kpiFavorites">0</div>
+                <div class="stat-label">Favoris totaux</div>
+            </div>
+            <div class="stat-card purple">
+                <div class="stat-icon">👁️</div>
+                <div class="stat-value" id="kpiVisites">0</div>
+                <div class="stat-label">Visites aujourd'hui</div>
+            </div>
+            <div class="stat-card red">
+                <div class="stat-icon">🚫</div>
+                <div class="stat-value" id="kpiExpired">0</div>
+                <div class="stat-label">Annonces expirées</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💬</div>
+                <div class="stat-value" id="kpiMessages">0</div>
+                <div class="stat-label">Messages</div>
+            </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="admin-tabs">
+            <button class="admin-tab active" onclick="switchAdminTab('annonces')">📋 Gestion Annonces</button>
+            <button class="admin-tab" onclick="switchAdminTab('users')">👥 Gestion Utilisateurs</button>
+            <button class="admin-tab" onclick="switchAdminTab('categories')">📂 Catégories</button>
+            <button class="admin-tab" onclick="switchAdminTab('settings')">⚙️ Paramètres</button>
+            <button class="admin-tab" onclick="switchAdminTab('security')">🔒 Sécurité</button>
+        </div>
+
+        <!-- TAB CONTENT: Annonces -->
+        <div id="tabAnnonces">
+            <h3>Gestion des annonces</h3>
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Titre</th>
+                            <th>Catégorie</th>
+                            <th>Prix</th>
+                            <th>Auteur</th>
+                            <th>Date</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminAnnoncesTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: Users -->
+        <div id="tabUsers" style="display:none;">
+            <h3>Gestion des utilisateurs</h3>
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Téléphone</th>
+                            <th>Date inscription</th>
+                            <th>Rôle</th>
+                            <th>Annonces</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminUsersTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: Categories -->
+        <div id="tabCategories" style="display:none;">
+            <h3>Gestion des catégories</h3>
+            <div style="display:flex;gap:10px;margin-bottom:20px;">
+                <input type="text" id="newCategoryName" class="filter-input" placeholder="Nouvelle catégorie" style="flex:1;">
+                <input type="text" id="newCategoryIcon" class="filter-input" placeholder="Icône (emoji)" style="width:100px;">
+                <button class="btn btn-primary" onclick="addCategory()">+ Ajouter</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Icône</th>
+                        <th>Nom</th>
+                        <th>Nombre d'annonces</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="adminCategoriesTable"></tbody>
+            </table>
+        </div>
+
+        <!-- TAB CONTENT: Settings -->
+        <div id="tabSettings" style="display:none;">
+            <h3>Paramètres de la plateforme</h3>
+            <div class="form-group">
+                <label>Nom de la plateforme</label>
+                <input type="text" class="filter-input" id="settingName" value="SOGE ZABANA RH">
+            </div>
+            <div class="form-group">
+                <label>Couleur principale</label>
+                <input type="color" class="filter-input" id="settingPrimaryColor" value="#1a5276">
+            </div>
+            <div class="form-group">
+                <label>Couleur secondaire</label>
+                <input type="color" class="filter-input" id="settingSecondaryColor" value="#e74c3c">
+            </div>
+            <div class="form-group">
+                <label>Nombre max d'annonces par utilisateur</label>
+                <input type="number" class="filter-input" id="settingMaxAds" value="10">
+            </div>
+            <div class="form-group">
+                <label>Texte du footer (Français)</label>
+                <textarea class="filter-input" id="settingFooterFR" rows="2">© 2024 SOGE ZABANA RH - Pôle Urbain Ahmed Zabana Misserghine. Tous droits réservés.</textarea>
+            </div>
+            <div class="form-group">
+                <label>Texte du footer (Arabe)</label>
+                <textarea class="filter-input" id="settingFooterAR" rows="2" dir="rtl">© 2024 سوق زبانة - القطب الحضري أحمد زبانة مسرغين. جميع الحقوق محفوظة.</textarea>
+            </div>
+            <button class="btn btn-primary" onclick="saveSettings()">💾 Sauvegarder les paramètres</button>
+        </div>
+
+        <!-- TAB CONTENT: Security -->
+        <div id="tabSecurity" style="display:none;">
+            <h3>🔒 Sécurité - Changer le mot de passe administrateur</h3>
+            <div class="form-group">
+                <label>Mot de passe actuel</label>
+                <input type="password" class="filter-input" id="currentPassword" placeholder="Mot de passe actuel">
+            </div>
+            <div class="form-group">
+                <label>Nouveau mot de passe</label>
+                <input type="password" class="filter-input" id="newPassword" placeholder="Nouveau mot de passe" minlength="6">
+            </div>
+            <div class="form-group">
+                <label>Confirmer le nouveau mot de passe</label>
+                <input type="password" class="filter-input" id="confirmPassword" placeholder="Confirmer le mot de passe" minlength="6">
+            </div>
+            <button class="btn btn-primary" onclick="changeAdminPassword()">🔑 Changer le mot de passe</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="mainFooter">
+        <p id="footerText">© 2024 SOGE ZABANA RH - Pôle Urbain Ahmed Zabana Misserghine. Tous droits réservés.</p>
+        <p style="margin-top:5px;">
+            <a href="#" onclick="openModal('legalModal')">Conditions Générales d'Utilisation</a> | 
+            <a href="#" onclick="openModal('privacyModal')">Politique de Confidentialité</a> |
+            <span>Conformément à la loi algérienne n°18-07 du 10 juin 2018</span>
+        </p>
+    </footer>
+
+    <!-- MODALS -->
+    <!-- Admin Login Modal -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ Accès Administrateur</h2>
+                <button class="modal-close" onclick="closeModal('adminLoginModal')">✕</button>
+            </div>
+            <form onsubmit="adminLogin(event)">
                 <div class="form-group">
-                    <label data-i18n="title">Titre de l'annonce *</label>
-                    <input type="text" id="adTitle" required placeholder="Ex: Appartement F3 à vendre">
+                    <label>Nom d'utilisateur Admin</label>
+                    <input type="text" id="adminUsername" required placeholder="admin">
                 </div>
                 <div class="form-group">
-                    <label data-i18n="category">Catégorie *</label>
-                    <select id="adCategory" required>
-                        <option value="">Sélectionnez une catégorie</option>
-                        <option value="immobilier">Immobilier</option>
-                        <option value="vehicules">Véhicules</option>
-                        <option value="services">Services</option>
-                        <option value="emploi">Emploi</option>
-                        <option value="commerces">Commerces</option>
-                        <option value="telephones">Téléphones</option>
-                        <option value="electromenager">Électroménager</option>
-                    </select>
+                    <label>Mot de passe Admin</label>
+                    <input type="password" id="adminPassword" required placeholder="••••••••">
                 </div>
-                <div class="form-group">
-                    <label data-i18n="description">Description *</label>
-                    <textarea id="adDescription" required placeholder="Décrivez votre annonce en détail..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label data-i18n="price">Prix (DZD) *</label>
-                    <input type="number" id="adPrice" required placeholder="0">
-                </div>
-                <div class="form-group">
-                    <label data-i18n="district">Quartier *</label>
-                    <select id="adDistrict" required>
-                        <option value="">Sélectionnez un quartier</option>
-                        <option>Quartier Centre</option>
-                        <option>Quartier Nord</option>
-                        <option>Quartier Sud</option>
-                        <option>Quartier Est</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label data-i18n="phone">Téléphone *</label>
-                    <input type="tel" id="adPhone" required placeholder="0550 XX XX XX">
-                </div>
-                <!-- UPLOAD IMAGES -->
-                <div class="form-group">
-                    <label data-i18n="photos">Photos de l'annonce</label>
-                    <div class="upload-area" id="uploadArea" onclick="document.getElementById('imageInput').click()">
-                        <div class="upload-icon">📷</div>
-                        <p>Cliquez pour ajouter des photos</p>
-                        <small>Ou glissez-déposez vos images ici</small>
-                    </div>
-                    <input type="file" id="imageInput" accept="image/*" multiple style="display:none;" onchange="handleImageUpload(event)">
-                    <div class="preview-container" id="previewContainer"></div>
-                </div>
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" id="adUrgent">
-                        <span data-i18n="urgent">Annonce urgente</span>
-                    </label>
-                </div>
+                <p style="font-size:0.8rem;color:#999;margin-bottom:15px;">Défaut: admin / admin123</p>
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary" data-i18n="publish">Publier l'annonce</button>
-                    <button type="button" class="btn btn-outline" onclick="closeModal('adModal')" data-i18n="cancel">Annuler</button>
+                    <button type="submit" class="btn btn-primary">🔐 Accéder au tableau de bord</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL: Connexion -->
+    <!-- Login Modal -->
     <div class="modal" id="loginModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -491,7 +735,7 @@
         </div>
     </div>
 
-    <!-- MODAL: Inscription -->
+    <!-- Register Modal -->
     <div class="modal" id="registerModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -500,20 +744,34 @@
             </div>
             <form onsubmit="register(event)">
                 <div class="form-group">
-                    <label data-i18n="fullName">Nom complet *</label>
+                    <label class="required-field" data-i18n="fullName">Nom complet</label>
                     <input type="text" id="regName" required>
                 </div>
                 <div class="form-group">
-                    <label data-i18n="email">Email *</label>
+                    <label class="required-field" data-i18n="email">Email</label>
                     <input type="email" id="regEmail" required>
                 </div>
                 <div class="form-group">
-                    <label data-i18n="password">Mot de passe *</label>
+                    <label class="required-field" data-i18n="password">Mot de passe</label>
                     <input type="password" id="regPassword" required minlength="6">
                 </div>
                 <div class="form-group">
                     <label data-i18n="phone">Téléphone</label>
                     <input type="tel" id="regPhone">
+                </div>
+                <!-- CONTRAT -->
+                <div class="contract-box">
+                    <h4>📜 Conditions Générales d'Utilisation</h4>
+                    <p>Conformément à la loi algérienne n°18-07 du 10 juin 2018 relative à la protection des personnes physiques dans le traitement des données à caractère personnel, et la loi n°09-04 du 5 août 2009 relative à la prévention et à la lutte contre les infractions liées aux technologies de l'information et de la communication.</p>
+                    <p><strong>Article 1 :</strong> L'utilisateur s'engage à fournir des informations exactes et à ne pas publier de contenu illégal, diffamatoire ou contraire aux bonnes mœurs.</p>
+                    <p><strong>Article 2 :</strong> SOGE ZABANA RH se réserve le droit de supprimer toute annonce ne respectant pas les conditions d'utilisation.</p>
+                    <p><strong>Article 3 :</strong> Les données personnelles collectées sont protégées conformément à la législation algérienne en vigueur.</p>
+                </div>
+                <div class="form-group">
+                    <label class="filter-checkbox">
+                        <input type="checkbox" id="acceptContract" required>
+                        <span>✅ J'accepte les Conditions Générales d'Utilisation et la Politique de Confidentialité</span>
+                    </label>
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary" data-i18n="register">S'inscrire</button>
@@ -522,31 +780,78 @@
         </div>
     </div>
 
-    <!-- MODAL: Admin Login -->
-    <div class="modal" id="adminLoginModal">
-        <div class="modal-content">
+    <!-- Post Ad Modal -->
+    <div class="modal" id="adModal">
+        <div class="modal-content" style="max-width:600px;">
             <div class="modal-header">
-                <h2>⚙️ Accès Administrateur</h2>
-                <button class="modal-close" onclick="closeModal('adminLoginModal')">✕</button>
+                <h2 data-i18n="postAd">📝 Déposer une annonce</h2>
+                <button class="modal-close" onclick="closeModal('adModal')">✕</button>
             </div>
-            <form onsubmit="adminLogin(event)">
+            <form id="adForm" onsubmit="submitAd(event)">
                 <div class="form-group">
-                    <label>Email Admin</label>
-                    <input type="email" id="adminEmail" required placeholder="admin@sogezabana.dz">
+                    <label class="required-field" data-i18n="title">Titre de l'annonce</label>
+                    <input type="text" id="adTitle" required placeholder="Ex: Appartement F3 à vendre">
                 </div>
                 <div class="form-group">
-                    <label>Mot de passe Admin</label>
-                    <input type="password" id="adminPassword" required placeholder="••••••••">
+                    <label class="required-field" data-i18n="category">Catégorie</label>
+                    <select id="adCategory" required>
+                        <option value="">Sélectionnez une catégorie</option>
+                        <option value="immobilier">Immobilier</option>
+                        <option value="vehicules">Véhicules</option>
+                        <option value="services">Services</option>
+                        <option value="emploi">Emploi</option>
+                        <option value="commerces">Commerces</option>
+                        <option value="telephones">Téléphones</option>
+                        <option value="electromenager">Électroménager</option>
+                    </select>
                 </div>
-                <p style="font-size:0.8rem;color:#999;margin-bottom:15px;">Défaut: admin@sogezabana.dz / admin123</p>
+                <div class="form-group">
+                    <label class="required-field" data-i18n="description">Description</label>
+                    <textarea id="adDescription" required placeholder="Décrivez votre annonce en détail..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="required-field" data-i18n="price">Prix (DZD)</label>
+                    <input type="number" id="adPrice" required placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label class="required-field" data-i18n="district">Quartier</label>
+                    <select id="adDistrict" required>
+                        <option value="">Sélectionnez un quartier</option>
+                        <option>Quartier Centre</option>
+                        <option>Quartier Nord</option>
+                        <option>Quartier Sud</option>
+                        <option>Quartier Est</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="required-field" data-i18n="phone">Téléphone</label>
+                    <input type="tel" id="adPhone" required placeholder="0550 XX XX XX">
+                </div>
+                <div class="form-group">
+                    <label data-i18n="photos">Photos de l'annonce</label>
+                    <div class="upload-area" id="uploadArea" onclick="document.getElementById('imageInput').click()">
+                        <div class="upload-icon">📷</div>
+                        <p>Cliquez pour ajouter des photos</p>
+                        <small>Ou glissez-déposez vos images ici</small>
+                    </div>
+                    <input type="file" id="imageInput" accept="image/*" multiple style="display:none;" onchange="handleImageUpload(event)">
+                    <div class="preview-container" id="previewContainer"></div>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="adUrgent">
+                        <span data-i18n="urgent">Annonce urgente</span>
+                    </label>
+                </div>
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Accéder à l'administration</button>
+                    <button type="submit" class="btn btn-primary" data-i18n="publish">Publier l'annonce</button>
+                    <button type="button" class="btn btn-outline" onclick="closeModal('adModal')" data-i18n="cancel">Annuler</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL: Détail annonce -->
+    <!-- Detail Modal -->
     <div class="modal" id="detailModal">
         <div class="modal-content detail-modal-content">
             <div class="modal-header">
@@ -557,12 +862,55 @@
         </div>
     </div>
 
+    <!-- Legal Modal -->
+    <div class="modal" id="legalModal">
+        <div class="modal-content" style="max-width:700px;">
+            <div class="modal-header">
+                <h2>📜 Conditions Générales d'Utilisation</h2>
+                <button class="modal-close" onclick="closeModal('legalModal')">✕</button>
+            </div>
+            <div style="max-height:400px;overflow-y:auto;">
+                <h3>SOGE ZABANA RH - Pôle Urbain Ahmed Zabana</h3>
+                <p>Conformément à la loi algérienne n°18-07 du 10 juin 2018 relative à la protection des personnes physiques dans le traitement des données à caractère personnel.</p>
+                <h4>Article 1 : Objet</h4>
+                <p>Les présentes conditions générales d'utilisation régissent l'utilisation de la plateforme SOGE ZABANA RH.</p>
+                <h4>Article 2 : Inscription</h4>
+                <p>L'utilisateur doit fournir des informations exactes lors de son inscription.</p>
+                <h4>Article 3 : Contenu</h4>
+                <p>L'utilisateur est seul responsable du contenu qu'il publie.</p>
+                <h4>Article 4 : Protection des données</h4>
+                <p>Conformément à la loi algérienne, vos données sont protégées et ne seront jamais revendues.</p>
+                <h4>Article 5 : Sanctions</h4>
+                <p>En cas de non-respect, le compte utilisateur pourra être suspendu ou supprimé.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Modal -->
+    <div class="modal" id="privacyModal">
+        <div class="modal-content" style="max-width:700px;">
+            <div class="modal-header">
+                <h2>🔒 Politique de Confidentialité</h2>
+                <button class="modal-close" onclick="closeModal('privacyModal')">✕</button>
+            </div>
+            <div style="max-height:400px;overflow-y:auto;">
+                <h3>Protection de vos données personnelles</h3>
+                <p>Conformément à la loi algérienne n°18-07 du 10 juin 2018 et au décret exécutif n°19-15 du 20 janvier 2019.</p>
+                <h4>Données collectées :</h4>
+                <p>Nom, prénom, email, téléphone, adresse.</p>
+                <h4>Utilisation :</h4>
+                <p>Gestion du compte utilisateur et publication d'annonces.</p>
+                <h4>Droits :</h4>
+                <p>Droit d'accès, de rectification et de suppression de vos données.</p>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ============================================
-        // APPLICATION SOGE ZABANA RH - COMPLÈTE
+        // APPLICATION SOGE ZABANA RH - VERSION FINALE
         // ============================================
 
-        // État de l'application
         let appState = {
             currentLanguage: 'fr',
             darkMode: false,
@@ -570,41 +918,47 @@
             currentFilter: 'all',
             favorites: JSON.parse(localStorage.getItem('favorites') || '[]'),
             uploadedImages: [],
-            annonces: []
+            annonces: [],
+            adminSettings: JSON.parse(localStorage.getItem('adminSettings') || '{}'),
+            visitCount: parseInt(localStorage.getItem('visitCount') || '0')
         };
 
-        // Base de données
+        // Incrémenter le compteur de visites
+        appState.visitCount++;
+        localStorage.setItem('visitCount', appState.visitCount);
+
         let users = JSON.parse(localStorage.getItem('users') || '[]');
         
-        const ADMIN = {
-            email: 'admin@sogezabana.dz',
-            password: 'admin123',
-            name: 'Administrateur',
-            isAdmin: true
-        };
-
-        if (!users.find(u => u.email === ADMIN.email)) {
-            users.push(ADMIN);
+        // Admin credentials stockés séparément
+        let adminCredentials = JSON.parse(localStorage.getItem('adminCredentials') || '{"username":"admin","password":"admin123"}');
+        
+        // Assurer que l'admin existe dans users
+        if (!users.find(u => u.isAdmin)) {
+            users.push({
+                name: 'Administrateur',
+                email: 'admin@sogezabana.dz',
+                password: adminCredentials.password,
+                phone: '',
+                isAdmin: true,
+                dateInscription: new Date().toISOString()
+            });
             localStorage.setItem('users', JSON.stringify(users));
         }
 
-        // Charger les annonces sauvegardées
+        // Synchroniser le mot de passe admin avec adminCredentials
+        const adminUser = users.find(u => u.isAdmin);
+        if (adminUser && adminUser.password !== adminCredentials.password) {
+            adminUser.password = adminCredentials.password;
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
         const savedAnnonces = JSON.parse(localStorage.getItem('annonces') || 'null');
-        
-        // Annonces par défaut
         const defaultAnnonces = [
-            { id: 1, title: "Appartement F3 Neuf - Quartier Centre", category: "immobilier", price: 8500000, description: "Magnifique appartement F3 de 90m², bien ensoleillé, proche de toutes commodités. Cuisine équipée, climatisation, parking.", location: "Quartier Centre", date: "Aujourd'hui, 14:30", phone: "0550 12 34 56", surface: "90 m²", pieces: 3, urgent: true, images: ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop", "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&h=400&fit=crop"] },
-            { id: 2, title: "Toyota Corolla 2023 - 15,000 km", category: "vehicules", price: 2800000, description: "Véhicule en excellent état, première main, faible kilométrage. Couleur blanche, climatisation automatique, GPS.", location: "Quartier Nord", date: "Hier, 10:15", phone: "0550 78 94 56", surface: null, pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&h=400&fit=crop", "https://images.unsplash.com/photo-1550355291-bbee04a92027?w=600&h=400&fit=crop"] },
-            { id: 3, title: "Villa F5 avec Jardin - Vue sur Mer", category: "immobilier", price: 15000000, description: "Superbe villa de 250m² avec jardin paysager, piscine, garage double. Vue panoramique sur la mer.", location: "Quartier Sud", date: "Il y a 2 jours", phone: "0550 45 67 89", surface: "250 m²", pieces: 5, urgent: true, images: ["https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop", "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=600&h=400&fit=crop"] },
-            { id: 4, title: "iPhone 15 Pro Max - 256Go", category: "telephones", price: 180000, description: "iPhone 15 Pro Max noir titane, 256Go, état comme neuf, facture disponible.", location: "Quartier Est", date: "Il y a 3 jours", phone: "0550 32 16 54", surface: null, pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&h=400&fit=crop"] },
-            { id: 5, title: "Local Commercial 120m² - Premium", category: "commerces", price: 12000000, description: "Local commercial idéalement situé sur avenue principale. Grande vitrine, bon passage.", location: "Quartier Centre", date: "Il y a 4 jours", phone: "0550 98 76 54", surface: "120 m²", pieces: 1, urgent: false, images: ["https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&h=400&fit=crop"] },
-            { id: 6, title: "Renault Symbol 2022 - Diesel", category: "vehicules", price: 1950000, description: "Renault Symbol diesel, excellent état, 35000km. Économique et fiable.", location: "Quartier Nord", date: "Il y a 5 jours", phone: "0550 11 22 33", surface: null, pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&h=400&fit=crop"] },
-            { id: 7, title: "Service Plomberie Professionnel 24/7", category: "services", price: 5000, description: "Plombier expérimenté, intervention rapide. Devis gratuit, garantie sur travaux.", location: "Misserghine", date: "Il y a 6 jours", phone: "0550 44 55 66", surface: null, pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=400&fit=crop"] },
-            { id: 8, title: "Comptable Senior - CDI", category: "emploi", price: 45000, description: "Entreprise recherche comptable senior avec 5 ans d'expérience. Salaire motivant + avantages.", location: "Zone d'activité, Misserghine", date: "Il y a 1 semaine", phone: "0550 77 88 99", surface: null, pieces: null, urgent: true, images: ["https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop"] },
-            { id: 9, title: "Terrain à Bâtir - 500m²", category: "immobilier", price: 6500000, description: "Terrain constructible de 500m², viabilisé, titre foncier disponible.", location: "Quartier Est", date: "Il y a 1 semaine", phone: "0550 12 98 76", surface: "500 m²", pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=400&fit=crop"] },
-            { id: 10, title: "Climatiseur Split Samsung - Neuf", category: "electromenager", price: 85000, description: "Climatiseur split Samsung 12000 BTU, neuf dans emballage. Garantie 2 ans.", location: "Quartier Centre", date: "Il y a 1 semaine", phone: "0550 55 44 33", surface: null, pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&h=400&fit=crop"] },
-            { id: 11, title: "Boulangerie-Pâtisserie à Céder", category: "commerces", price: 18000000, description: "Fonds de commerce boulangerie-pâtisserie bien établi. Clientèle fidèle, matériel inclus.", location: "Avenue principale, Misserghine", date: "Il y a 2 semaines", phone: "0550 66 77 88", surface: "150 m²", pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1555507036-ab1f4038024a?w=600&h=400&fit=crop"] },
-            { id: 12, title: "Cours de Soutien Scolaire - Math/Physique", category: "services", price: 2000, description: "Professeur expérimenté donne cours de soutien. Tous niveaux. Préparation examens.", location: "Misserghine", date: "Il y a 2 semaines", phone: "0550 99 88 77", surface: null, pieces: null, urgent: false, images: ["https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&h=400&fit=crop"] }
+            { id: 1, title: "Appartement F3 Neuf - Quartier Centre", category: "immobilier", price: 8500000, description: "Magnifique appartement F3 de 90m², bien ensoleillé, proche de toutes commodités.", location: "Quartier Centre", date: "Aujourd'hui, 14:30", phone: "0550 12 34 56", surface: "90 m²", pieces: 3, urgent: true, status: "active", author: "Mohamed B.", images: ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&h=400&fit=crop"] },
+            { id: 2, title: "Toyota Corolla 2023 - 15,000 km", category: "vehicules", price: 2800000, description: "Véhicule en excellent état, première main.", location: "Quartier Nord", date: "Hier, 10:15", phone: "0550 78 94 56", surface: null, pieces: null, urgent: false, status: "active", author: "Ahmed S.", images: ["https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&h=400&fit=crop"] },
+            { id: 3, title: "Villa F5 avec Jardin - Vue sur Mer", category: "immobilier", price: 15000000, description: "Superbe villa de 250m² avec jardin paysager.", location: "Quartier Sud", date: "Il y a 2 jours", phone: "0550 45 67 89", surface: "250 m²", pieces: 5, urgent: true, status: "active", author: "Fatima Z.", images: ["https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=400&fit=crop"] },
+            { id: 4, title: "iPhone 15 Pro Max - 256Go", category: "telephones", price: 180000, description: "iPhone 15 Pro Max noir titane, état comme neuf.", location: "Quartier Est", date: "Il y a 3 jours", phone: "0550 32 16 54", surface: null, pieces: null, urgent: false, status: "active", author: "Karim D.", images: ["https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&h=400&fit=crop"] },
+            { id: 5, title: "Local Commercial 120m²", category: "commerces", price: 12000000, description: "Local commercial idéalement situé.", location: "Quartier Centre", date: "Il y a 4 jours", phone: "0550 98 76 54", surface: "120 m²", pieces: 1, urgent: false, status: "active", author: "Samir L.", images: ["https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&h=400&fit=crop"] }
         ];
 
         appState.annonces = savedAnnonces || defaultAnnonces;
@@ -612,7 +966,6 @@
             localStorage.setItem('annonces', JSON.stringify(defaultAnnonces));
         }
 
-        // Traductions
         const translations = {
             fr: {
                 appName: 'SOGE ZABANA', subtitle: 'Pôle Urbain Ahmed Zabana - Misserghine',
@@ -659,13 +1012,11 @@
                 const key = el.getAttribute('data-i18n');
                 if (el.tagName === 'INPUT' && (el.type === 'submit' || el.type === 'button')) {
                     el.value = t(key);
-                } else if (el.tagName === 'INPUT' && el.type === 'text') {
-                    el.placeholder = t(key);
                 } else {
                     el.textContent = t(key);
                 }
             });
-            document.getElementById('countAnnonces').textContent = appState.annonces.length;
+            document.getElementById('countAnnonces').textContent = appState.annonces.filter(a => a.status !== 'expired').length;
         }
 
         function showNotification(message, type = 'success') {
@@ -685,7 +1036,354 @@
             }
         }
 
-        // Gérer le clic sur "Déposer une annonce"
+        // Afficher/Masquer interface admin
+        function showMainPage() {
+            document.getElementById('mainHeader').style.display = 'block';
+            document.getElementById('mainContent').style.display = 'grid';
+            document.getElementById('mainFooter').style.display = 'block';
+            document.getElementById('adminPanel').classList.remove('active');
+            document.getElementById('mainNav').style.display = 'block';
+            renderAnnonces(appState.annonces.filter(a => a.status !== 'expired'));
+        }
+
+        function showAdminPanel() {
+            document.getElementById('mainHeader').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('mainFooter').style.display = 'none';
+            document.getElementById('adminPanel').classList.add('active');
+            updateAdminKPI();
+            loadAdminAnnonces();
+            loadAdminUsers();
+            loadAdminCategories();
+        }
+
+        // Admin Login
+        function adminLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            if (username === adminCredentials.username && password === adminCredentials.password) {
+                const adminUser = users.find(u => u.isAdmin);
+                appState.currentUser = adminUser;
+                localStorage.setItem('currentUser', JSON.stringify(adminUser));
+                closeModal('adminLoginModal');
+                showAdminPanel();
+                showNotification('✅ Accès administrateur autorisé', 'success');
+            } else {
+                showNotification('❌ Identifiants administrateur incorrects', 'error');
+            }
+        }
+
+        // KPI
+        function updateAdminKPI() {
+            const activeAnnonces = appState.annonces.filter(a => a.status === 'active');
+            const expiredAnnonces = appState.annonces.filter(a => a.status === 'expired');
+            const totalFavorites = JSON.parse(localStorage.getItem('favorites') || '[]').length;
+            
+            document.getElementById('kpiUsers').textContent = users.length;
+            document.getElementById('kpiAnnonces').textContent = activeAnnonces.length;
+            document.getElementById('kpiFavorites').textContent = totalFavorites;
+            document.getElementById('kpiVisites').textContent = appState.visitCount;
+            document.getElementById('kpiExpired').textContent = expiredAnnonces.length;
+            document.getElementById('kpiMessages').textContent = '0';
+        }
+
+        // Admin Tabs
+        function switchAdminTab(tab) {
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            ['tabAnnonces', 'tabUsers', 'tabCategories', 'tabSettings', 'tabSecurity'].forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            
+            const tabMap = {
+                'annonces': 'tabAnnonces',
+                'users': 'tabUsers',
+                'categories': 'tabCategories',
+                'settings': 'tabSettings',
+                'security': 'tabSecurity'
+            };
+            
+            document.getElementById(tabMap[tab]).style.display = 'block';
+            
+            if (tab === 'annonces') loadAdminAnnonces();
+            if (tab === 'users') loadAdminUsers();
+            if (tab === 'categories') loadAdminCategories();
+        }
+
+        // Load Admin Data
+        function loadAdminAnnonces() {
+            const tbody = document.getElementById('adminAnnoncesTable');
+            const activeAnnonces = appState.annonces.filter(a => a.status !== 'expired');
+            
+            const categoryNames = {
+                immobilier: 'Immobilier', vehicules: 'Véhicules', services: 'Services',
+                emploi: 'Emploi', commerces: 'Commerces', telephones: 'Téléphones', electromenager: 'Électroménager'
+            };
+            
+            tbody.innerHTML = activeAnnonces.map(ad => `
+                <tr>
+                    <td>#${ad.id}</td>
+                    <td><img src="${ad.images[0]}" style="width:50px;height:50px;object-fit:cover;border-radius:5px;" onerror="this.src='https://via.placeholder.com/50'"></td>
+                    <td>${ad.title}</td>
+                    <td>${categoryNames[ad.category] || ad.category}</td>
+                    <td>${ad.price.toLocaleString('fr-DZ')} DZD</td>
+                    <td>${ad.author || 'Anonyme'}</td>
+                    <td>${ad.date}</td>
+                    <td><span style="color:${ad.status === 'active' ? 'green' : 'red'}">${ad.status || 'active'}</span></td>
+                    <td>
+                        <button class="btn-sm btn-validate" onclick="validateAd(${ad.id})">✅</button>
+                        <button class="btn-sm btn-delete" onclick="deleteAd(${ad.id})">🗑️</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadAdminUsers() {
+            const tbody = document.getElementById('adminUsersTable');
+            tbody.innerHTML = users.map(user => `
+                <tr>
+                    <td>${user.name} ${user.isAdmin ? '👑' : ''}</td>
+                    <td>${user.email}</td>
+                    <td>${user.phone || 'N/A'}</td>
+                    <td>${user.dateInscription ? new Date(user.dateInscription).toLocaleDateString() : 'N/A'}</td>
+                    <td>${user.isAdmin ? 'Administrateur' : 'Utilisateur'}</td>
+                    <td>${appState.annonces.filter(a => a.authorEmail === user.email).length}</td>
+                    <td>
+                        ${!user.isAdmin ? `<button class="btn-sm btn-delete" onclick="deleteUser('${user.email}')">🗑️</button>` : '🔒'}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadAdminCategories() {
+            const categories = [...new Set(appState.annonces.map(a => a.category))];
+            const categoryNames = {
+                immobilier: 'Immobilier', vehicules: 'Véhicules', services: 'Services',
+                emploi: 'Emploi', commerces: 'Commerces', telephones: 'Téléphones', electromenager: 'Électroménager'
+            };
+            const categoryIcons = {
+                immobilier: '🏢', vehicules: '🚗', services: '🔧',
+                emploi: '💼', commerces: '🏪', telephones: '📱', electromenager: '🏠'
+            };
+            
+            const tbody = document.getElementById('adminCategoriesTable');
+            tbody.innerHTML = categories.map(cat => `
+                <tr>
+                    <td>${categoryIcons[cat] || '📂'}</td>
+                    <td>${categoryNames[cat] || cat}</td>
+                    <td>${appState.annonces.filter(a => a.category === cat).length}</td>
+                    <td>
+                        <button class="btn-sm btn-edit">✏️</button>
+                        <button class="btn-sm btn-delete">🗑️</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Admin Actions
+        function validateAd(id) {
+            const ad = appState.annonces.find(a => a.id === id);
+            if (ad) {
+                ad.status = 'active';
+                localStorage.setItem('annonces', JSON.stringify(appState.annonces));
+                loadAdminAnnonces();
+                updateAdminKPI();
+                showNotification('Annonce #' + id + ' validée', 'success');
+            }
+        }
+
+        function deleteAd(id) {
+            if (confirm('Supprimer définitivement cette annonce ?')) {
+                appState.annonces = appState.annonces.filter(a => a.id !== id);
+                localStorage.setItem('annonces', JSON.stringify(appState.annonces));
+                loadAdminAnnonces();
+                updateAdminKPI();
+                showNotification('Annonce supprimée', 'success');
+            }
+        }
+
+        function deleteUser(email) {
+            if (confirm('Supprimer cet utilisateur ?')) {
+                users = users.filter(u => u.email !== email);
+                localStorage.setItem('users', JSON.stringify(users));
+                loadAdminUsers();
+                updateAdminKPI();
+                showNotification('Utilisateur supprimé', 'success');
+            }
+        }
+
+        function addCategory() {
+            const name = document.getElementById('newCategoryName').value;
+            const icon = document.getElementById('newCategoryIcon').value;
+            if (name) {
+                showNotification('Catégorie "' + name + '" ajoutée', 'success');
+                document.getElementById('newCategoryName').value = '';
+                document.getElementById('newCategoryIcon').value = '';
+            }
+        }
+
+        function saveSettings() {
+            const settings = {
+                name: document.getElementById('settingName').value,
+                primaryColor: document.getElementById('settingPrimaryColor').value,
+                secondaryColor: document.getElementById('settingSecondaryColor').value,
+                maxAds: document.getElementById('settingMaxAds').value,
+                footerFR: document.getElementById('settingFooterFR').value,
+                footerAR: document.getElementById('settingFooterAR').value
+            };
+            localStorage.setItem('adminSettings', JSON.stringify(settings));
+            appState.adminSettings = settings;
+            
+            // Appliquer les couleurs
+            document.documentElement.style.setProperty('--primary', settings.primaryColor);
+            document.documentElement.style.setProperty('--secondary', settings.secondaryColor);
+            
+            // Mettre à jour le footer
+            document.getElementById('footerText').textContent = settings.footerFR;
+            
+            showNotification('✅ Paramètres sauvegardés avec succès', 'success');
+        }
+
+        function changeAdminPassword() {
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (currentPassword !== adminCredentials.password) {
+                showNotification('❌ Mot de passe actuel incorrect', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                showNotification('❌ Le mot de passe doit contenir au moins 6 caractères', 'error');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showNotification('❌ Les mots de passe ne correspondent pas', 'error');
+                return;
+            }
+            
+            adminCredentials.password = newPassword;
+            localStorage.setItem('adminCredentials', JSON.stringify(adminCredentials));
+            
+            // Mettre à jour le mot de passe dans users
+            const adminUser = users.find(u => u.isAdmin);
+            if (adminUser) {
+                adminUser.password = newPassword;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+            
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+            
+            showNotification('🔑 Mot de passe administrateur changé avec succès', 'success');
+        }
+
+        // Thème
+        function toggleTheme() {
+            appState.darkMode = !appState.darkMode;
+            document.body.classList.toggle('dark-mode', appState.darkMode);
+            document.getElementById('themeIcon').textContent = appState.darkMode ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', appState.darkMode);
+            showNotification(t('themeChanged'), 'info');
+        }
+
+        // Langue
+        function toggleLanguage() {
+            appState.currentLanguage = appState.currentLanguage === 'fr' ? 'ar' : 'fr';
+            document.body.classList.toggle('rtl', appState.currentLanguage === 'ar');
+            localStorage.setItem('language', appState.currentLanguage);
+            updateTranslations();
+            renderAnnonces(appState.annonces.filter(a => a.status !== 'expired'));
+            showNotification(t('langChanged'), 'info');
+        }
+
+        // User Login
+        function login(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                appState.currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                closeModal('loginModal');
+                updateUIForUser();
+                showNotification(t('loginSuccess'), 'success');
+            } else {
+                showNotification('Email ou mot de passe incorrect', 'error');
+            }
+        }
+
+        // Register
+        function register(event) {
+            event.preventDefault();
+            
+            if (!document.getElementById('acceptContract').checked) {
+                showNotification('❌ Vous devez accepter les conditions d\'utilisation', 'error');
+                return;
+            }
+            
+            const newUser = {
+                name: document.getElementById('regName').value,
+                email: document.getElementById('regEmail').value,
+                password: document.getElementById('regPassword').value,
+                phone: document.getElementById('regPhone').value,
+                isAdmin: false,
+                dateInscription: new Date().toISOString()
+            };
+            
+            if (users.find(u => u.email === newUser.email)) {
+                showNotification('Cet email est déjà utilisé', 'error');
+                return;
+            }
+            
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            appState.currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            closeModal('registerModal');
+            document.getElementById('regName').value = '';
+            document.getElementById('regEmail').value = '';
+            document.getElementById('regPassword').value = '';
+            document.getElementById('regPhone').value = '';
+            document.getElementById('acceptContract').checked = false;
+            updateUIForUser();
+            showNotification(t('registerSuccess'), 'success');
+        }
+
+        function logout() {
+            appState.currentUser = null;
+            localStorage.removeItem('currentUser');
+            updateUIForUser();
+            showNotification(t('logout'), 'info');
+        }
+
+        function updateUIForUser() {
+            const loginBtn = document.getElementById('loginBtn');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            const userBadge = document.getElementById('userBadge');
+            
+            if (appState.currentUser) {
+                loginBtn.style.display = 'none';
+                userInfo.style.display = 'flex';
+                userName.textContent = `${t('welcome')}, ${appState.currentUser.name}`;
+                userBadge.style.display = appState.currentUser.isAdmin ? 'inline' : 'none';
+            } else {
+                loginBtn.style.display = 'inline-flex';
+                userInfo.style.display = 'none';
+                userBadge.style.display = 'none';
+            }
+        }
+
         function handlePostAdClick() {
             if (!appState.currentUser) {
                 showNotification(t('loginRequired'), 'warning');
@@ -695,7 +1393,7 @@
             }
         }
 
-        // Upload d'images
+        // Image Upload
         function handleImageUpload(event) {
             const files = event.target.files;
             const previewContainer = document.getElementById('previewContainer');
@@ -727,134 +1425,7 @@
             renderPreviews();
         }
 
-        // Drag & drop
-        const uploadArea = document.getElementById('uploadArea');
-        if (uploadArea) {
-            uploadArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                uploadArea.classList.add('dragover');
-            });
-            uploadArea.addEventListener('dragleave', () => {
-                uploadArea.classList.remove('dragover');
-            });
-            uploadArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                uploadArea.classList.remove('dragover');
-                const files = e.dataTransfer.files;
-                handleImageUpload({ target: { files } });
-            });
-        }
-
-        // Thème
-        function toggleTheme() {
-            appState.darkMode = !appState.darkMode;
-            document.body.classList.toggle('dark-mode', appState.darkMode);
-            document.getElementById('themeIcon').textContent = appState.darkMode ? '☀️' : '🌙';
-            localStorage.setItem('darkMode', appState.darkMode);
-            showNotification(t('themeChanged'), 'info');
-        }
-
-        // Langue
-        function toggleLanguage() {
-            appState.currentLanguage = appState.currentLanguage === 'fr' ? 'ar' : 'fr';
-            document.body.classList.toggle('rtl', appState.currentLanguage === 'ar');
-            localStorage.setItem('language', appState.currentLanguage);
-            updateTranslations();
-            showNotification(t('langChanged'), 'info');
-        }
-
-        // Connexion utilisateur
-        function login(event) {
-            event.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            const user = users.find(u => u.email === email && u.password === password);
-            
-            if (user) {
-                appState.currentUser = user;
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                closeModal('loginModal');
-                updateUIForUser();
-                showNotification(t('loginSuccess'), 'success');
-            } else {
-                showNotification('Email ou mot de passe incorrect', 'error');
-            }
-        }
-
-        // Connexion admin
-        function adminLogin(event) {
-            event.preventDefault();
-            const email = document.getElementById('adminEmail').value;
-            const password = document.getElementById('adminPassword').value;
-            
-            if (email === ADMIN.email && password === ADMIN.password) {
-                appState.currentUser = ADMIN;
-                localStorage.setItem('currentUser', JSON.stringify(ADMIN));
-                closeModal('adminLoginModal');
-                updateUIForUser();
-                showNotification(t('adminAccess'), 'success');
-            } else {
-                showNotification('Identifiants admin incorrects', 'error');
-            }
-        }
-
-        // Inscription
-        function register(event) {
-            event.preventDefault();
-            const newUser = {
-                name: document.getElementById('regName').value,
-                email: document.getElementById('regEmail').value,
-                password: document.getElementById('regPassword').value,
-                phone: document.getElementById('regPhone').value,
-                isAdmin: false
-            };
-            
-            if (users.find(u => u.email === newUser.email)) {
-                showNotification('Cet email est déjà utilisé', 'error');
-                return;
-            }
-            
-            users.push(newUser);
-            localStorage.setItem('users', JSON.stringify(users));
-            appState.currentUser = newUser;
-            localStorage.setItem('currentUser', JSON.stringify(newUser));
-            closeModal('registerModal');
-            updateUIForUser();
-            showNotification(t('registerSuccess'), 'success');
-        }
-
-        // Déconnexion
-        function logout() {
-            appState.currentUser = null;
-            localStorage.removeItem('currentUser');
-            updateUIForUser();
-            showNotification(t('logout'), 'info');
-        }
-
-        function updateUIForUser() {
-            const loginBtn = document.getElementById('loginBtn');
-            const userInfo = document.getElementById('userInfo');
-            const userName = document.getElementById('userName');
-            const userBadge = document.getElementById('userBadge');
-            
-            if (appState.currentUser) {
-                loginBtn.style.display = 'none';
-                userInfo.style.display = 'flex';
-                userName.textContent = `${t('welcome')}, ${appState.currentUser.name}`;
-                if (appState.currentUser.isAdmin) {
-                    userBadge.style.display = 'inline';
-                } else {
-                    userBadge.style.display = 'none';
-                }
-            } else {
-                loginBtn.style.display = 'inline-flex';
-                userInfo.style.display = 'none';
-                userBadge.style.display = 'none';
-            }
-        }
-
-        // Publier une annonce
+        // Submit Ad
         function submitAd(event) {
             event.preventDefault();
             
@@ -881,9 +1452,10 @@
                 surface: null,
                 pieces: null,
                 urgent: document.getElementById('adUrgent').checked,
-                images: images,
+                status: 'active',
                 author: appState.currentUser.name,
-                authorEmail: appState.currentUser.email
+                authorEmail: appState.currentUser.email,
+                images: images
             };
             
             appState.annonces.unshift(newAd);
@@ -897,7 +1469,7 @@
             showNotification(t('adPublished'), 'success');
         }
 
-        // Filtrage
+        // Filtres
         function filterByCategory(category) {
             appState.currentFilter = category;
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
@@ -919,23 +1491,13 @@
             const district = document.getElementById('filterDistrict').value;
             const urgentOnly = document.getElementById('filterUrgent').checked;
             
-            let filtered = appState.annonces;
+            let filtered = appState.annonces.filter(a => a.status !== 'expired');
             
-            if (category && category !== 'all') {
-                filtered = filtered.filter(a => a.category === category);
-            }
-            if (priceMin) {
-                filtered = filtered.filter(a => a.price >= parseInt(priceMin));
-            }
-            if (priceMax) {
-                filtered = filtered.filter(a => a.price <= parseInt(priceMax));
-            }
-            if (district && district !== 'all') {
-                filtered = filtered.filter(a => a.location.includes(district));
-            }
-            if (urgentOnly) {
-                filtered = filtered.filter(a => a.urgent);
-            }
+            if (category && category !== 'all') filtered = filtered.filter(a => a.category === category);
+            if (priceMin) filtered = filtered.filter(a => a.price >= parseInt(priceMin));
+            if (priceMax) filtered = filtered.filter(a => a.price <= parseInt(priceMax));
+            if (district && district !== 'all') filtered = filtered.filter(a => a.location.includes(district));
+            if (urgentOnly) filtered = filtered.filter(a => a.urgent);
             
             renderAnnonces(filtered);
             document.getElementById('countAnnonces').textContent = filtered.length;
@@ -953,7 +1515,7 @@
             filterByCategory('all');
         }
 
-        // Rendu des annonces
+        // Render Annonces
         function renderAnnonces(annonces) {
             const grid = document.getElementById('annoncesGrid');
             
@@ -970,54 +1532,35 @@
             grid.innerHTML = annonces.map(annonce => `
                 <div class="annonce-card" onclick="viewDetails(${annonce.id})">
                     <div class="annonce-image-container">
-                        <img src="${annonce.images[0]}" 
-                             alt="${annonce.title}" 
-                             class="annonce-image"
-                             loading="lazy"
+                        <img src="${annonce.images[0]}" alt="${annonce.title}" class="annonce-image" loading="lazy"
                              onerror="this.src='https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&h=400&fit=crop'">
-                        
                         <div class="annonce-badges">
                             ${annonce.urgent ? '<span class="badge-urgent">URGENT</span>' : ''}
                             <span class="badge-category">${categoryNames[annonce.category] || annonce.category}</span>
-                            ${annonce.author ? '<span class="badge-new">Par ' + annonce.author + '</span>' : ''}
                         </div>
-                        
                         <button class="annonce-favorite ${appState.favorites.includes(annonce.id) ? 'liked' : ''}" 
                                 onclick="event.stopPropagation();toggleFavorite(${annonce.id}, this)">
                             ${appState.favorites.includes(annonce.id) ? '❤️' : '🤍'}
                         </button>
-                        
-                        ${annonce.images.length > 1 ? `
-                            <div class="image-counter">📷 ${annonce.images.length} photos</div>
-                        ` : ''}
                     </div>
-                    
                     <div class="annonce-content">
                         <div>
                             <div class="annonce-header">
                                 <h3 class="annonce-title">${annonce.title}</h3>
                                 <div class="annonce-price">${annonce.price.toLocaleString('fr-DZ')} DZD</div>
                             </div>
-                            
                             <p class="annonce-description">${annonce.description}</p>
-                            
                             <div class="annonce-meta">
                                 <span>📍 ${annonce.location}</span>
                                 ${annonce.surface ? `<span>📐 ${annonce.surface}</span>` : ''}
-                                ${annonce.pieces ? `<span>🚪 ${annonce.pieces} pièces</span>` : ''}
                                 <span>📞 ${annonce.phone}</span>
                             </div>
                         </div>
-                        
                         <div class="annonce-footer">
                             <span class="annonce-date">📅 ${annonce.date}</span>
                             <div class="annonce-actions">
-                                <button class="btn-action" onclick="event.stopPropagation();viewDetails(${annonce.id})">
-                                    👁️ Voir détails
-                                </button>
-                                <button class="btn-action" onclick="event.stopPropagation();contactSeller(${annonce.id})">
-                                    💬 Contacter
-                                </button>
+                                <button class="btn-action" onclick="event.stopPropagation();viewDetails(${annonce.id})">👁️ Détails</button>
+                                <button class="btn-action" onclick="event.stopPropagation();contactSeller(${annonce.id})">💬 Contacter</button>
                             </div>
                         </div>
                     </div>
@@ -1025,7 +1568,6 @@
             `).join('');
         }
 
-        // Interactions
         function toggleFavorite(id, button) {
             const index = appState.favorites.indexOf(id);
             if (index > -1) {
@@ -1046,32 +1588,58 @@
             const annonce = appState.annonces.find(a => a.id === id);
             if (!annonce) return;
             
-            const detailContent = document.getElementById('detailContent');
             document.getElementById('detailTitle').textContent = annonce.title;
-            
-            detailContent.innerHTML = `
+            document.getElementById('detailContent').innerHTML = `
                 <div class="detail-images">
                     ${annonce.images.map(img => `<img src="${img}" class="detail-image" alt="${annonce.title}">`).join('')}
                 </div>
                 <h3 style="color:var(--secondary);font-size:1.5rem;">${annonce.price.toLocaleString('fr-DZ')} DZD</h3>
-                <p style="margin:15px 0;"><strong>Catégorie:</strong> ${annonce.category}</p>
-                <p style="margin:15px 0;"><strong>Description:</strong><br>${annonce.description}</p>
+                <p><strong>Catégorie:</strong> ${annonce.category}</p>
+                <p><strong>Description:</strong><br>${annonce.description}</p>
                 <p><strong>📍 Localisation:</strong> ${annonce.location}</p>
                 <p><strong>📞 Téléphone:</strong> ${annonce.phone}</p>
                 <p><strong>📅 Date:</strong> ${annonce.date}</p>
                 ${annonce.author ? `<p><strong>👤 Publié par:</strong> ${annonce.author}</p>` : ''}
             `;
-            
             openModal('detailModal');
         }
 
         function contactSeller(id) {
             const annonce = appState.annonces.find(a => a.id === id);
             if (!annonce) return;
-            showNotification(`📞 Contact pour "${annonce.title}": ${annonce.phone}`, 'info');
+            showNotification(`📞 Contact: ${annonce.phone} - ${annonce.title}`, 'info');
         }
 
-        // Initialisation
+        // Drag & drop
+        const uploadArea = document.getElementById('uploadArea');
+        if (uploadArea) {
+            uploadArea.addEventListener('dragover', (e) => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+            uploadArea.addEventListener('dragleave', () => { uploadArea.classList.remove('dragover'); });
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                handleImageUpload({ target: { files: e.dataTransfer.files } });
+            });
+        }
+
+        // Appliquer les paramètres sauvegardés
+        function applySavedSettings() {
+            const settings = appState.adminSettings;
+            if (settings.primaryColor) {
+                document.documentElement.style.setProperty('--primary', settings.primaryColor);
+            }
+            if (settings.secondaryColor) {
+                document.documentElement.style.setProperty('--secondary', settings.secondaryColor);
+            }
+            if (settings.footerFR) {
+                document.getElementById('footerText').textContent = settings.footerFR;
+            }
+            if (settings.name) {
+                document.querySelector('.logo-text h1').textContent = settings.name;
+            }
+        }
+
+        // Init
         function init() {
             const savedTheme = localStorage.getItem('darkMode');
             if (savedTheme === 'true') {
@@ -1091,9 +1659,10 @@
                 appState.currentUser = JSON.parse(savedUser);
             }
             
+            applySavedSettings();
             updateTranslations();
             updateUIForUser();
-            renderAnnonces(appState.annonces);
+            renderAnnonces(appState.annonces.filter(a => a.status !== 'expired'));
         }
 
         document.addEventListener('DOMContentLoaded', init);
@@ -1101,6 +1670,8 @@
         // Exposer les fonctions globalement
         window.openModal = openModal;
         window.closeModal = closeModal;
+        window.showMainPage = showMainPage;
+        window.showAdminPanel = showAdminPanel;
         window.toggleTheme = toggleTheme;
         window.toggleLanguage = toggleLanguage;
         window.login = login;
@@ -1117,6 +1688,13 @@
         window.toggleFavorite = toggleFavorite;
         window.viewDetails = viewDetails;
         window.contactSeller = contactSeller;
+        window.switchAdminTab = switchAdminTab;
+        window.validateAd = validateAd;
+        window.deleteAd = deleteAd;
+        window.deleteUser = deleteUser;
+        window.addCategory = addCategory;
+        window.saveSettings = saveSettings;
+        window.changeAdminPassword = changeAdminPassword;
     </script>
 </body>
 </html>
